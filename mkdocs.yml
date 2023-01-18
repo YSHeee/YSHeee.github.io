@@ -1,0 +1,6 @@
+# Project information
+site_name: YSH NOTE
+
+# Configuration
+theme:
+  name: material
