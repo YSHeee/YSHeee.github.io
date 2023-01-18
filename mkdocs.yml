@@ -10,4 +10,44 @@ repo_url: https://github.com/YSHeee/YSHeee.github.io
 theme:
   name: material
   palette:
-    primary: cyan
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: cyan
+      accent: pink
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  ## Image      
+  logo: assets/images/tree.png
+  favicon: assets/images/clover.png
+  ## 
+  features:
+    - navigation.tabs
+  plugins:
+    - search
+    - navigation.footer
+
+# Customization
+extra:
+  manifest: 'manifest.webmanifest'
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/YSHeee
+      
+  markdown_extensions:
+    - admonition
+    - codehilite:
+        guess_lang: false
+    - toc:
+        permalink: true
+
+
