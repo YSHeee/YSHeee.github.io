@@ -4,3 +4,5 @@ site_name: YSH NOTE
 # Configuration
 theme:
   name: material
+  palette:
+    primary: cyan
