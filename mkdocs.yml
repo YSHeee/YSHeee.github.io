@@ -1,6 +1,10 @@
 # Project information
 site_name: YSH NOTE
-site_url: https://ysheee.github.io/
+site_url: "https://ysheee.github.io/"
+
+# Repository
+repo_name: YSHeee/YSHeee.github.io
+repo_url: https://github.com/YSHeee/YSHeee.github.io
 
 # Configuration
 theme:
