@@ -32,9 +32,12 @@ theme:
   ## 
   features:
     - navigation.tabs
+    - navigation.footer
+    - header.autohide
   plugins:
     - search
-    - navigation.footer
+    - glightbox
+
 
 # Customization
 extra:
@@ -42,9 +45,12 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
+      name: Git
       
   markdown_extensions:
     - admonition
+    - attr_list
+    - md_in_html
     - codehilite:
         guess_lang: false
     - toc:
