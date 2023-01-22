@@ -2,13 +2,12 @@
 site_name: YSH NOTE
 site_url: "https://ysheee.github.io/"
 
-
 # Repository
 #repo_name: YSHeee/YSHeee.github.io
 #repo_url: https://github.com/YSHeee/YSHeee.github.io
 
 
-# Configuration
+## Configuration
 theme:
   name: material
   palette:
@@ -27,12 +26,12 @@ theme:
       accent: amber
       toggle:
         icon: material/brightness-7
-        name: Switch to light mode
-
-
-  ## Image      
+        name: Switch to light mode 
   logo: assets/images/tree.png
   favicon: assets/images/clover.png
+  font:
+    text: Roboto
+    code: Roboto mono
   features:
     - navigation.tracking
     - navigation.tabs
@@ -48,21 +47,17 @@ theme:
     - content.code.copy
 
 
-  extra_css:
-    - stylesheets/extra.css
-  plugins:
-    - git-revision-date-localized
-    - search
-    - glightbox
-
-
 ## Customization
 extra:
-  manifest: 'manifest.webmanifest'
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
       name: Github
+extra_css:
+  - stylesheets/extra.css
+plugins:
+  - search
+  - glightbox
 
 
 ## Extension
@@ -93,19 +88,23 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.tabbed:
       alternate_style: true
-  # - toc: 목차 자동 생성
-  #     permalink: true
+  - toc: 
+      permalink: true
 
 
+## Page tree
 nav:
   - Home: index.md
+  - Linux: linux/example.md
   - Docker:
     - Basic: docker/basic.md
     - Install: docker/installation.md
-    - Command: docker/command.md
+    - Command: 
+      - Base Command: docker/command.md
+      - Compose Command: docker/compose.md
+      - Dockerfile: docker/dockerfile.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
     
-
