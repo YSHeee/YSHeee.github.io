@@ -2,9 +2,11 @@
 site_name: YSH NOTE
 site_url: "https://ysheee.github.io/"
 
+
 # Repository
-repo_name: YSHeee/YSHeee.github.io
-repo_url: https://github.com/YSHeee/YSHeee.github.io
+#repo_name: YSHeee/YSHeee.github.io
+#repo_url: https://github.com/YSHeee/YSHeee.github.io
+
 
 # Configuration
 theme:
@@ -26,34 +28,84 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to light mode
+
+
   ## Image      
   logo: assets/images/tree.png
   favicon: assets/images/clover.png
-  ## 
   features:
+    - navigation.tracking
     - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.expand
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
     - navigation.footer
+    - toc.integrate
     - header.autohide
+    - content.code.annotate
+    - content.code.copy
+
+
+  extra_css:
+    - stylesheets/extra.css
   plugins:
+    - git-revision-date-localized
     - search
     - glightbox
 
 
-# Customization
+## Customization
 extra:
   manifest: 'manifest.webmanifest'
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
-      name: Git
-      
-  markdown_extensions:
-    - admonition
-    - attr_list
-    - md_in_html
-    - codehilite:
-        guess_lang: false
-    - toc:
-        permalink: true
+      name: Github
 
+
+## Extension
+markdown_extensions:
+  - attr_list
+  - def_list
+  - tables
+  - meta
+  - admonition
+  - md_in_html
+  - codehilite:
+      guess_lang: false
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  # - toc: 목차 자동 생성
+  #     permalink: true
+
+
+nav:
+  - Home: index.md
+  - Docker:
+    - Basic: docker/basic.md
+    - Install: docker/installation.md
+    - Command: docker/command.md
+  - Temp:
+    - Shortcut: temp/shortcut.md
+    - MKdocs: temp/mkdocs/mkdocs.md
+    - VMware: temp/vmware/VMware.md
+    
 
