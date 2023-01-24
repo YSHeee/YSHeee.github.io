@@ -30,7 +30,7 @@ theme:
   logo: assets/images/tree.png
   favicon: assets/images/clover.png
   font:
-    text: Roboto
+    text: Gowun Dodum
     code: Roboto mono
   features:
     - navigation.tracking
@@ -42,7 +42,7 @@ theme:
     - navigation.top
     - navigation.footer
     - toc.integrate
-    - header.autohide
+    # - header.autohide
     - content.code.annotate
     - content.code.copy
 
@@ -57,6 +57,7 @@ extra_css:
   - stylesheets/extra.css
 plugins:
   - search
+#  - glightbox
 
 
 ## Extension
@@ -102,6 +103,11 @@ nav:
       - Base Command: docker/command.md
       - Compose Command: docker/compose.md
       - Dockerfile: docker/dfile.md
+    - Note:
+      - Registry: docker/registry.md
+      - Portainer: docker/portainer.md
+      - BuildKit: docker/buildkit.md
+      - BuildX: docker/buildx.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md

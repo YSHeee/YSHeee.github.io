@@ -4,6 +4,8 @@
     [MKdocs-Link](https://squidfunk.github.io/mkdocs-material/getting-started/)
     - Github Pages Quick start :material-arrow-right-bold:
     [Github-pages-Link](https://docs.github.com/ko/pages/quickstart)
+    - Useful
+    [Blog-1](https://realpython.com/python-project-documentation-with-mkdocs/)
 
 ## Material for MKdocs
 1. Install and Create
