@@ -21,6 +21,6 @@
 | `SHELL`       |allows the default shell used for the shell form of commands to be overridden. |
 | `ONBUILD`     |Adds to the image a trigger instruction to be executed at a later time, when the image is used as the base for another build |
 
-!!!note
+!!!quote
     [Dockerdocs-Dockerfile](https://docs.docker.com/engine/reference/builder/)  
     [Cheat-sheet](https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index)

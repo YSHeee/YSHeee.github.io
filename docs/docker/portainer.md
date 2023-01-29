@@ -1,4 +1,4 @@
-!!!info
+!!!quote
     - Requirements and prerequisites :material-arrow-right-bold:
     [Requirement](https://docs.portainer.io/start/requirements-and-prerequisites)  
     - Install Portainer :material-arrow-right-bold:

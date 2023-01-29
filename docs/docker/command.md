@@ -33,7 +33,10 @@ Example
 | `docker diff`       |Inspect changes to files or directories on a container’s filesystem |
 | `docker inspect`    |:material-arrow-down-circle: Return low-level information on Docker objects |
 | `docker stats`      |:material-arrow-up-circle: Display a live stream of container(s) resource usage statistics |
-|                     |                                                                                           |  
+| `docker container prune`      |Exited 상태의 컨테이너 삭제                                                       |  
+| `docker image prune -f --all` |                                                                                           |  
+| `docker system prune -f --all`|                                                                                           |  
+|                     |         |  
 | `docker volume`     |Manage volumes |                                                                                       
 | `docker container`  |Manage containers |
 | `docker builder`    |Manage builds |
@@ -80,5 +83,5 @@ Example
 | `docker commit`     |Create a new image from a container’s changes |
 
 
-!!!note
+!!!quote
     [Docker-docs-BaseCommand](https://docs.docker.com/engine/reference/commandline/docker/)

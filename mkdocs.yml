@@ -98,16 +98,19 @@ nav:
   - Linux: linux/example.md
   - Docker:
     - Basic: docker/basic.md
-    - Install: docker/installation.md
     - Command: 
       - Base Command: docker/command.md
       - Compose Command: docker/compose.md
       - Dockerfile: docker/dfile.md
-    - Note:
+    - Note:     
+      - Install: docker/installation.md  
       - Registry: docker/registry.md
       - Portainer: docker/portainer.md
-      - BuildKit: docker/buildkit.md
-      - BuildX: docker/buildx.md
+      - Multi-architecture: docker/multiA.md
+      - Temp:  
+        - Buildkit: docker/buildkit.md
+        - Manifest: docker/manifest.md
+        - BuildX: docker/buildx.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md

@@ -27,5 +27,5 @@
 | `docker compose top`      |Display the running processes |
 | `docker compose version`  |Show the Docker Compose version information |
 
-!!!note
+!!!quote
     [Dockerdocs-compose-Command](https://docs.docker.com/engine/reference/commandline/compose/)

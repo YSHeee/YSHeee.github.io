@@ -1,4 +1,5 @@
-!!!info 
+:컨테이너 이미지와 관련된 아티팩트를 저장하고 배포하는 서비스
+!!!quote 
     - Docker Hub :material-arrow-right-bold:
     [DockerHub-docs](https://docs.docker.com/docker-hub/)  
     - Docker login :material-arrow-right-bold:
@@ -11,6 +12,7 @@
     [Blog-1](https://waspro.tistory.com/532)
 
 ## Docker hub
+:Docker에서 제공하는 Registry Service
 
 1. [Docker Hub](https://hub.docker.com/) **가입** 
 2. **Repository 생성**  
@@ -73,28 +75,32 @@ docker tag hello-world localhost:5000/start/hello-world:v1
 docker push localhost:5000/start/hello-world:v1
 ```  
 
-:exclamation::exploding_head: Domain name 추가
-```bash
-# hosts 파일 확인
-cat /etc/hosts
 
-# 도메인 주소 쌍 추가
-echo $'\n127.0.0.1 local.registry' | sudo tee -a /etc/hosts
+??? tip ":exclamation::exploding_head: Domain name 추가"
+    ```bash
+    # hosts 파일 확인
+    cat /etc/hosts
 
-# hosts 파일 확인
-cat /etc/hosts
+    # 도메인 주소 쌍 추가
+    echo $'\n127.0.0.1 local.registry' | sudo tee -a /etc/hosts
 
-# 이미지 태그 추가 및 배포
-docker image tag hello-world local.registry:5000/start/hello-world:v1
-docker push local.registry:5000/start/hello-world:v1
-```
-```bash
-### 확인
-# linux
-/etc/docker/daemon.json에 {"insecure-registries":["registrly.local:5000"]} 추가
-# Mac (Docker Desktop)
-Preference -> Daemon -> insecure-registries -> registry.local:5000 추가
+    # hosts 파일 확인
+    cat /etc/hosts
 
-service docker restart
-docker info
-```
+    # 이미지 태그 추가 및 배포
+    docker image tag hello-world local.registry:5000/start/hello-world:v1
+    docker push local.registry:5000/start/hello-world:v1
+    ```
+
+
+??? question "확인 필요"
+    ``` bash
+    # linux
+    /etc/docker/daemon.json에 {"insecure-registries":["registrly.local:5000"]} 추가
+    # Mac (Docker Desktop)
+    Preference -> Daemon -> insecure-registries -> registry.local:5000 추가
+
+    service docker restart
+    docker info
+    ```
+
