@@ -62,8 +62,8 @@ Example
 | `docker restart`    |하나 이상의 컨테이너 재시작 |`--time`
 | `docker top`        |컨테이너의 실행중인 프로세스 출력 |
 | `docker update`     |하나 이상의 컨테이너 구성 업데이트 | [docs](https://docs.docker.com/engine/reference/commandline/update/)
-| `docker wait`       |Block until one or more containers stop, then print their exit codes |
-| `docker commit`     |Create a new image from a container’s changes |
+| `docker wait`       |Container Stop까지 기다린 다음, Exit code 출력 |
+| `docker commit`     |컨테이너의 변경사항으로부터 새로운 이미지 생성 |`-a`, `-c`, `-m`, `-p`
 
 Example
 ``` bash
@@ -80,30 +80,32 @@ Example
 # docker load
 - docker load image_name < file_name.tar
 - docker load image_name -i file_name.tar
+# docker commit
+- docker commit contaier_id new_image_name
 ```
 
 
 
 ## Manage
 |    Command    |    Description   |    Option    |
-| :-----------: | :-----------: | :-------------- |
-| `docker volume`     |Manage volumes |                                                                                       
-| `docker container`  |Manage containers |
-| `docker manifest`   |Manage Docker image manifests and manifest lists |
-| `docker builder`    |Manage builds |
-| `docker checkpoint` |Manage checkpoints |
-| `docker config`     |Manage Docker configs |
-| `docker context`    |Manage contexts |
+| :-----------: | :-----------: | :-------------- |                                                                                     
+| `docker container`  |Manage containers |`attach`, ...
 | `docker image`      |Manage images |
-| `docker network`    |Manage networks |
-| `docker plugin`     |Manage plugins |
-| `docker system`     |Manage Docker |
-| `docker secret`     |Manage Docker secrets |
-| `docker service`    |Manage services |
-| `docker stack`      |Manage Docker stacks |
-| `docker trust`      |Manage trust on Docker images |
-| `docker swarm`      |Manage Swarm |
-| `docker node`       |Manage Swarm nodes |
+| `docker volume`     |Manage volumes |`create`, `inspect`, `ls`, `prune`, `rm`  
+| `docker manifest`   |Manage Docker image manifests and manifest lists |`create`, `inspect`, `push`, `rm`, `annotate`
+| `docker builder`    |Manage builds |`build`, `prune`
+| `docker checkpoint` |Manage checkpoints |`create`, `ls`, `rm`
+| `docker context`    |Manage contexts |`create`, `export`, `imoprt`, `inspect`, `ls`, `rm`, `update`, `use`
+| `docker network`    |Manage networks |`create`, `connect`, `disconnect`, `inspect`, `ls`, `rm`, `prune`
+| `docker plugin`     |Manage plugins |`create`, `disable`, `enable`, `inspect`, `ls`, `rm`, `push`, `set`, `upgrade`, `install`
+| `docker system`     |Manage Docker |`events`, `df`, `info`, `prune`
+| `docker secret`     |Manage Docker secrets |`create`, `inspect`, `ls`, `rm`
+| `docker service`    |Manage services | `create`, `inspect`, `ls`, `rm`, `ps`, `logs`, `rollback`, `scale`, `update`
+| `docker stack`      |Manage Docker stacks |`services`, `deploy`, `ls`, `ps`, `rm`
+| `docker trust`      |Manage trust on Docker images |`key`, `key load`, `revoke`, `sign`, `signer`, `signer add`, `signer remove`, `update`
+| `docker node`       |Manage Swarm nodes |`demote`, `inspect`, `ls`, `ps`, `rm`, `promote`, `update`
+| `docker config`     |Manage Docker configs |`create`, `inspect`, `rm`, `ls`
+| `docker buildx`       |Manage Swarm nodes |[docs](https://docs.docker.com/engine/reference/commandline/buildx/)
 
 !!!quote
     [Docker-docs-BaseCommand](https://docs.docker.com/engine/reference/commandline/docker/)
