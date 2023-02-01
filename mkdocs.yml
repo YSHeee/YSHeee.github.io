@@ -112,6 +112,7 @@ nav:
       - Temp:  
         - Buildkit: docker/buildkit.md
         - BuildX: docker/buildx.md
+        - Best-practice: docker/best-practice.md
   - FastAPI:
     - home: fastapi/home.md
   - Temp:

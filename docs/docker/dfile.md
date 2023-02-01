@@ -99,8 +99,7 @@ ONBUILD <Dockerfile INSTRUCTION>
 MAINTAINER <name>
 ```
 
-
 !!!quote
     [Dockerdocs-Dockerfile](https://docs.docker.com/engine/reference/builder/)  
-    [docs Best-practice](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)  
+    [docs Best-practice](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) 
     [Cheat-sheet](https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index)
