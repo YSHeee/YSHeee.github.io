@@ -104,8 +104,8 @@ volumes:
 
 
 !!! quote
-    [Docs compose-specification](https://docs.docker.com/compose/compose-file/)
-    [Compose file version](https://docs.docker.com/compose/compose-file/compose-file-v3/)  
-    [Useful Site](https://docs.divio.com/en/latest/reference/docker-docker-compose/)  
-    [Useful cheatshet](https://gist.github.com/jonlabelle/bd667a97666ecda7bbc4f1cc9446d43a)  
-    [Useful-Healthcheck](https://www.atatus.com/blog/health-check-command-in-docker/)
+    - [Docs compose-specification](https://docs.docker.com/compose/compose-file/)
+    - [Compose file version](https://docs.docker.com/compose/compose-file/compose-file-v3/)  
+    - [Useful Site](https://docs.divio.com/en/latest/reference/docker-docker-compose/)  
+    - [Useful cheatshet](https://gist.github.com/jonlabelle/bd667a97666ecda7bbc4f1cc9446d43a)  
+    - [Useful-Healthcheck](https://www.atatus.com/blog/health-check-command-in-docker/)
