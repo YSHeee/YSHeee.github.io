@@ -1,16 +1,7 @@
-:컨테이너 이미지와 관련된 아티팩트를 저장하고 배포하는 서비스
-!!!quote 
-    - Docker Hub :material-arrow-right-bold:
-    [DockerHub-docs](https://docs.docker.com/docker-hub/)  
-    - Docker login :material-arrow-right-bold:
-    [Docker login-docs](https://docs.docker.com/engine/reference/commandline/login/#credentials-store)   
-    - Docker Registry :material-arrow-right-bold: 
-    [DockerR-docs](https://docs.docker.com/registry/)  
-    - registry image :material-arrow-right-bold:
-    [registry-hub](https://hub.docker.com/_/registry/tags)  
-    - Useful Blog :material-arrow-right-bold:
-    [Blog-1](https://waspro.tistory.com/532)
+#Registry
+\: 컨테이너 이미지와 관련된 아티팩트를 저장하고 배포하는 서비스
 
+---
 ## Docker hub
 :Docker에서 제공하는 Registry Service
 
@@ -75,7 +66,6 @@ docker tag hello-world localhost:5000/start/hello-world:v1
 docker push localhost:5000/start/hello-world:v1
 ```  
 
-
 ??? tip ":exclamation::exploding_head: Domain name 추가"
     ```bash
     # hosts 파일 확인
@@ -92,7 +82,6 @@ docker push localhost:5000/start/hello-world:v1
     docker push local.registry:5000/start/hello-world:v1
     ```
 
-
 ??? question "확인 필요"
     ``` bash
     # linux
@@ -103,4 +92,20 @@ docker push localhost:5000/start/hello-world:v1
     service docker restart
     docker info
     ```
-
+---
+!!!quote 
+    - Docker Hub :material-arrow-right-bold:
+    [DockerHub-docs](https://docs.docker.com/docker-hub/)  
+    - Docker login :material-arrow-right-bold:
+    [Docker login-docs](https://docs.docker.com/engine/reference/commandline/login/#credentials-store)   
+    - Docker Registry :material-arrow-right-bold: 
+    [DockerR-docs](https://docs.docker.com/registry/)  
+    - registry image :material-arrow-right-bold:
+    [registry-hub](https://hub.docker.com/_/registry/tags)  
+    - Useful Blog :material-arrow-right-bold:
+    [Blog-1](https://waspro.tistory.com/532)
+    - Various Container Registry  
+        - [Amazon ECR](https://aws.amazon.com/ko/ecr/)
+        - [GCP CR](https://cloud.google.com/container-registry?hl=ko)
+        - [Azure CR](https://azure.microsoft.com/en-us/products/container-registry)
+        - [Github CR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)

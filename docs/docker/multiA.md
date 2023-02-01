@@ -33,7 +33,7 @@ exec /bin/bash: exec format error
 Manifest는 아직 **Experimental Features**이므로 config.json에 다음 내용을 추가한다.
 ```title="~/.docker/config.json"
 {
-	"experimental":"enabled"
+	"experimental":"true"
 }
 ```
 :octicons-arrow-down-16:manifest 명령이 실행 되는지 확인  
@@ -85,7 +85,7 @@ docekr buildx ls
 ```
 ② Builder Instance 생성 및 사용 설정
 ```
-docker buildx create --name new_builder ---driver docker-container --use
+docker buildx create --name new_builder --driver docker-container --use
 ```   
 - `--name`: builder 이름  
 - `--driver`  

@@ -102,15 +102,18 @@ nav:
       - Base Command: docker/command.md
       - Compose Command: docker/compose.md
       - Dockerfile: docker/dfile.md
+      - compose-yml: docker/docker-compose-yml.md
     - Note:     
       - Install: docker/installation.md  
       - Registry: docker/registry.md
       - Portainer: docker/portainer.md
+      - Multi-stage: docker/multiS.md
       - Multi-architecture: docker/multiA.md
       - Temp:  
         - Buildkit: docker/buildkit.md
-        - Manifest: docker/manifest.md
         - BuildX: docker/buildx.md
+  - FastAPI:
+    - home: fastapi/home.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md

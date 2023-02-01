@@ -1,10 +1,4 @@
-!!!quote
-    - Requirements and prerequisites :material-arrow-right-bold:
-    [Requirement](https://docs.portainer.io/start/requirements-and-prerequisites)  
-    - Install Portainer :material-arrow-right-bold:
-    [Install-Guide](https://docs.portainer.io/start/install)
-    - Initial set-up :material-arrow-right-bold:
-    [Set-up](https://docs.portainer.io/start/install/server/setup)
+# Portainer ![1](https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1616563477/noticon/ipubxwijm8ldq1xbayz8.png){: style="height:8%;width:8%"}  
 
 ## Install Portainer  
 
@@ -34,4 +28,11 @@
   ![1](images/portainer-1.png){: style="height:60%;width:60%"}  
   7. Get Started   
   ![2](images/portainer-2.png){: style="height:60%;width:60%"}  
-
+---
+!!!quote
+    - Requirements and prerequisites :material-arrow-right-bold:
+    [Requirement](https://docs.portainer.io/start/requirements-and-prerequisites)  
+    - Install Portainer :material-arrow-right-bold:
+    [Install-Guide](https://docs.portainer.io/start/install)
+    - Initial set-up :material-arrow-right-bold:
+    [Set-up](https://docs.portainer.io/start/install/server/setup)
