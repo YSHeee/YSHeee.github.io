@@ -107,7 +107,9 @@ nav:
       - Install: docker/installation.md  
       - Registry: docker/registry.md
       - Portainer: docker/portainer.md
-      - Multi-stage: docker/multiS.md
+      - Multi-stage: 
+        - Multi Stage Builds: docker/multiS.md
+        - Practice: docker/multiS2.md
       - Multi-architecture: docker/multiA.md
       - Temp:  
         - Buildkit: docker/buildkit.md
