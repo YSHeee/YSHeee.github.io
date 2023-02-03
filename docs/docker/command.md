@@ -105,7 +105,7 @@ Example
 | `docker trust`      |Manage trust on Docker images |`key`, `key load`, `revoke`, `sign`, `signer`, `signer add`, `signer remove`, `update`
 | `docker node`       |Manage Swarm nodes |`demote`, `inspect`, `ls`, `ps`, `rm`, `promote`, `update`
 | `docker config`     |Manage Docker configs |`create`, `inspect`, `rm`, `ls`
-| `docker buildx`       |Manage Swarm nodes |[docs](https://docs.docker.com/engine/reference/commandline/buildx/)
+| `docker buildx`     | |[docs](https://docs.docker.com/engine/reference/commandline/buildx/)
 
 !!!quote
     [Docker-docs-BaseCommand](https://docs.docker.com/engine/reference/commandline/docker/)

@@ -102,7 +102,7 @@ nav:
       - Base Command: docker/command.md
       - Compose Command: docker/compose.md
       - Dockerfile: docker/dfile.md
-      - compose-yml: docker/docker-compose-yml.md
+      - Compose-yml: docker/docker-compose-yml.md
     - Note:     
       - Install: docker/installation.md  
       - Registry: docker/registry.md
@@ -116,7 +116,8 @@ nav:
         - BuildX: docker/buildx.md
         - Best-practice: docker/best-practice.md
   - FastAPI:
-    - home: fastapi/home.md
+    - REST API: fastapi/restapi.md
+    - Best-Practice: fastapi/best-practice.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md
