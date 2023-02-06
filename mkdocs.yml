@@ -115,6 +115,8 @@ nav:
         - Buildkit: docker/buildkit.md
         - BuildX: docker/buildx.md
         - Best-practice: docker/best-practice.md
+    - System Run:
+      - Monitoring: docker/monitoring.md
   - FastAPI:
     - REST API: fastapi/restapi.md
     - Best-Practice: fastapi/best-practice.md
