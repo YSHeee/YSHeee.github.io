@@ -118,10 +118,11 @@ nav:
       - Monitoring: docker/running/monitoring.md
       - ELK: docker/running/elk.md
       - Others:
-        - wordpress+ɑ: docker/running/wmp.md
-        - django+ɑ: docker/running/dpp.md
-        - nginx+flask+ɑ: docker/running/nfmp.md
-        - js+ɑ: docker/running/remm.md
+        - wordpress-maria-admin: docker/running/wmp.md
+        - django-postgre-admin: docker/running/dpp.md
+        - nginx-flask-mysql-admin: docker/running/nfmp.md
+        - react-express-mongo-me: docker/running/remm.md
+        - etc: docker/running/etc.md
   - FastAPI:
     - REST API: fastapi/restapi.md
     - Best-Practice: fastapi/best-practice.md
