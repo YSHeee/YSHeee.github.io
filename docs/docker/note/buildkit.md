@@ -1,22 +1,22 @@
 # Buildkit
-\: a toolkit for converting source code to build artifacts in an efficient, expressive and repeatable manner.  
+\: a toolkit for converting source code to build artifacts in an efficient, expressive and repeatable manner.<div>
 \: **It can run build steps in parallel** when possible
 
-- Distributable workers  
-- Nested build job invocations  
-- Build cache import/export  
-- Execution without root privileges  
+- Distributable workers
+- Nested build job invocations
+- Build cache import/export
+- Execution without root privileges
 - ...
 
 ---
 ## Setting
 :fontawesome-solid-star: Docker Desktop
-: **BuildKit is enabled by default for all users on Docker Desktop.**  
- you don’t have to manually enable BuildKit.   
+: **BuildKit is enabled by default for all users on Docker Desktop.**
+ you don’t have to manually enable BuildKit.
 
 If you want to change the buildkit setting
 ```bash
-1. Docker Desktop → Preference → Docker Engine 
+1. Docker Desktop → Preference → Docker Engine
 2. 다음을 false로 변경
 
   "features": {
@@ -24,12 +24,12 @@ If you want to change the buildkit setting
 }
 ```
 
-:fontawesome-solid-star: Linux   
-① To set the BuildKit environment variable when running the docker build command  
+:fontawesome-solid-star: Linux <div>
+① To set the BuildKit environment variable when running the docker build command
 ```bash
 DOCKER_BUILDKIT=1 docker build -t name .
 ```
-② To set enable docker BuildKit by default,  
+② To set enable docker BuildKit by default,
 ```bash
 1. /etc/docker/daemon.json에 추가
 {
@@ -58,7 +58,7 @@ CMD cat /opt/stage1 && cat /opt/stage2
 ```
 ### Build
 각 스테이지를 순차적으로 수행하므로 30초가 넘는 빌드 시간이 소요된다.
-![1](images/buildkit-1.png){:style width=70%;height=70%}
+![1](../images/buildkit-1.png){:style width=70%;height=70%}
 ```bash
 Sending build context to Docker daemon
 33.67MB
@@ -83,8 +83,8 @@ Successfully tagged test: latest
 ```
 
 ### Buildkit
-빌드하는 데 대략 21초 소요된다.  
-![2](images/buildkit-2.png){:style width=50%;height=50%}  
+빌드하는 데 대략 21초 소요된다.<div>
+![2](../images/buildkit-2.png){:style width=50%;height=50%}
 ``` bash
 [+] Building 21.1 (12/12) FINISHED
 =› [internal] load build definition from Dockerfile
@@ -108,9 +108,9 @@ Successfully tagged test: latest
 
 !!!quote
     - docker-docs:BuildKit :material-arrow-right-bold:
-    [BuildKit-docs](https://docs.docker.com/build/buildkit/)  
+    [BuildKit-docs](https://docs.docker.com/build/buildkit/)
     - Github:BuildKit :material-arrow-right-bold:
-    [BuildKit-Github](https://github.com/moby/buildkit)  
+    [BuildKit-Github](https://github.com/moby/buildkit)
     - Useful Blog :material-arrow-right-bold:
     [Blog1](https://blukat.me/2021/07/docker-buildkit-speedup/)
 

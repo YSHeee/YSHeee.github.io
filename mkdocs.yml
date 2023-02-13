@@ -26,7 +26,7 @@ theme:
       accent: amber
       toggle:
         icon: material/brightness-7
-        name: Switch to light mode 
+        name: Switch to light mode
   logo: assets/images/tree.png
   favicon: assets/images/clover.png
   font:
@@ -36,7 +36,7 @@ theme:
     - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.expand
+    # - navigation.expand
     - navigation.indexes
     - navigation.sections
     - navigation.top
@@ -88,7 +88,7 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.tabbed:
       alternate_style: true
-  - toc: 
+  - toc:
       permalink: true
 
 
@@ -98,25 +98,28 @@ nav:
   - Linux: linux/example.md
   - Docker:
     - Basic: docker/basic.md
-    - Command: 
-      - Base Command: docker/command.md
-      - Compose Command: docker/compose.md
-      - Dockerfile: docker/dfile.md
-      - Compose-yml: docker/docker-compose-yml.md
-    - Note:     
-      - Install: docker/installation.md  
-      - Registry: docker/registry.md
-      - Portainer: docker/portainer.md
-      - Multi-stage: 
-        - Multi Stage Builds: docker/multiS.md
-        - Practice: docker/multiS2.md
-      - Multi-architecture: docker/multiA.md
-      - Temp:  
-        - Buildkit: docker/buildkit.md
-        - BuildX: docker/buildx.md
-        - Best-practice: docker/best-practice.md
+    - Command:
+      - Base Command: docker/command/command.md
+      - Compose Command: docker/command/compose.md
+      - Dockerfile: docker/command/dfile.md
+      - Compose-yml: docker/command/docker-compose-yml.md
+    - Note:
+      - Install: docker/note/installation.md
+      - Registry: docker/note/registry.md
+      - Portainer: docker/note/portainer.md
+      - Multi-stage:
+        - Multi Stage Builds: docker/note/multiS.md
+        - Practice: docker/note/multiS2.md
+      - Multi-architecture: docker/note/multiA.md
+      - Temp:
+        - Buildkit: docker/note/buildkit.md
+        - BuildX: docker/note/buildx.md
+        - Best-practice: docker/note/best-practice.md
     - System Run:
-      - Monitoring: docker/monitoring.md
+      - Monitoring: docker/running/monitoring.md
+      - ELK: docker/running/elk.md
+      - Others:
+        - wordpress+ɑ: docker/running/wmp.md
   - FastAPI:
     - REST API: fastapi/restapi.md
     - Best-Practice: fastapi/best-practice.md
@@ -124,4 +127,3 @@ nav:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
-    
