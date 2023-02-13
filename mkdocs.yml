@@ -57,7 +57,7 @@ extra_css:
   - stylesheets/extra.css
 plugins:
   - search
-#  - glightbox
+  - glightbox
 
 
 ## Extension
@@ -120,6 +120,9 @@ nav:
       - ELK: docker/running/elk.md
       - Others:
         - wordpress+ɑ: docker/running/wmp.md
+        - django+ɑ: docker/running/dpp.md
+        - nginx+flask+ɑ: docker/running/nfmp.md
+        - js+ɑ: docker/running/remm.md
   - FastAPI:
     - REST API: fastapi/restapi.md
     - Best-Practice: fastapi/best-practice.md

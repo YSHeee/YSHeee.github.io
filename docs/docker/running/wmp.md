@@ -37,6 +37,8 @@ services:
     depends_on:
       - db
 ```
+![3](../images/running-3.png){: style="height:45%;width:47%"}
+![4](../images/running-4.png){: style="height:45%;width:47%"}
 
 ### MariaDB 접속
 ```bash
