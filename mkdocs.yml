@@ -118,6 +118,7 @@ nav:
       - Monitoring: docker/running/monitoring.md
       - ELK: docker/running/elk.md
       - Others:
+        - docker/running/sorry.md
         - wordpress-maria-admin: docker/running/wmp.md
         - django-postgre-admin: docker/running/dpp.md
         - nginx-flask-mysql-admin: docker/running/nfmp.md
