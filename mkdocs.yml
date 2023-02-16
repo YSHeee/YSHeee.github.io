@@ -102,6 +102,7 @@ nav:
       - Compose Command: docker/command/compose.md
       - Dockerfile: docker/command/dfile.md
       - Compose-yml: docker/command/docker-compose-yml.md
+      - buildx: docker/command/buildx.md
     - Note:
       - Install: docker/note/installation.md
       - Registry: docker/note/registry.md
@@ -124,9 +125,12 @@ nav:
         - nginx-flask-mysql-admin: docker/running/nfmp.md
         - react-express-mongo-me: docker/running/remm.md
         - etc: docker/running/etc.md
-  - FastAPI:
-    - REST API: fastapi/restapi.md
+  - FAST API:
     - Best-Practice: fastapi/best-practice.md
+    - REST API:
+      - fastapi/restapi.md
+  - Python:
+    - Concurrency: python/concurrency.md
   - Temp:
     - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md
