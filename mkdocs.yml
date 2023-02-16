@@ -102,7 +102,7 @@ nav:
       - Compose Command: docker/command/compose.md
       - Dockerfile: docker/command/dfile.md
       - Compose-yml: docker/command/docker-compose-yml.md
-      - buildx: docker/command/buildx.md
+      - Buildx: docker/command/buildx.md
     - Note:
       - Install: docker/note/installation.md
       - Registry: docker/note/registry.md

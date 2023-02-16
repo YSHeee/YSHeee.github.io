@@ -9,7 +9,7 @@
 | `buildx inspect` |Inspect current builder instance |`--bootstrap` `--builder`
 | `buildx install` |Install buildx as a 'docker builder' alias |
 | `buildx ls` |Lists all builder instances and the nodes for each instance |
-| `buildx prune` |Clears the build cache of the selected builder |`a` `-f` `--builder` `--filter` `--keep-storage` `--verbose`
+| `buildx prune` |Clears the build cache of the selected builder |`-a` `-f` `--builder` `--filter` `--keep-storage` `--verbose`
 | `buildx rm` |Removes the specified or current builder |`--all-inactive` `--builder` `-f` `--keep-daemon` `--keep-state`
 | `buildx stop` |Stops the specified or current builder |`--builder`
 | `buildx uninstall` |Uninstall the 'docker builder' alias |
