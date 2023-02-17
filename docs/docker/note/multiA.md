@@ -88,7 +88,7 @@ docekr buildx ls
 docker buildx create --name new_builder --driver docker-container --use
 ```
  `--name`: builder 이름 <div>
- `--driver` <div>
+ `--driver` [BuildX-Driver](https://ysheee.github.io/docker/command/buildx/#builder-driver)<div>
 * docker-container: docker를 통해 생성된 buildkit container 사용 (default) <div>
 * remote <div>
 * kubernetes <div>
@@ -108,13 +108,13 @@ docker buildx build -t ysheee/test:buildx --platform linux/amd64,linux/arm64 --p
     - Ubuntu 20.04(amd64)
 
 !!!quote
-    - Docs<div>
-    • [manifest](https://Docs.docker.com/engine/reference/commandline/manifest/)<div>
-    • [Buildx](https://docs.docker.com/engine/reference/commandline/buildx/)<div>
-    • [MS-Docs](https://learn.microsoft.com/ko-kr/azure/container-registry/push-multi-architecture-images)<div>
-    - BuildX Github
-    [Github-Buildx](https://github.com/docker/buildx)<div>
-    - Useful Blog <div>
-    • [NHN-post](https://meetup.nhncloud.com/posts/255)<div>
-    • [Blog1](https://80000coding.oopy.io/54dc871d-30c9-46cb-b609-2e8831541b5e)
+    === "manifest"
+        • [manifest](https://Docs.docker.com/engine/reference/commandline/manifest/)
+        • [MS-Docs](https://learn.microsoft.com/ko-kr/azure/container-registry/push-multi-architecture-images)
+
+    === "Buildx"
+        • [Buildx](https://docs.docker.com/engine/reference/commandline/buildx/)
+        • [Github-Buildx](https://github.com/docker/buildx)
+        • [NHN-post](https://meetup.nhncloud.com/posts/255)
+        • [Blog1](https://80000coding.oopy.io/54dc871d-30c9-46cb-b609-2e8831541b5e)
 

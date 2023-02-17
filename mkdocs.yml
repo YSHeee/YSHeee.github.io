@@ -35,16 +35,18 @@ theme:
   features:
     - navigation.tracking
     - navigation.tabs
+    - navigation.instant
     - navigation.tabs.sticky
     # - navigation.expand
     - navigation.indexes
     - navigation.sections
     - navigation.top
     - navigation.footer
-    - toc.integrate
+    #- toc.integrate
     # - header.autohide
     - content.code.annotate
     - content.code.copy
+    - content.tabs.link
 
 
 ## Customization
@@ -125,10 +127,10 @@ nav:
         - nginx-flask-mysql-admin: docker/running/nfmp.md
         - react-express-mongo-me: docker/running/remm.md
         - etc: docker/running/etc.md
-  - FAST API:
+  - FastAPI:
     - Best-Practice: fastapi/best-practice.md
-    - REST API:
-      - fastapi/restapi.md
+    - RestAPI:
+      - fastapi/design.md
   - Python:
     - Concurrency: python/concurrency.md
   - Temp:
