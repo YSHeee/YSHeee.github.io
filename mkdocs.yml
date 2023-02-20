@@ -134,6 +134,6 @@ nav:
   - Python:
     - Concurrency: python/concurrency.md
   - Temp:
-    - Shortcut: temp/shortcut.md
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
+  - Shortcut: shortcut.md
