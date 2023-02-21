@@ -932,9 +932,7 @@ black src tests
 ```
 
 
-
-
-
+---
 !!!quote
     - Best-Practice Github [zhanymkanov](https://github.com/zhanymkanov/fastapi-best-practices#1-project-structure-consistent--predictable)
-    - Pydantic [Pydantic-Docs]((https://docs.pydantic.dev/))
+    - Pydantic [Pydantic-Docs](https://docs.pydantic.dev)
