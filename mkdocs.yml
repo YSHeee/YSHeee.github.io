@@ -136,4 +136,6 @@ nav:
   - Temp:
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
+  - TIL:
+    - Day1: til/day1.md
   - Shortcut: shortcut.md
