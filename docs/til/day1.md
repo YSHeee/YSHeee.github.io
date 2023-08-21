@@ -9,7 +9,8 @@
 ```
 3. Homebrew **PATH** 추가
 ```bash
-
+(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"") » /Users/_name_/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 4. zsh 설치
 ```bash
