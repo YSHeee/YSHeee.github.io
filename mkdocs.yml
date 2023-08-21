@@ -133,9 +133,12 @@ nav:
       - fastapi/design.md
   - Python:
     - Concurrency: python/concurrency.md
+  - Java:
+    - java: java/java.md
   - Temp:
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
   - TIL:
+    - Setting: til/set.md
     - Day1: til/day1.md
   - Shortcut: shortcut.md
