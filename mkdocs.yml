@@ -96,7 +96,10 @@ markdown_extensions:
 ## Page tree
 nav:
   - Home: index.md
-  - Linux: linux/example.md
+  - Web:
+    - HTTP Status Code: web/status-code.md 
+  - Linux: 
+    - Directory Structure: linux/directory-structure.md
   - Docker:
     - Basic: docker/basic.md
     - Command:
