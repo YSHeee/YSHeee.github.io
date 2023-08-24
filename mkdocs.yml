@@ -77,9 +77,6 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - pymdownx.details
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
@@ -87,10 +84,16 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.highlight:
       anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - toc:
       permalink: true
+
 
 
 ## Page tree
@@ -144,4 +147,14 @@ nav:
   - TIL:
     - Setting: til/set.md
     - Day1: til/day1.md
+  - Programmers: 
+    - Python:
+      - Level 0: 
+        - 1 : programmers/python/level0.md
+    - Java:
+      - Level 0: 
+        - 1 : programmers/python/level0.md
+    - Mysql:
+      - Level 0: 
+        - 1 : programmers/python/level0.md
   - Shortcut: shortcut.md

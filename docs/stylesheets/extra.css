@@ -1,3 +1,8 @@
 /* :root > * {
 	--md-code-fg-color: #b781a3;
   } */
+
+  :root > * {
+    --md-code-hl-color: #FFDBAA;
+  }
+  
