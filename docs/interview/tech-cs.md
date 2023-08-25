@@ -39,6 +39,7 @@
 - 비동기 (async/await)
     - [Youtube-1](https://www.youtube.com/watch?v=m0icCqHY39U)
 - Twelve-Factor라는 것에 대해서 들어보신 적 있을까요?
+    - [Page-1](https://12factor.net/ko/)
 
 ## Architecture
 - 웹 브라우저에 URL을 입력하면 어떤 일이 생기나요?
