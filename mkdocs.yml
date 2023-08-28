@@ -138,8 +138,11 @@ nav:
     - RestAPI:
       - fastapi/design.md
   - Python:
-    - Basic : python/basic.md
+    - Python : python/python.md
     - Style Guide: python/style-guide.md
+    - Basic:
+      - string: python/string.md
+      - list: python/list.md
     - Concurrency: python/concurrency.md
   - Java:
     - java: java/java.md
