@@ -141,8 +141,12 @@ nav:
     - Python : python/python.md
     - Style Guide: python/style-guide.md
     - Basic:
-      - string: python/string.md
-      - list: python/list.md
+      - String: python/basic/string.md
+      - List: python/basic/list.md
+      - Dictionary: python/basic/dictionary.md
+      - Set: python/basic/set.md
+      - Tuple : python/basic/tuple.md
+      - File : python/basic/file.md
     - Concurrency: python/concurrency.md
   - Java:
     - java: java/java.md

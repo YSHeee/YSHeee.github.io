@@ -3,13 +3,13 @@
 S = "Hello, world!"
 ```
 
-#### 문자열 변경
+### 문자열 변경
 - replace("바꿀 문자열", "새 문자열") : 문자열 안의 해당 문자열을 다른 문자열로 변경 (문자열 자체는 변경하지 않고, 바뀐 결과만 반환)
 ``` python
 S = S.replace('world!', 'Python') # S = "Hello, Python"
 ```
 
-#### 문자 바꾸기
+### 문자 바꾸기
 - str.maketrans(’바꿀 문자’, ‘새 문자’) : 변환 테이블 생성
 - translate(테이블) : 문자를 테이블 따라 바꾼 뒤 결과 반환
 ``` python
@@ -17,20 +17,20 @@ table = str.maketrans('aeiou', '12345')
 'apple'.translate(table) # '1ppl2'
 ```
 
-#### 문자열 분리
+### 문자열 분리
 - split(’기준문자열’) : () 속 문자 기준으로 문자열을 분리하여 리스트로 변환
 ``` python
 'apple pear grape'.split()  # ['apple', 'pear', 'grape']
 ```
 
-#### JOIN 문자열 리스트 연결
+### JOIN 문자열 리스트 연결
 - join(리스트) : 구분자 문자와 문자열 리스트의 요소를 연결하여 문자열로 변환
 ``` python
 ' '.join(['apple', 'pear', 'grape'])  # 'apple pear grape'
 '-'.join(['apple', 'pear', 'grape'])  # 'apple-pear-grape'
 ```
 
-#### 대문자/소문자로 바꾸기
+### 대문자/소문자로 바꾸기
 - upper()
 - lower()
 ``` python
@@ -38,7 +38,7 @@ table = str.maketrans('aeiou', '12345')
 'PYTHON'.lower() # 'python'
 ```
 
-#### 공백 삭제
+### 공백 삭제
 - strip() : 양쪽 공백 삭제
 - rstrip() :  오른쪽 공백 삭제
 - lstrip() :  왼쪽 공백 삭제
@@ -60,7 +60,7 @@ string.punctuation  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 ', python.'.strip(string.punctuation).strip()  # 'python'
 ```
 
-#### 문자열 정렬
+### 문자열 정렬
 - ljust(길이) : 문자열을 지정된 길이로 만든 뒤, 왼쪽으로 정렬하고, 남는 공간을 공백으로 채움
 - rjust(길이) : 문자열을 지정된 길이로 만든 뒤, 오른쪽으로 정렬하고, 남는 공간을 공백으로 채움
 - center(길이) : 문자열을 지정된 길이로 만든 뒤, 가운데로 정렬하고, 남는 공간을 공백으로 채움
@@ -70,14 +70,14 @@ string.punctuation  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 'python'.center(10)  # '  python  '  - 총 10칸에 양쪽 공백 2칸씩
 ```
 
-#### 문자열 왼쪽에 0 채우기
+### 문자열 왼쪽에 0 채우기
 - zfill(길이) : 지정된 길이에 맞춰서, 문자열의 왼쪽에 0을 채움
 ``` python
 '35'.zfill(4)  # '0035'
 '3.5'.zfill(6)  # '0003.5'
 ```
 
-#### 문자열 위치 찾기
+### 문자열 위치 찾기
 - find(’찾을 문자열’) : 왼쪽부터 특정 문자열을 찾아 인덱스를 반환하고, 없으면 -1 반환
 - rfind(’찾을 문자열’) : 오른쪽부터 특정 문자열을 찾아 인덱스 반환, 없으면 -1 반환
 - index(’찾을 문자열’) : 왼쪽부터 특정 문자열을 찾아 인덱스 반환, 없으면 에러 
@@ -90,13 +90,13 @@ string.punctuation  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 'apple pineapple'.rindex('pl')  #12
 ```
 
-#### 문자열 개수 세기
+### 문자열 개수 세기
 - count(’문자열’) : 현재 문자열에서 특정 문자열이 몇 번 나오는지 
 ``` python
 'apple pineapple'.count('pi')  # 1
 ```
 
-#### 서식지정자
+### 서식지정자
 - %.자릿수f % 숫자
 ``` python
 '%.2f' % 2.3  # 2.30
@@ -108,7 +108,7 @@ string.punctuation  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 '%-10s' % 'python'  # 'python    ' 왼쪽 정렬
 ```
 
-#### format 메서드
+### format 메서드
 - ‘{인덱스}’.format(값)
 ``` python
 ‘{인덱스}’.format(값)
@@ -145,7 +145,7 @@ f'Hello, {{language}} {version}' # 'Hello, {Python} 3.6'
 format(1493500, ',')  # '1,493,500'
 ```
 
-#### 서식지정자 Table
+### 서식지정자 Table
 |    자료형    |    설명   | 
 | :-----------: | :-----------: |
 s |	문자열
