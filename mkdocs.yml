@@ -147,6 +147,9 @@ nav:
       - Set: python/basic/set.md
       - Tuple : python/basic/tuple.md
       - File : python/basic/file.md
+    - OOP:
+      - Function : python/oop/function.md
+      - Class : python/oop/class.md
     - Concurrency: python/concurrency.md
   - Java:
     - java: java/java.md
