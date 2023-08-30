@@ -254,7 +254,7 @@ x.print_item_limit() # 10
 - 인스턴스, 클래스 순으로 찾는다
 - 인스턴스 속성이 없으면 클래스 속성을 찾게 되므로 james.bag, maria.bag도 문제 없이 동작한다
 - 겉보기에는 인스턴스 속성을 사용하는 것 같지만 실제로는 클래스 속성
-- 인스턴스와 클래스에서 dict 속성을 출력해보면 현재 인스턴스와 클래스의 속성을 딕셔너리로 확인 가능
+- dict 속성을 출력해보면 현재 인스턴스와 클래스의 속성을 딕셔너리로 확인 가능
 ```python
 james.__dict__  # 인스턴스.__dict__
 Person.__dict__ # 클래스.___dict__
@@ -382,3 +382,279 @@ pl.append_person(p)
 ```
 
 ### 기반 클래스의 속성 사용하기
+
+```python title="Error 예시"
+class Person:
+	def __init__(self):
+		print('Person __init__')
+		self.hello = '안녕하세요'
+
+class Student(Person):
+	def __init__(self):
+		print('Student __init__')
+		self.school = '파이썬 코딩 도장'
+
+james = Student()
+print(james.school) # Student __init__  # 파이썬 코딩 도장
+print(james.hello)  ## 기반 클래스의 속성을 출력하고 하면, 에러 발생 (__init__ 메서드가 호출되지 않았기 때문)
+```
+- `super().메서드()` : super()를 사용하여 기반 클래스의 메서드 호출
+```python title="super"
+class Person:
+	def __init__(self):
+		print('Person __init__')
+		self.hello = '안녕하세요'
+
+class Student(Person):
+	def __init__(self):
+		print('Student __init__')
+		super().__init__()  ## super()로 기반 클래스의 __init__ 메서드 호출
+		self.school = '파이썬 코딩 도장'
+
+james = Student() # Student __init__  # Person __init__
+print(james.school)  # 파이썬 코딩 도장
+print(james.hello) # 안녕하세요
+```
+- `super(파생클래스, self).메서드()` : 현재 클래스가 어떤 클래스인지 명확하게 표시하는 방법
+```python
+class Student(Person):
+	def __init__(self):
+		print('Student __init__')
+		super(Student, self).__init__()  ## super(파생클래스, self)로 기반 클래스의 메서드 호출
+		self.school = '파이썬 코딩 도장'
+```
+### 기반 클래스의 속성을 찾는 과정
+![3](../images/class_super.png)
+
+### 기반 클래스를 초기화하지 않아도 되는 경우
+파생 클래스에서 init 메서드를 생략한다면, 기반 클래스의 init이 자동으로 호출되므로 생략 가능
+```python
+class Person:
+	def __init__(self):
+		print('Person __init__')
+		self.hello = '안녕하세요'
+
+class Student(Person):
+	pass
+
+james = Student()  # Person __init__
+print(james.hello)  # 안녕하세요
+```
+
+### 메서드 오버라이딩
+파생 클래스에서 기반 클래스의 메서드를 새로 정의하는 것
+
+- 원래 기능을 유지하면서 새로운 기능을 덧붙일 때
+- 프로그램에서 어떤 기능이 같은 메서드 이름으로 계속 사용되어야 할 때 활용
+```python
+class Person:
+	def greeting(self):
+		print('안녕하세요')
+
+class Student(Person):
+	def greeting(self):  ## Person 클래스의 greeting 메서드를 무시하고, 새로 정의
+		print('안녕하세요. 저는 파이썬 코딩 도장 학생입니다')
+
+james = Student()
+james.greeting()  # 안녕하세요. 저는 파이썬 코딩 도장 학생입니다
+```
+
+### 다중 상속
+여러 기반 클래스로부터 상속을 받아 파생 클래스를 만드는 방법
+```python
+class Person:
+	def greeting(self):
+		print('안녕하세요')
+
+class University:
+	def manage_credit(self):
+		print('학점 관리')
+
+class Undergraduate(Person, University):
+	def study(self):
+		print('공부하기')
+
+james = Undergraduate()
+
+james.greeting()  # 안녕하세요 #기반 클래스 Person의 greeting 메서드 호출
+james.manage_credit() # 학점 관리 # 기반 클래스 University의 메서드 호출
+james.study() # 공부하기 # 기반 클래스 Undergraduate의 메서드 호출
+```
+
+### 다이아몬드 상속 (죽음의 다이아몬드)
+- D -> B, C
+- B,C -> A
+```python
+class A:
+	 def greeting(self):
+		print('안녕하세요. A입니다.')
+
+class B:
+ def greeting(self):
+		print("안녕하세요. B입니다.")
+
+class C:
+ def greeting(self):
+		print("안녕하세요. C입니다.")
+
+class D(B,C)
+	pass
+
+x=D()
+x.greeting()  # 안녕하세요. B입니다.
+```
+
+--- 
+
+### 메서드 탐색 순서 MRO (Method Resolution Order)
+- `class.mro()`
+- MRO에 따르면, D의 호출 순서는 자기 자신 D 다음이 B이므로 D로 인스턴스를 만들고, greeting을 호출하면 B의 greeting이 호출됨
+```python
+D.mro() # [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
+```
+
+### object 클래스
+- 모든 클래스의 조상
+- 모든 클래스는 object 클래스를 상속받으므로, 기본적으로 object를 생략
+- int의 MRO를 출력해보면 int 자기 자신과 object가 출력됨
+```python
+int.mro()  # [<class 'int'>, <class 'object'>]
+```
+
+### 추상 클래스 (abstract class)
+메서드의 목록만 가진 클래스, 상속받는 클래스에서 메서드 구현을 강제하기 위해 사용
+
+- 추상 클래스는 인스턴스로 만들 수 없다
+- 오로지 상속에만 사용
+- 추상 클래스를 상속받았다면, @abstractmethod가 붙은 추상 메서드를 모두 구현
+- @abstractmethod
+```python
+from abc import *
+
+class StudentBase(metaclass=ABCMeta):
+	@abstractmethod
+	def study(self): # 추상 메서드는 호출할 일이 없으므로 빈 메서드로 생성
+		pass
+
+	@abstractmethod
+	def go_to_school(self):
+		pass
+
+class Student(StudentBase):
+	def study(self):  
+		print('공부하기')
+	
+	def go_to_school(self):
+		print('학교가기')
+
+james = Student()
+
+james.study()  # 공부하기
+james.go_to_school()  # 학교가기
+```
+
+---
+
+### 덕 타이핑
+- "만약 어떤 새가 오리처럼 걷고, 헤엄치고, 꽥꽥거리는 소리를 낸다면 나는 그 새를 오리라 부르겠다"에서 유래
+-  (다른클래스라도) 객체의 적합성은 객체의 실제 유형이 아니라 특정 메소드와 속성의 존재에 의해 결정되는 것 [wikidocs](https://wikidocs.net/16076)
+```python
+# 오리 클래스를 만들고 quack과 feathers 메서드 정의
+class Duck: 
+    def quack(self): 
+		print('꽥~!')
+    def feathers(self): 
+		print('오리는 흰색과 회색 털을 가지고 있습니다.')
+
+# 사람 클래스를 만들고 quack과 feathers 메서드 정의
+class Person:              
+    def quack(self): 
+		print('사람은 오리를 흉내냅니다. 꽥~!')
+    def feathers(self): 
+		print('사람은 땅에서 깃털을 주워서 보여줍니다.')
+ 
+def in_the_forest(duck):    # 덕 타이핑을 사용하는 함수. 클래스의 종류는 상관하지 않음
+    duck.quack()            # quack 메서드와 feathers 메서드만 있으면
+    duck.feathers()         # 함수를 호출할 수 있음
+ 
+donald = Duck()             # 오리 클래스로 donald 인스턴스를 만듦
+james = Person()            # 사람 클래스로 james 인스턴스를 만듦
+in_the_forest(donald)       # in_the_forest에 오리 클래스의 인스턴스 donald를 넣음
+in_the_forest(james)        # in_the_forest에 사람 클래스의 인스턴스 james를 넣음
+```
+
+### 믹스인 Mix-In
+- 다른 클래스에서 사용할 수 있도록 공통적인 메서드를 모아 놓은 클래스
+- 자체 인스턴스 속성을 가지고 있으며, __init__ 메서드를 구현하지 않음
+```python
+# 인사하는 메서드는 공통적인 메서드
+class HelloMixIn:
+    def greeting(self):
+        print('안녕하세요.')
+        
+class Person():
+    def __init__(self, name):
+        self.name = name
+
+# HelloMixIn과 Person을 상속받아 학생 클래스를 만듦
+class Student(HelloMixIn, Person):
+    def study(self):
+        print('공부하기')
+
+# HelloMixIn과 Person을 상속받아 선생님 클래스를 만듦
+class Teacher(HelloMixIn, Person):
+    def teach(self):
+        print('가르치기')
+```
+
+--- 
+
+### What is Dunder? Magic method?
+- [POST-1](https://armin.tistory.com/596)
+- [POST-2 geeksforgeeks](https://www.geeksforgeeks.org/dunder-magic-methods-python/)
+- [POST-3](https://www.tutorialsteacher.com/python/magic-methods-in-python)
+- [Method vs Function](https://www.tutorialspoint.com/difference-between-method-and-function-in-python)
+
+Dunder = Double Under(Underscores) = `__`
+
+- 주로 연산자 오버로딩(operator overloading)에 사용
+- `dir(int)` -> int의 Dunder 리스트 확인 가능
+
+Initialization and Construction
+
+- __new__: To get called in an object’s instantiation
+- __init__: To get called by the __new__ method
+- __del__: It is the destructor
+
+Numeric magic methods
+
+- __trunc__(self): Implements behavior for math.trunc()
+- __ceil__(self): Implements behavior for math.ceil()
+- __floor__(self): Implements behavior for math.floor()
+- __round__(self,n): Implements behavior for the built-in round()
+- ...
+
+Arithmetic operators
+
+- __add__(self, other): Implements behavior for math.trunc()
+- __mul__(self, other): Implements behavior for math.floor()
+- __floordiv__(self, other): Implements behavior for the built-in round()
+
+String Magic Methods
+
+- __str__(self): Defines behavior for when str() is called on an instance of your class.
+- __repr__(self): To get called by built-int repr() method to return a machine readable 
+- ...
+
+Comparison magic methods
+
+- __eq__(self, other): Defines behavior for the equality operator, ==.
+- __gt__(self, other): Defines behavior for the greater-than operator, >.
+- ...
+
+### What's the difference method vs function?
+Method와 Function은 그 기능이 비슷하나, **Method는 Object/Class와 연관이 있다는 것**. <br>
+따라서 호출된 개체에 대해 암시적으로 사용되며 클래스 내에 포함된 데이터에 액세스할 수 있다는 점에서 차이를 보인다
+
+- The method is implicitly used for an object for which it is called
+- The method is accessible to data that is contained within the class
