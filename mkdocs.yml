@@ -146,10 +146,15 @@ nav:
       - Dictionary: python/basic/dictionary.md
       - Set: python/basic/set.md
       - Tuple : python/basic/tuple.md
+      - Exception : python/basic/exception.md
+      - Function : python/basic/function.md
       - File : python/basic/file.md
-    - OOP:
-      - Function : python/oop/function.md
-      - Class : python/oop/class.md
+    - Advanced:
+      - Class : python/advanced/class.md
+      - Closure : python/advanced/closure.md
+      - Regular Expressions : python/advanced/re.md
+      - Module : python/advanced/module.md
+      - Rator*3 : python/advanced/rator.md
     - Concurrency: python/concurrency.md
   - Java:
     - java: java/java.md
