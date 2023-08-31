@@ -145,6 +145,32 @@ def fectorial(n):
 print(factorial(5))
 ```
 
+### 함수 안에서 함수 만들기
+``` python
+def print_hello():
+	hello = "Hello, world!"
+	def print_message():
+		print(hello) # 바깥 함수의 지역 변수 사용
+	print_message()
+
+print_hello()  # Hello, world!
+```
+
+- print_hello()의 지역 변수는 그 안에 속한 모든 함수에서 접근 가능
+- 변경은 `nonlocal`: 현재 함수의 바깥쪽에 있는 지역 변수를 찾을 때, 가장 가까운 함수부터 찾음
+```python
+def A():
+	x = 10
+	def B():
+		nonlocal x
+		x =20
+	B()
+	print(x)
+
+A()  # 20
+```
+
+
 ---
 
 ### 람다 표현식 (Lambda expression)
