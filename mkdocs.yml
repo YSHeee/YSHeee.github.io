@@ -155,9 +155,9 @@ nav:
         - Class : python/advanced/class.md
         - Closure : python/advanced/closure.md
         - Regular Expressions : python/advanced/re.md
-        - Module : python/advanced/module.md
+        - Modules : python/advanced/modules.md
         - Package : python/advanced/package.md
-        - Rator*3 : python/advanced/rator.md
+        - rator*3 : python/advanced/rator.md
       - Concurrency: python/concurrency.md
     - Java:
       - java: java/java.md
