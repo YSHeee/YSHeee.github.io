@@ -10,6 +10,7 @@ site_url: "https://ysheee.github.io/"
 ## Configuration
 theme:
   name: material
+  custom_dir: overrides
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -55,6 +56,11 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
       name: Github
+  comments:
+    enabled: true
+    # defaults to utterances unless replaced with mode: giscus
+    mode: utterances
+    type: issues
 extra_css:
   - stylesheets/extra.css
 plugins:
