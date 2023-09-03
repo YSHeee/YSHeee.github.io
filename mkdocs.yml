@@ -154,17 +154,25 @@ nav:
       - Advanced:
         - Class : python/advanced/class.md
         - Closure : python/advanced/closure.md
-        - Regular Expressions : python/advanced/re.md
+        - Coroutine : python/advanced/coroutine.md
         - Modules : python/advanced/modules.md
         - Package : python/advanced/package.md
         - rator*3 : python/advanced/rator.md
-      - Concurrency: python/concurrency.md
+        - Regular Expressions : python/advanced/re.md
+        - Type Hints : python/advanced/type-hints.md
+        - Concurrency: python/advanced/concurrency.md
     - Java:
       - java: java/java.md
       - Style-Guide : java/style-guide.md
+  - Git:
+    - Git : git/git.md
+    - Git Flow : git/git-flow.md
+    - Commit Convention : git/commit-convention.md
   - Temp:
     - MKdocs: temp/mkdocs/mkdocs.md
     - VMware: temp/vmware/VMware.md
+    - PM2: temp/pm2.md
+    - Setting: temp/setting.md
   - TIL:
     - Setting: til/set.md
     - Day1: til/day1.md
@@ -186,4 +194,4 @@ nav:
       - CS: interview/tech-cs.md
       - Python: interview/tech-python.md
       - Deploy : interview/tech-deploy.md
-  - Shortcut: shortcut.md
+  - Bookmark: bookmark.md

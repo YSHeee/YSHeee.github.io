@@ -31,17 +31,17 @@ print(x) # 20
 - 변수는 네임스페이스(namespace, 이름공간)에 저장되어 locals() 함수를 통해 출력 가능
 
 === "전역 변수"
-``` python
-x = 10
-locals()
-# {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, 
-# 'x': 10}
-```
-=== "지역 변수"
-``` python
-def foo():
+	``` python
 	x = 10
-	print(locals())
+	locals()
+	# {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, 
+	# 'x': 10}
+	```
+=== "지역 변수"
+	``` python
+	def foo():
+		x = 10
+		print(locals())
 
-foo()  # {'x' : 10}
-```
+	foo()  # {'x' : 10}
+	```

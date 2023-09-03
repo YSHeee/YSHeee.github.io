@@ -7,4 +7,8 @@
     - [roadmap](https://roadmap.sh/python)
     - [namu](https://namu.wiki/w/Python)
     - [dojang.io](https://dojang.io/course/view.php?id=7)
+!!!note
+    - [W3Schools](https://www.w3schools.com/python/default.asp)
     - [TCP school](http://www.tcpschool.com/python/intro)
+    - [Pandas](https://pandas.pydata.org/docs/reference/frame.html#)
+    
