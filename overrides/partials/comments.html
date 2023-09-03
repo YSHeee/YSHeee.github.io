@@ -1,12 +1,10 @@
 {% if page.meta.comments %}
 <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
-
-<!-- Insert generated snippet here - Utterances comment -->
-<script src="https://utteranc.es/client.js" repo="YSHeee/YSHeee.github.io" issue-term="pathname" label="comments"
+<!-- Insert generated snippet here -->
+<script src="https://utteranc.es/client.js" repo="YSHeee/YSHeee.github.io" issue-term="pathname" label="utterance"
     theme="github-light" crossorigin="anonymous" async>
     </script>
-
-<!-- Synchronize Giscus theme with palette
+<!-- Synchronize Giscus theme with palette -->
 <script>
     var giscus = document.querySelector("script[src*=giscus]")
 
@@ -34,5 +32,5 @@
             }
         })
     })
-</script> -->
+</script>
 {% endif %}
