@@ -1,12 +1,12 @@
 {% if page.meta.comments %}
 <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 <!-- Insert generated snippet here -->
-<script src="https://utteranc.es/client.js" repo="YSHeee/YSHeee.github.io" issue-term="pathname" label="utterance"
+<script src="https://utteranc.es/client.js" repo="YSHeee/YSHeee.github.io" issue-term="url" label="utterance"
     theme="github-light" crossorigin="anonymous" async>
     </script>
 <!-- Synchronize Giscus theme with palette -->
 <script>
-    var giscus = document.querySelector("script[src*=giscus]")
+    var giscus = document.querySelector("script[src*=utteranc]")
 
     /* Set palette on initial load */
     var palette = __md_get("__palette")
@@ -24,10 +24,10 @@
                 var theme = palette.color.scheme === "slate" ? "dark" : "light"
 
                 /* Instruct Giscus to change theme */
-                var frame = document.querySelector(".giscus-frame")
+                var frame = document.querySelector(".utterances-frame")
                 frame.contentWindow.postMessage(
                     { giscus: { setConfig: { theme } } },
-                    "https://giscus.app"
+                    "https://utteranc.es"
                 )
             }
         })

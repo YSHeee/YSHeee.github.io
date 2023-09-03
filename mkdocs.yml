@@ -10,7 +10,7 @@ site_url: "https://ysheee.github.io/"
 ## Configuration
 theme:
   name: material
-  custom_dir: overrides/
+  custom_dir: overrides
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
