@@ -175,6 +175,8 @@ nav:
         - Concurrency: python/advanced/concurrency.md
     - Java:
       - java: java/java.md
+      - Basic:
+        - Variable: java/basic/variable.md
       - Style-Guide : java/style-guide.md
   - Git:
     - Git : git/git.md
