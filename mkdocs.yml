@@ -109,6 +109,12 @@ nav:
     - HTTP Status Code: web/status-code.md 
   - Linux: 
     - Directory Structure: linux/directory-structure.md
+    - Command: linux/command.md
+    - SSH: linux/ssh.md
+    - Note:
+      - vim: linux/note/vim.md
+      - Nvidia-command: linux/note/nvidia.md
+      - tmux: linux/note/tmux.md
   - Docker:
     - Basic: docker/basic.md
     - Command:

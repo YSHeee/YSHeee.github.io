@@ -23,6 +23,8 @@
 ??? note
     - [Install useful library](https://packages.azlux.fr/) - duf, oha, ctop, ...
     - [How to Enable Wake-on-LAN in Ubuntu](https://www.maketecheasier.com/enable-wake-on-lan-ubuntu/)
+    - [tqdm 7-ways](https://medium.com/@harshit4084/track-your-loop-using-tqdm-7-ways-progress-bars-in-python-make-things-easier-fcbbb9233f24)
+    - Proxmox VE: 가상화 관리를 위한 오픈소스 소프트웨어 서버 
 
     - Blog
         - [haneepark](https://haneepark.github.io/)
