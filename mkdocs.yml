@@ -174,9 +174,30 @@ nav:
         - Type Hints : python/advanced/type-hints.md
         - Concurrency: python/advanced/concurrency.md
     - Java:
-      - java: java/java.md
-      - Basic:
-        - Variable: java/basic/variable.md
+      - Java : java/java.md
+      - Basic :
+        - JVM : java/basic/jvm.md
+        - Syntax : java/basic/syntax.md
+        - Variable : java/basic/variable.md
+        - Data Types : java/basic/data-types.md
+        - Operator : java/basic/operator.md
+        - Conditionals : java/basic/conditionals.md
+        - Loop : java/basic/loop.md
+        - Array : java/basic/array.md
+        - Method : java/basic/method.md
+        - Modifier : java/basic/modifier.md
+        - Class : java/basic/class.md
+        - Inheritance : java/basic/inheritance.md
+        - Polymorphism : java/basic/polymorphism.md
+        - Exception : java/basic/exception.md
+        - JAVA API : java/basic/java-api.md
+      - Advanced:
+        - Generic : java/advanced/generic.md
+        - Collection : java/advanced/collection.md
+        - IO : java/advanced/io.md
+        - Thread : java/advanced/thread.md
+        - Lambda : java/advanced/lambda.md
+        - Stream : java/advanced/stream.md
       - Style-Guide : java/style-guide.md
   - Git:
     - Git : git/git.md
