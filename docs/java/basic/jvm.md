@@ -27,7 +27,7 @@
 ![1](../images/jvm_1.png)
 
 ### Compile time env
-- 자바 컴파일러 (Java compiler)
+- 자바 컴파일러 (Java compiler) = javac
 : Java 소스 코드를 JVM이 이해할 수 있는 자바 바이트 코드(`.class`)로 변환 <br> 자바를 설치하면 javac.exe라는 실행 파일 형태로 설치된다
 
 - 자바 바이트 코드 (Java bytecode)
