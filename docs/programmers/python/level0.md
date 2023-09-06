@@ -19,10 +19,13 @@
     ``` 
 
 ## 2023.09.06
-- 특수문자 출력하기 `print("!@#$%^&*(\\'\"<>?:;")` - Others: `print(r'!@#$%^&*(\'"<>?:;')`
+- 특수문자 출력하기 `print("!@#$%^&*(\\'\"<>?:;")` 
+    - Others: `print(r'!@#$%^&*(\'"<>?:;')`
 - 덧셈식 출력하기 `print(f"{a} + {b} = {a+b}")`
-- 문자열 붙여서 출력하기 `print(f"{str1}{str2}")` - Others: `input().strip().replace(' ', '')`
-- 문자열 돌리기 `for i in input(): print(i)` - Others: `print('\n'.join(input()))`  
+- 문자열 붙여서 출력하기 `print(f"{str1}{str2}")` 
+    - Others: `input().strip().replace(' ', '')`
+- 문자열 돌리기 `for i in input(): print(i)` 
+    - Others: `print('\n'.join(input()))`  
 
 ### 홀짝 구분하기
 자연수 n이 입력으로 주어졌을 때 만약 n이 짝수이면 "n is even"을, 홀수이면 "n is odd"를 출력하는 코드를 작성해 보세요.

@@ -218,6 +218,9 @@ nav:
     - Java:
       - Level 0: 
         - 1 : programmers/python/level0.md
+    - Jython:
+      - Level 0:
+        - 1 : programmers/jython/level0.md
     - Mysql:
       - Level 0: 
         - 1 : programmers/python/level0.md
@@ -230,3 +233,4 @@ nav:
       - Python: interview/tech-python.md
       - Deploy : interview/tech-deploy.md
   - Bookmark: bookmark.md
+  - Nice to meet you : visitor.md
