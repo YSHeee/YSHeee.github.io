@@ -8,9 +8,10 @@
 <br> 단, 자바 프로그램과 달리 JVM은 운영체제에 종속적이므로 각 운영체제에 맞는 JVM을 설치해야 함
 
 ---
+
 # Differences Between JDK, JRE, And JVM
+
 ![3](../images/jvm_3.png)
----
 
 - JVM (Java Virtual Machine)
 : JRE 내부에서 실행

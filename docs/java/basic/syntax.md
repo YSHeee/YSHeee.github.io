@@ -35,6 +35,16 @@ public class Example {
 - System.out
 - System.err
 
+### Running
+- javac : 
+- java : 
+- javap : 
+- jar : 
+```bash
+java package.class
+javac package.class.java
+```
+
 ### Java 8 변경 사항 [tcpschool](https://www.tcpschool.com/java/java_intro_java8)
 - 람다 표현식 -> 함수형 프로그래밍
 - 스트림 API -> 데이터 추상화

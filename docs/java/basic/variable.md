@@ -13,8 +13,8 @@
 - 자바에서 미리 정의된 키워드(keyword) 사용할 수 없음
 
 ### 종류
-- 기본형(Primitive) 변수 : byte, short, int, long, float, double, boolean, char
-- 참조형(Reference) 변수 : String, Arrays and Classes
+- 기본형(Primitive) 변수 (실제 값 저장): byte, short, int, long, float, double, boolean, char
+- 참조형(Reference) 변수 (객체의 주소 저장): String, Arrays, Classes
 
 ### 변수 선언
 - 변수를 선언하여 메모리 공간을 할당받고, 나중에 변수 초기화
@@ -32,6 +32,11 @@ int num1, num2;                  // 같은 타입의 변수를 동시에 선언�
 double num3 = 3.14;              // 선언과 동시에 초기화함.
 double num4 = 1.23, num5 = 4.56; // 같은 타입의 변수를 동시에 선언하면서 초기화함.
 ```
+
+### 변수 타입
+- 지역 변수 (Local Variables) : 메서드 블럭안에서 선언된 변수
+- 인스턴스 변수 (Instance Variables) : Non-static, 
+- 클래스 변수 (Static Variables) : 
 
 ---
 
