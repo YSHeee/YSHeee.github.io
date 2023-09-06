@@ -56,11 +56,11 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
       name: Github
-  comments:
-    enabled: true
+  # comments:
+  #   enabled: true
     # defaults to utterances unless replaced with mode: giscus
-    mode: utterances
-    type: issues
+    # mode: utterances
+    # type: issues
 extra_css:
   - stylesheets/extra.css
 plugins:
