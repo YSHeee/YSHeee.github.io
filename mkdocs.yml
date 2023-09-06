@@ -215,8 +215,6 @@ nav:
     - MKdocs: note/mkdocs/mkdocs.md
     - VMware: note/vmware/VMware.md
     - PM2: note/pm2.md
-  - TIL:
-    - Day1: til/day1.md
   - Programmers: 
     - Python:
       - Level 0: 

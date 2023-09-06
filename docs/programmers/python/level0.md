@@ -26,6 +26,11 @@
     - Others: `input().strip().replace(' ', '')`
 - 문자열 돌리기 `for i in input(): print(i)` 
     - Others: `print('\n'.join(input()))`  
+- 문자 리스트를 문자열로 변환하기 `"".join(arr)`
+- 문자열 곱하기 `solution = lambda my_string, k: my_string*k`
+- 더 크게 합치기  
+    - `solution = lambda a, b: int(f"{a}{b}") if int(f"{a}{b}")>=int(f"{b}{a}") else int(f"{b}{a}")`
+    - `solution = lambda a, b: max(int(f"{a}{b}"), int(f"{b}{a}"))`
 
 ### 홀짝 구분하기
 자연수 n이 입력으로 주어졌을 때 만약 n이 짝수이면 "n is even"을, 홀수이면 "n is odd"를 출력하는 코드를 작성해 보세요.
@@ -40,3 +45,22 @@
     n=int(input())
     print(f"{n} is {'eovdedn'[n&1::2]}")
     ``` 
+
+### 문자열 섞기
+길이가 같은 두 문자열 str1과 str2가 주어집니다.
+두 문자열의 각 문자가 앞에서부터 서로 번갈아가면서 한 번씩 등장하는 문자열을 만들어 return 하는 solution 함수를 완성해 주세요.
+
+=== "My code"
+    ``` python 
+    def solution(str1, str2):
+        return "".join([f"{value}{str2[idx]}" for idx, value in enumerate(str1)]) 
+    ``` 
+=== "Others"
+    ``` python 
+    def solution(str1, str2):
+        res=''
+        for s1,s2 in zip(str1,str2):
+            res+=s1+s2
+        return res
+    ``` 
+
