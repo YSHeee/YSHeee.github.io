@@ -1,3 +1,5 @@
+# Setting up the development environment
+
 ### :material-numeric-1-box-outline: <[Iterm2 커스텀](https://ooeunz.tistory.com/21)>
 
 1. Iterm2 설치 [Iterm2](https://iterm2.com/)
@@ -67,3 +69,14 @@ bash Miniconda3-latest-MacOSX-x86_64.sh
 1. JDK 설치 [Install-java](https://www.oracle.com/kr/java/technologies/downloads/#java11-mac)
 2. Vscode Extension Pack for Java 설치
 3. Code > Preferebces > Settings > "java home" 검색 > Edit in settings.json > /Library/Java/JavaVirtualMachines/.../Home 삽입 
+
+---
+
+# 🥲⚒️⚒️⚒️⚒️⚒️
+
+- Git
+- VSCode (account, settings, extensions)
+- SSH (key, server)
+    - [Github SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- SHELL: bash, zsh
+- ...

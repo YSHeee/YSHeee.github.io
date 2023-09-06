@@ -56,15 +56,22 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/YSHeee
       name: Github
-  # comments:
-  #   enabled: true
-    # defaults to utterances unless replaced with mode: giscus
-    # mode: utterances
-    # type: issues
+  analytics:
+    provider: google
+    property: G-K6PD1RZ6VF
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
 extra_css:
   - stylesheets/extra.css
 plugins:
   - search
+
+
 
 
 ## Extension
@@ -131,10 +138,9 @@ nav:
         - Multi Stage Builds: docker/note/multiS.md
         - Practice: docker/note/multiS2.md
       - Multi-architecture: docker/note/multiA.md
-      - Temp:
-        - Buildkit: docker/note/buildkit.md
-        - BuildX: docker/note/buildx.md
-        - Best-practice: docker/note/best-practice.md
+      - Buildkit: docker/note/buildkit.md
+      - BuildX: docker/note/buildx.md
+      - Best-practice: docker/note/best-practice.md
     - System Run:
       - Monitoring: docker/running/monitoring.md
       - ELK: docker/running/elk.md
@@ -203,13 +209,13 @@ nav:
     - Git : git/git.md
     - Git Flow : git/git-flow.md
     - Commit Convention : git/commit-convention.md
-  - Temp:
-    - MKdocs: temp/mkdocs/mkdocs.md
-    - VMware: temp/vmware/VMware.md
-    - PM2: temp/pm2.md
-    - Setting: temp/setting.md
+  - Note:
+    - Bookmark: note/bookmark.md
+    - Setting: note/setting.md
+    - MKdocs: note/mkdocs/mkdocs.md
+    - VMware: note/vmware/VMware.md
+    - PM2: note/pm2.md
   - TIL:
-    - Setting: til/set.md
     - Day1: til/day1.md
   - Programmers: 
     - Python:
@@ -218,12 +224,11 @@ nav:
     - Java:
       - Level 0: 
         - 1 : programmers/python/level0.md
-    - Jython:
-      - Level 0:
-        - 1 : programmers/jython/level0.md
     - Mysql:
       - Level 0: 
         - 1 : programmers/python/level0.md
+    - MSA Group:
+      - 9월 : programmers/group/september.md
   - Interview:
     - Link: interview/link.md
     - SelfPR: interview/pr.md
@@ -232,5 +237,4 @@ nav:
       - CS: interview/tech-cs.md
       - Python: interview/tech-python.md
       - Deploy : interview/tech-deploy.md
-  - Bookmark: bookmark.md
   - Nice to meet you : visitor.md
