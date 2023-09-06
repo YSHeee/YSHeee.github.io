@@ -1,15 +1,24 @@
 {% if page.meta.comments %}
   <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
   <!-- Insert generated snippet here -->
-  <script src="https://utteranc.es/client.js"
-  repo="YSHeee/YSHeee.github.io"
-  issue-term="pathname"
-  theme="github-light"
+  <script src="https://giscus.app/client.js"
+  data-repo="YSHeee/YSHeee.github.io"
+  data-repo-id="R_kgDOIzIwlw"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOIzIwl84CZHgz"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="light"
+  data-lang="ko"
   crossorigin="anonymous"
   async>
 </script>
+</script>
   <!-- Synchronize Giscus theme with palette -->
-  <!-- <script>
+  <script>
     var giscus = document.querySelector("script[src*=giscus]")
 
     /* Set palette on initial load */
@@ -36,5 +45,5 @@
         }
       })
     })
-  </script> -->
+  </script>
 {% endif %}
