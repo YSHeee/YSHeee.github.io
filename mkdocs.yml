@@ -161,6 +161,7 @@ nav:
       - Style Guide: python/style-guide.md
       - Basic:
         - Variable: python/basic/variable.md
+        - Operator: python/basic/operator.md
         - String: python/basic/string.md
         - List: python/basic/list.md
         - Dictionary: python/basic/dictionary.md

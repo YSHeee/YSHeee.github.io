@@ -19,6 +19,7 @@
     ``` 
 
 ## 2023.09.06
+
 - 특수문자 출력하기 `print("!@#$%^&*(\\'\"<>?:;")` 
     - Others: `print(r'!@#$%^&*(\'"<>?:;')`
 - 덧셈식 출력하기 `print(f"{a} + {b} = {a+b}")`
@@ -64,3 +65,46 @@
         return res
     ``` 
 
+## 2023.09.07
+
+- 두 수의 연산값 비교하기 `solution = lambda a,b: max(int(f"{a}{b}"), 2*a*b)`
+- n의 배수 `solution = lambda num,n: 1 if num%n==0 else 0`
+    - Others : `solution = lambda num,n: int(not(num % n))`
+- flag에 따라 다른 값 반환하기 `solution = lambda a,b,flag: a+b if flag else a-b`
+
+
+### 홀짝에 따라 다른 값 반환하기
+양의 정수 n이 매개변수로 주어질 때, n이 홀수라면 n 이하의 홀수인 모든 양의 정수의 합을 return 하고 n이 짝수라면 n 이하의 짝수인 모든 양의 정수의 제곱의 합을 return 하는 solution 함수를 작성해 주세요.
+
+=== "My code"
+    ``` python 
+    def solution(n):
+        return sum([i if (n%2 & i%2) else i**2 if not(n%2 | i%2) else 0 for i in range(n,0,-1)])
+    ``` 
+=== "Others"
+    ``` python 
+    def solution(n):
+        return sum(x ** (2 - x % 2) for x in range(n + 1) if n % 2 == x % 2)
+    ``` 
+
+### 코드 처리하기
+=== "My code"
+    ``` python
+    def solution(code):
+        mode = 0
+        ret = []
+        
+        for idx,value in enumerate(code):
+            if value == '1':
+                mode = abs(mode-1)
+        
+            elif mode == idx%2:
+                ret.append(value)
+
+        return ''.join(ret) if ret else "EMPTY"
+    ```
+=== "Others"
+    ``` python 
+    def solution(n):
+        return sum(x ** (2 - x % 2) for x in range(n + 1) if n % 2 == x % 2)
+    ``` 

@@ -5,6 +5,7 @@ comments: true
 
 ![1](../images/jython_1.png){:style width=50%;height=50%}
 
+---
 
 ### [23.09.06 Level0] 181943 문자열 겹쳐쓰기 [note](../../java/note/1.md)
 문자열 my_string, overwrite_string과 정수 s가 주어집니다. 문자열 my_string의 인덱스 s부터 overwrite_string의 길이만큼을 문자열 overwrite_string으로 바꾼 문자열을 return 하는 solution 함수를 작성해 주세요.
@@ -42,7 +43,13 @@ comments: true
         return my_string[0:s] + overwrite_string + my_string[s+len(overwrite_string):]
     ```
 
+---
 
+### [23.09.07 Level0] 181936 공배수
+정수 number와 n, m이 주어집니다. number가 n의 배수이면서 m의 배수이면 1을 아니라면 0을 return하도록 solution 함수를 완성해주세요.
+``` python
+solution = lambda number,n,m: int(not(number%n | number%m))
+```
 
 
 ---
