@@ -205,6 +205,12 @@ nav:
         - Lambda : java/advanced/lambda.md
         - Stream : java/advanced/stream.md
       - Style-Guide : java/style-guide.md
+      - Note : 
+        - 1 : java/note/1.md
+  - DB: 
+    - Basic: db/basic.md
+    - Mysql: 
+      - Basic: db/mysql/basic.md
   - Git:
     - Git : git/git.md
     - Git Flow : git/git-flow.md
