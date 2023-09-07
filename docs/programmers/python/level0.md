@@ -108,3 +108,20 @@
     def solution(n):
         return sum(x ** (2 - x % 2) for x in range(n + 1) if n % 2 == x % 2)
     ``` 
+
+### 조건 문자열 [note](../../python/note/1.md)
+두 문자열 ineq와 eq가 주어집니다. ineq는 "<"와 ">"중 하나고, eq는 "="와 "!"중 하나입니다. 그리고 두 정수 n과 m이 주어질 때, n과 m이 ineq와 eq의 조건에 맞으면 1을 아니면 0을 return하도록 solution 함수를 완성해주세요.
+=== "My code"
+    ``` python
+    def solution(ineq, eq, n, m):
+        val = ord(ineq)+ord(eq)
+        if val < 100:
+            return int(n<m) if val==93 else int(n>m)
+        else:
+            return int(n<=m) if val==121 else int(n>=m)
+    ```
+=== "Others"
+    ``` python 
+    def solution(ineq, eq, n, m):
+        return int(eval(str(n)+ineq+eq.replace('!', '')+str(m)))
+    ``` 

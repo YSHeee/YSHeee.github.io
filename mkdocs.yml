@@ -180,6 +180,8 @@ nav:
         - Regular Expressions : python/advanced/re.md
         - Type Hints : python/advanced/type-hints.md
         - Concurrency: python/advanced/concurrency.md
+      - Note : 
+        - 1 : python/note/1.md
     - Java:
       - Java : java/java.md
       - Basic :

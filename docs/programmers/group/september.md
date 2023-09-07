@@ -45,11 +45,19 @@ comments: true
 
 ---
 
-### [23.09.07 Level0] 181936 공배수
+### [23.09.07 Level0] 181936 공배수 [note](../../java/note/1.md)
 정수 number와 n, m이 주어집니다. number가 n의 배수이면서 m의 배수이면 1을 아니라면 0을 return하도록 solution 함수를 완성해주세요.
-``` python
-solution = lambda number,n,m: int(not(number%n | number%m))
-```
-
+=== "java"
+    ``` java
+    class Solution {
+        public int solution(int number, int n, int m) {
+            return (number%n==0 && number%m==0) ? 1 : 0;
+        }
+    }
+    ```
+=== "python"
+    ``` python
+    solution = lambda number,n,m: int(not(number%n | number%m))
+    ```
 
 ---
