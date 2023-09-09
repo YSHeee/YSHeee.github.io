@@ -157,62 +157,63 @@ nav:
       - fastapi/design.md
   - Language:
     - Python:
-      - Python : python/python.md
-      - Style Guide: python/style-guide.md
+      - Python : language/python/python.md
+      - Style Guide: language/python/style-guide.md
       - Basic:
-        - Variable: python/basic/variable.md
-        - Operator: python/basic/operator.md
-        - String: python/basic/string.md
-        - List: python/basic/list.md
-        - Dictionary: python/basic/dictionary.md
-        - Set: python/basic/set.md
-        - Tuple : python/basic/tuple.md
-        - Exception : python/basic/exception.md
-        - Function : python/basic/function.md
-        - File : python/basic/file.md
+        - Variable: language/python/basic/variable.md
+        - Operator: language/python/basic/operator.md
+        - String: language/python/basic/string.md
+        - List: language/python/basic/list.md
+        - Dictionary: language/python/basic/dictionary.md
+        - Set: language/python/basic/set.md
+        - Tuple : language/python/basic/tuple.md
+        - Exception : language/python/basic/exception.md
+        - Function : language/python/basic/function.md
+        - File : language/python/basic/file.md
       - Advanced:
-        - Class : python/advanced/class.md
-        - Closure : python/advanced/closure.md
-        - Coroutine : python/advanced/coroutine.md
-        - Modules : python/advanced/modules.md
-        - Package : python/advanced/package.md
-        - rator*3 : python/advanced/rator.md
-        - Regular Expressions : python/advanced/re.md
-        - Type Hints : python/advanced/type-hints.md
-        - Concurrency: python/advanced/concurrency.md
+        - Class : language/python/advanced/class.md
+        - Closure : language/python/advanced/closure.md
+        - Coroutine : language/python/advanced/coroutine.md
+        - Modules : language/python/advanced/modules.md
+        - Package : language/python/advanced/package.md
+        - rator*3 : language/python/advanced/rator.md
+        - Regular Expressions : language/python/advanced/re.md
+        - Type Hints : language/python/advanced/type-hints.md
+        - Concurrency: language/python/advanced/concurrency.md
       - Note : 
-        - 1 : python/note/1.md
+        - 1 : language/python/note/1.md
     - Java:
-      - Java : java/java.md
+      - Java : language/java/java.md
       - Basic :
-        - JVM : java/basic/jvm.md
-        - Syntax : java/basic/syntax.md
-        - Variable : java/basic/variable.md
-        - Data Types : java/basic/data-types.md
-        - Operator : java/basic/operator.md
-        - Conditionals : java/basic/conditionals.md
-        - Loop : java/basic/loop.md
-        - Array : java/basic/array.md
-        - Method : java/basic/method.md
-        - Modifier : java/basic/modifier.md
-        - Class : java/basic/class.md
-        - Inheritance : java/basic/inheritance.md
-        - Polymorphism : java/basic/polymorphism.md
-        - Exception : java/basic/exception.md
-        - JAVA API : java/basic/java-api.md
+        - JVM : language/java/basic/jvm.md
+        - Syntax : language/java/basic/syntax.md
+        - Variable : language/java/basic/variable.md
+        - Data Types : language/java/basic/data-types.md
+        - Operator : language/java/basic/operator.md
+        - Conditionals : language/java/basic/conditionals.md
+        - Loop : language/java/basic/loop.md
+        - Array : language/java/basic/array.md
+        - Method : language/java/basic/method.md
+        - Modifier : language/java/basic/modifier.md
+        - Class : language/java/basic/class.md
+        - Inheritance : language/java/basic/inheritance.md
+        - Polymorphism : language/java/basic/polymorphism.md
+        - Exception : language/java/basic/exception.md
+        - JAVA API : language/java/basic/java-api.md
       - Advanced:
-        - Generic : java/advanced/generic.md
-        - Collection : java/advanced/collection.md
-        - IO : java/advanced/io.md
-        - Thread : java/advanced/thread.md
-        - Lambda : java/advanced/lambda.md
-        - Stream : java/advanced/stream.md
-      - Style-Guide : java/style-guide.md
+        - Generic : language/java/advanced/generic.md
+        - Collection : language/java/advanced/collection.md
+        - IO : language/java/advanced/io.md
+        - Thread : language/java/advanced/thread.md
+        - Lambda : language/java/advanced/lambda.md
+        - Stream : language/java/advanced/stream.md
+      - Style-Guide : language/java/style-guide.md
       - Note : 
-        - 1 : java/note/1.md
+        - 1 : language/java/note/1.md
   - DB: 
     - Basic: db/basic.md
     - Mysql: 
+      - Cheat Sheet: db/mysql/cheat-sheet.md
       - Basic: db/mysql/basic.md
   - Git:
     - Git : git/git.md
