@@ -125,3 +125,39 @@
     def solution(ineq, eq, n, m):
         return int(eval(str(n)+ineq+eq.replace('!', '')+str(m)))
     ``` 
+
+## 2023.09.08
+
+### 등차수열의 특정한 항만 더하기
+두 정수 a, d와 길이가 n인 boolean 배열 included가 주어집니다. 첫째항이 a, 공차가 d인 등차수열에서 included[i]가 i + 1항을 의미할 때, 이 등차수열의 1항부터 n항까지 included가 true인 항들만 더한 값을 return 하는 solution 함수를 작성해 주세요.
+
+=== "My code"
+    ``` python
+    def solution(a, d, included):
+        return sum(a+d*idx for idx,value in enumerate(included) if value)
+    ```
+=== "Others"
+    ``` python 
+    def solution(a, d, included):
+        return sum((a+d*idx)*int(included[idx]) for idx in range(len(included)))
+    ``` 
+
+### 주사위 게임 2
+
+``` python
+def solution(a, b, c):
+    check = len({a,b,c})
+    result = 1
+    for num in range(4-check):
+        result *= a**(num+1)+b**(num+1)+c**(num+1)
+    return result
+```
+
+### 원소들의 곱과 합
+정수가 담긴 리스트 num_list가 주어질 때, 모든 원소들의 곱이 모든 원소들의 합의 제곱보다 작으면 1을 크면 0을 return하도록 solution 함수를 완성해주세요.
+
+``` python
+from functools import reduce
+def solution(num_list):
+    return int(sum(num_list)**2 > reduce(lambda x,y: x*y, num_list))
+```

@@ -227,14 +227,11 @@ nav:
     - PM2: note/pm2.md
   - Programmers: 
     - Python:
-      - Level 0: 
-        - 1 : programmers/python/level0.md
+      - Level 0: programmers/python/level0.md
     - Java:
-      - Level 0: 
-        - 1 : programmers/python/level0.md
+      - Level 0: programmers/java/java_example.md
     - Mysql:
-      - Level 0: 
-        - 1 : programmers/python/level0.md
+      - Level 1: programmers/mysql/level1.md
     - MSA Group:
       - 9월 : programmers/group/september.md
   - Interview:
