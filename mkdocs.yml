@@ -101,7 +101,12 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
   - pymdownx.tabbed:
       alternate_style: true
   - toc:
@@ -213,8 +218,9 @@ nav:
   - DB: 
     - Basic: db/basic.md
     - Mysql: 
+      - Syntax: db/mysql/syntax.md
+      - DML: db/mysql/dml.md 
       - Cheat Sheet: db/mysql/cheat-sheet.md
-      - Basic: db/mysql/basic.md
   - Git:
     - Git : git/git.md
     - Git Flow : git/git-flow.md
