@@ -37,3 +37,7 @@
 ## 논리 관련 함수
 ![LOGICAL](../images/logical.png)
 - `COALESCE(표현식1, 표현식2, …)` : 첫번째로 NULL이 아닌 값 반환, 모든 표현식이 NULL이라면 NULL 리턴
+
+---
+!!! quote
+    - 김정현 (unicodaum@hanmail.net)

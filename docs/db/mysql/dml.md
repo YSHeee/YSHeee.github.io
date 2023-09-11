@@ -9,7 +9,8 @@
 ``` mysql
 SELECT [ALL|DISTINCT] 속성명1, 속성명2... FROM 테이블명1, ...
 [WHERE 조건]
-[GROUP BY 속성명1, ...] [HAVING 그룹조건]
+[GROUP BY 속성명1, ...] 
+[HAVING 그룹조건]
 [ORDER BY 속성 [ASC|DESC]];
 ```
 ![SELECT](../images/select.png)
@@ -92,14 +93,23 @@ FROM 도서 A
 ```
 ![JOIN-RIGHT](../images/join_right.png)
 
-- 완전 외부 조인
+- ~~완전 외부 조인~~ : MySQL은 완전 외부 조인을 지원하지 않으므로 다음과 같이 구현
 ``` mysql
-SELECT A.책번호, A.책명, B.책번호, B.가격 
-FROM 도서 A
-    FULL JOIN 도서가격 B 
-    ON A.책번호 = B.책번호;
+SELECT * FROM A
+LEFT JOIN B ON A.id = B.id
+UNION
+SELECT * FROM A
+RIGHT JOIN B ON A.id = B.id;
 ```
-![JOIN-FULL](../images/join_full.png)
+!!! Note
+    - 완전 외부 조인
+    ``` mysql
+    SELECT A.책번호, A.책명, B.책번호, B.가격 
+    FROM 도서 A
+        FULL JOIN 도서가격 B 
+        ON A.책번호 = B.책번호;
+    ```
+    ![JOIN-FULL](../images/join_full.png)
 
 - 교차 조인 (=Cartesian product: 유효 Join 조건이 없을때 행*행 연산)
 ``` mysql
@@ -201,7 +211,7 @@ WHERE EMP_ID IN (SELECT MGR_ID FROM DEPT);
 SELECT 컬럼1, 컬럼2, ..., 집계함수
 FROM 테이블명
 [WHERE ...]
-GROUP BY [컬럼...] ROLLUP (컬럼1, 컬럼2, ...) 
+GROUP BY [컬럼...] WITH ROLLUP
 [HAVING ...]
 [ORDER BY ...]
 ```
@@ -215,7 +225,7 @@ GROUP BY [컬럼...] ROLLUP (컬럼1, 컬럼2, ...)
 SELECT 컬럼1, ..., 집계함수
 FROM 테이블명
 [WHERE ...]
-GROUP BY [컬럼명1, ...] CUBE (컬럼명a, ...) 
+GROUP BY CUBE (컬럼명a, ...) 
 [HAVING ...]
 [ORDER BY ...]
 ```
@@ -227,8 +237,8 @@ GROUP BY [컬럼명1, ...] CUBE (컬럼명a, ...)
 SELECT 컬럼명1, ..., 집계함수 
 FROM 테이블명
 [WHERE ...]
-GROUP BY [컬럼명1, ...]
-GROUPING SETS(컬럼명1, ...) [HAVING ...]
+GROUP BY GROUPING SETS(컬럼명1, ...) 
+[HAVING ...]
 [ORDER BY ...]
 ```
     - 집계 대상 컬럼들에 대한 개별 집계를 구할 수 있으며, ROLLUP이나 CUBE와는 달리 컬럼 간 순서와 무관한 결과를 얻을 수 있는 그룹 함수
@@ -301,3 +311,9 @@ Q. [학생]테이블에 장길산에 대한 튜플 삭제
 DELETE FROM 학생 
 WHERE 이름='장길산'
 ```
+
+---
+!!! quote
+    - 김정현 (unicodaum@hanmail.net)
+    - 수제비 정보처리기사 실기 (저자:윤영빈, 서용욱, 김학배, 박인상 |출판사:건기원)
+    - [Data-On-Air](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwj6wqqAqaGBAxWZcvUHHUDBAOwQFnoECAYQAQ&url=https%3A%2F%2Fdataonair.or.kr%2F&usg=AOvVaw2_msrIWeT-T38KloheDWme&opi=89978449)
