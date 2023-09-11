@@ -49,6 +49,17 @@ ORDER BY 과목 DESC, 이름 ASC;
 ### JOIN
 두 개 이상의 테이블을 연결하여 데이터를 검색하는 방법<br>
 두 릴레이션으로부터 관련된 튜플들을 결합하여 하나의 튜플로 만드는 가장 대표적인 데이터 연결 방법
+``` mysql
+SELECT *
+FROM emp
+    JOIN dept 
+    ON emp.deptno=dept.deptno;
+
+SELECT *
+FROM emp
+    JOIN dept
+    USING(deptno);
+```
 ![JOIN-1](../images/join.png)
 
 #### Example
@@ -173,12 +184,13 @@ WHERE EMP_ID IN (SELECT MGR_ID FROM DEPT);
 |    함수     |     설명    | 
 | :--------: | :--------: |
 | `COUNT` | 행의 개수 반환|
+| `COUNT(DISTINCT)` | 행의 개수 반환|
 | `SUM` | 해당 컬럼 간 합 계산|
 | `AVG` | 해당 컬럼 간 평균 계산|
 | `MAX` | 해당 컬럼 중 최대값 계산|
 | `MIN` | 해당 컬럼 중 최소값 계산|
-| `STDDEV` | 해당 컬럼 간의 표준편차 계산|
-| `VARIANCE` | 해당 컬럼 간의 분산 계산|
+| `STDEV` | 해당 컬럼 간의 표준편차 계산|
+| `VAR_SAMP()` | 해당 컬럼 간의 분산 계산|
 
 #### 그룹 함수
 소그룹 간의 소계 및 중계 등의 중간 합계 분석 데이터를 산출하는 함수

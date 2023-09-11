@@ -1,9 +1,6 @@
+# Cheat Sheet
 
-
----
-
-## Cheat Sheet
-# 연산자
+## 연산자
 
 |   연산자  |   의미   |
 | :-----: | :-----: |
@@ -26,4 +23,17 @@
 
 ---
 
-# 숫자 관련 함수
+## 숫자 관련 함수
+![NUM](../images/number.png)
+
+## 문자 관련 함수
+![CHAR](../images/char.png)
+- `CHAR(ASCII번호)` : ASCII 코드 번호를 문자나 숫자로 변경
+
+
+## 날짜 관련 함수
+![DATE](../images/date.png)
+
+## 논리 관련 함수
+![LOGICAL](../images/logical.png)
+- `COALESCE(표현식1, 표현식2, …)` : 첫번째로 NULL이 아닌 값 반환, 모든 표현식이 NULL이라면 NULL 리턴
