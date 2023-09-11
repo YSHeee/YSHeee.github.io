@@ -170,3 +170,37 @@ SELECT ROUND(AVG(DAILY_FEE)) AS AVERAGE_FEE
 FROM CAR_RENTAL_COMPANY_CAR 
 WHERE CAR_TYPE = 'SUV' 
 ```
+
+## 2023.09.09
+
+### 자동차 대여 기록에서 장기/단기 대여 구분하기
+CAR_RENTAL_COMPANY_RENTAL_HISTORY 테이블에서 대여 시작일이 2022년 9월에 속하는 대여 기록에 대해서 대여 기간이 30일 이상이면 '장기 대여' 그렇지 않으면 '단기 대여' 로 표시하는 컬럼(컬럼명: RENT_TYPE)을 추가하여 대여기록을 출력하는 SQL문을 작성해주세요. 결과는 대여 기록 ID를 기준으로 내림차순 정렬해주세요.
+``` mysql
+SELECT HISTORY_ID, CAR_ID, 
+        DATE_FORMAT(START_DATE, "%Y-%m-%d") AS "START_DATE", 
+        DATE_FORMAT(END_DATE, "%Y-%m-%d") AS "END_DATE", 
+        IF(DATEDIFF(END_DATE, START_DATE)+1 >= 30, "장기 대여", "단기 대여") AS "RENT_TYPE"
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+WHERE YEAR(START_DATE)=2022 and MONTH(START_DATE)=9
+ORDER BY HISTORY_ID DESC;
+```
+
+### 특정 옵션이 포함된 자동차 리스트 구하기
+CAR_RENTAL_COMPANY_CAR 테이블에서 '네비게이션' 옵션이 포함된 자동차 리스트를 출력하는 SQL문을 작성해주세요. 결과는 자동차 ID를 기준으로 내림차순 정렬해주세요.
+``` mysql
+SELECT CAR_ID, CAR_TYPE, DAILY_FEE, OPTIONS
+FROM CAR_RENTAL_COMPANY_CAR 
+WHERE OPTIONS LIKE "%네비게이션%"
+ORDER BY CAR_ID DESC;
+```
+
+### 조건에 부합하는 중고거래 댓글 조회하기
+USED_GOODS_BOARD와 USED_GOODS_REPLY 테이블에서 2022년 10월에 작성된 게시글 제목, 게시글 ID, 댓글 ID, 댓글 작성자 ID, 댓글 내용, 댓글 작성일을 조회하는 SQL문을 작성해주세요. 결과는 댓글 작성일을 기준으로 오름차순 정렬해주시고, 댓글 작성일이 같다면 게시글 제목을 기준으로 오름차순 정렬해주세요.
+``` mysql
+SELECT TITLE, B.BOARD_ID, REPLY_ID, R.WRITER_ID, R.CONTENTS, DATE_FORMAT(R.CREATED_DATE, "%Y-%m-%d") AS "CREATED_DATE"
+FROM USED_GOODS_BOARD B
+    JOIN USED_GOODS_REPLY R
+    ON B.BOARD_ID = R.BOARD_ID
+WHERE YEAR(B.CREATED_DATE) = 2022 AND MONTH(B.CREATED_DATE) = 10 # 또는 B.CREATED_DATE LIKE "2022-10%"
+ORDER BY R.CREATED_DATE, TITLE;
+```
