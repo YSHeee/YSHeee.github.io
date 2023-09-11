@@ -80,3 +80,11 @@ double var3 = 2e-3;
 | `L`, `l` | long형 | `123456789L`
 | `F`, `f` | float형 | `1.234567F`, `8.9f`
 | `D`, `d` (생략 가능) | double형 | `1.2345D`, `6.789d`
+
+---
+
+!!! quote
+    - [Java의 정석](https://github.com/castello/javajungsuk_basic/tree/master)
+    - [점프 투 자바](https://wikidocs.net/book/31)
+    - [TCP school](http://www.tcpschool.com/java/intro)
+    - 이것이 자바다 (저자: 신용권, 임경균 | 출판사: 한빛미디어)

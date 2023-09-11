@@ -28,11 +28,15 @@
 
 ## 문자 관련 함수
 ![CHAR](../images/char.png)
+
 - `CHAR(ASCII번호)` : ASCII 코드 번호를 문자나 숫자로 변경
 
 
 ## 날짜 관련 함수
 ![DATE](../images/date.png)
+
+- `DATEDIFF(날짜1, 날짜2)` : 날짜1-날짜2 값 반환 (DAY)
+- `TIMESTAMPDIFF(단위, 날짜1, 날짜2)` : SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, QUARTER(분기), YEAR
 
 ## 논리 관련 함수
 ![LOGICAL](../images/logical.png)

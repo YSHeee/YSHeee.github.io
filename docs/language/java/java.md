@@ -18,9 +18,11 @@
 - 예외 처리가 잘 되어 있지만, 개발자가 일일이 처리를 지정해 줘야 함
 - 다른 언어에 비해 작성해야 하는 코드의 길이가 긴 편
 
+---
+
 !!! quote
     - [Java의 정석](https://github.com/castello/javajungsuk_basic/tree/master)
     - [점프 투 자바](https://wikidocs.net/book/31)
     - [TCP school](http://www.tcpschool.com/java/intro)
-    - 이것이 자바다
+    - 이것이 자바다 (저자: 신용권, 임경균 | 출판사: 한빛미디어)
     - MSA 3기
