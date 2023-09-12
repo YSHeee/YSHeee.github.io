@@ -17,18 +17,23 @@ Ma --> MaI["<img src='https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-RDS_
 ```
 
 ## JDBC API
-- 인터페이스 : Connection, Statement, PreparedStatement, ResultSet, DatabaseMetaData, ResultSetMetaData
-- 클래스 : DriverManager, Date, Time, Timestamp
+- 클래스 
+    - DriverManager : JDBC를 Driver 관리, DB와 연결해서 Connection 구현 객체 생성
+    - Date, Time, Timestamp
+- 인터페이스
+    - Connection : Statement, PreparedStatement, CallableStatement 구현 객체 생성, 트랜잭션 처리 및 DB 연결 끊을 때 사용
+    - Statement : SQL의 DDL, DML을 실행할 때 사용 (주로 변경되지 않는 정적 SQL문 실행)
+    - PreparedStatement : 매개변수화된 SQL 문을 사용할 수 있어 Statement에 비해 편리성과 보안성 향상
+    - CallableStatement : DB에 저장되어 있는 프로시저와 함수 호출 시 사용
+    - ResultSet : DB에서 가져온 데이터 읽을 때 사용
+    - DatabaseMetaData, ResultSetMetaData
 
-- `executeQuery()` : SELECT -----> ResultSet (결과가 없다면 비어있는 ResultSet 객체 반환)
-- `executeUpdate()` : SELECT외의 SQL 명령들  -----> int(변경된 행의 개수)
-
-## Running
+## Example code
 ``` java
-// DriverManager로 사용할 DB의 Driver 로드 (이제는 필요없는 코드)
+// DriverManager로 사용할 DB의 Driver를 메모리로 로딩 (이제는 필요없는 코드)
 Class.forName("com.mysql.cj.jdbc.Driver"); 
 
-// DB 연결 정보 입력
+// DB 연결 정보 입력 및 DB 연결
 String url = "jdbc:mysql:...";
 String user = "username";
 String passwd = "password";
@@ -51,8 +56,109 @@ stmt.close();
 conn.close();
 ```
 
-## Statement vs PreparedStatement
+### Method VS Method
+- `executeQuery` : 테이블 조회, ResultSet 객체 반환 (결과가 없다면 비어있는 객체 반환)
+- ` executeUpdate()` : 테이블 업데이트, 리턴값은 int(변경된 행의 수)
+- `PreparedStatement` : 동적 SQL 쿼리 실행. 미리 컴파일된 쿼리를 사용하고 매개 변수를 전달하여 사용한다
+- `Statement` : 정적 SQL 쿼리 실행. 매번 쿼리 문자열이 재구성되어야하며 재사용하기 어렵다
+: 두 번째 매개값은 DML문이 실행된 후 가져올 키 값
+<br>바이너리 타입(blob)일 때는 setBinaryStream(), setBlob(), setBytes () 중 하나 택
 
+### ResultSet
+: SELECT문에 기술된 컬럼으로 구성된 행의 집합
+<br> 커서가 있는 행의 데이터만 읽을 수 있다 (최초 커서는 beforeFirst를 가리키므로 next() 메소드 사용)
+
+
+## 데이터 조회 SELECT - Statement, executeQuery
+``` java
+...(생략)
+    try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
+            Statement statement = connection.createStatement()) {
+
+        String sql = "SELECT * FROM employees";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()){
+            do {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                System.out.println("ID: " + id + ", Name: " + name);
+            } while (resultSet.next())
+        } else System.out.print("조회 결과가 없습니다.");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+```
+
+## 데이터 삽입 INSERT - PreparedStatement, executeUpdate
+``` java
+...(생략)
+    try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO employees (name, age) VALUES (?, ?)")) {
+
+        String newName = "John Doe";
+        preparedStatement.setString(1, newName);
+         preparedStatement.setString(2, 23);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Insertion successful.");
+        } else {
+            System.out.println("Insertion failed.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+```
+
+## 데이터 수정 UPDATE
+``` java
+...(생략)
+    try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE employees SET name = ? WHERE id = ?")) {
+
+        String updatedName = "Updated Name";
+        int employeeId = 1;
+
+        preparedStatement.setString(1, updatedName);
+        preparedStatement.setInt(2, employeeId);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Update successful.");
+        } else {
+            System.out.println("Update failed.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+```
+
+## 데이터 수정 UPDATE
+``` java
+...(생략)
+    try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM employees WHERE id = ?")) {
+
+        int employeeIdToDelete = 1;
+        preparedStatement.setInt(1, employeeIdToDelete);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Deletion successful.");
+        } else {
+            System.out.println("Deletion failed.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+```
+
+---
+## 트랜잭션
+
+---
 
 ## Data Type
 ![1](images/jdbc_type.png)
@@ -80,5 +186,7 @@ conn.close();
 
 ---
 
-!!! quote
+!!! quote   
+    - 이것이 자바다 특별판 부록(저자: 신용권 | 출판사: 한빛미디어)
     - MSA 3기
+    - OpenAI
