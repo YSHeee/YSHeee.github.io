@@ -177,3 +177,51 @@ def solution(num_list):
     def solution(n, control):
         return n + 10*(control.count('d')-control.count('a')) + (control.count('w')-control.count('s'))
     ``` 
+
+### 수 조작하기 2
+정수 배열 numLog가 주어집니다. 처음에 numLog[0]에서 부터 시작해 "w", "a", "s", "d"로 이루어진 문자열을 입력으로 받아 순서대로 조작을 했다고 합시다.
+그리고 매번 조작을 할 때마다 결괏값을 기록한 정수 배열이 numLog입니다. 즉, numLog[i]는 numLog[0]로부터 총 i번의 조작을 가한 결과가 저장되어 있습니다.
+주어진 정수 배열 numLog에 대해 조작을 위해 입력받은 문자열을 return 하는 solution 함수를 완성해 주세요.
+``` python
+def solution(numLog):
+    table = dict(zip([1,-1,10,-10],['w','s','d','a']))
+    return ''.join(table[numLog[i]-numLog[i-1]] for i in range(1, len(numLog)))
+```
+
+### 수열과 구간 쿼리 3
+정수 배열 arr와 2차원 정수 배열 queries이 주어집니다. queries의 원소는 각각 하나의 query를 나타내며, [i, j] 꼴입니다.
+각 query마다 순서대로 arr[i]의 값과 arr[j]의 값을 서로 바꿉니다.
+위 규칙에 따라 queries를 처리한 이후의 arr를 return 하는 solution 함수를 완성해 주세요.
+
+=== "My code"
+    ``` python
+    def solution(arr, queries):
+        temp = 0
+        for val in queries:
+            temp = arr[val[0]]
+            arr[val[0]] = arr[val[1]]
+            arr[val[1]] = temp
+        return arr
+    ```
+=== "Others"
+    ``` python 
+    def solution(arr, queries):
+        temp = 0
+        for val in queries:
+            arr[val[0]], arr[val[1]] = arr[val[1]], arr[val[0]]
+        return arr
+    ``` 
+
+### 수열과 구간 쿼리 2
+정수 배열 arr와 2차원 정수 배열 queries이 주어집니다. queries의 원소는 각각 하나의 query를 나타내며, [s, e, k] 꼴입니다.
+각 query마다 순서대로 s ≤ i ≤ e인 모든 i에 대해 k보다 크면서 가장 작은 arr[i]를 찾습니다.
+각 쿼리의 순서에 맞게 답을 저장한 배열을 반환하는 solution 함수를 완성해 주세요.
+단, 특정 쿼리의 답이 존재하지 않으면 -1을 저장합니다.
+``` python
+def solution(arr, queries):
+    answer = []
+    for query in queries:
+        value_list = list(filter(lambda x: query[2]<x, arr[query[0]:query[1]+1]))
+        answer.append((min(value_list) if value_list else -1))
+    return answer
+```
