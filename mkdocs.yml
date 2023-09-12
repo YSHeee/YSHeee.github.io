@@ -213,6 +213,7 @@ nav:
         - Lambda : language/java/advanced/lambda.md
         - Stream : language/java/advanced/stream.md
       - Style-Guide : language/java/style-guide.md
+      - JDBC : language/java/jdbc.md
       - Note : 
         - 1 : language/java/note/1.md
   - DB: 
@@ -235,7 +236,8 @@ nav:
     - Python:
       - Level 0: programmers/python/level0.md
     - Java:
-      - Level 0: programmers/java/java_example.md
+      - Level 0: programmers/java/level0.md
+      - Level 1: programmers/java/level1.md
     - Mysql:
       - Level 1: programmers/mysql/level1.md
     - MSA Group:

@@ -101,3 +101,5 @@ comments: true
             result *= a**(num+1)+b**(num+1)+c**(num+1)
         return result
     ```
+
+### [9월 2주차] 기사단원의 무기

@@ -36,10 +36,14 @@ public class Example {
 - System.err
 
 ### Running
+- `.java` : 자바소스코드
+- `.class` : 자바실행파일
+- `.jar` : 여러 개의 클래스들을 하나의 파일로 압축한 것 (LIKE .zip, .tar)
+    - `jar cvf xxx.jar *.class` : 압축 파일 생성
+    - `jar tvf xxx.jar` : 파일 확인
+    - `jar xvf xxx.jar` : 압축 해제
 - javac : 
-- java : 
 - javap : 
-- jar : 
 ```bash
 java package.class
 javac package.class.java

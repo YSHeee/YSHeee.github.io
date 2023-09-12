@@ -150,3 +150,30 @@ from functools import reduce
 def solution(num_list):
     return int(sum(num_list)**2 > reduce(lambda x,y: x*y, num_list))
 ```
+
+## 2023.09.12
+
+### 수 조작하기 1
+정수 n과 문자열 control이 주어집니다. control은 "w", "a", "s", "d"의 4개의 문자로 이루어져 있으며, control의 앞에서부터 순서대로 문자에 따라 n의 값을 바꿉니다. 규칙에 따라 n을 바꿨을 때 가장 마지막에 나오는 n의 값을 return 하는 solution 함수를 완성해 주세요.
+
+=== "My code"
+    ``` python
+    def solution(n, control):
+        for i in control:
+            if i == 'w': n+=1
+            elif i == 's': n-=1
+            elif i == 'd': n+=10
+            else: n-=10
+        return n
+    ```
+=== "Others"
+    ``` python 
+    def solution(n, control):
+        key = dict(zip(['w','s','d','a'], [1,-1,10,-10]))
+        return n + sum([key[c] for c in control])
+    ``` 
+=== "Others2"
+    ``` python 
+    def solution(n, control):
+        return n + 10*(control.count('d')-control.count('a')) + (control.count('w')-control.count('s'))
+    ``` 
