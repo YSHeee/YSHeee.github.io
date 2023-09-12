@@ -61,3 +61,43 @@ comments: true
     ```
 
 ---
+
+### [23.09.11 Level0] 주사위 게임 2 
+1부터 6까지 숫자가 적힌 주사위가 세 개 있습니다. 
+<br>세 주사위를 굴렸을 때 나온 숫자를 각각 a, b, c라고 했을 때 얻는 점수는 다음과 같습니다.
+
+1. 세 숫자가 모두 다르다면 a + b + c 점을 얻습니다.
+2. 세 숫자 중 어느 두 숫자는 같고 나머지 다른 숫자는 다르다면 (a + b + c) × (a2 + b2 + c2 )점을 얻습니다.
+3. 세 숫자가 모두 같다면 (a + b + c) × (a2 + b2 + c2 ) × (a3 + b3 + c3 )점을 얻습니다.
+
+세 정수 a, b, c가 매개변수로 주어질 때, 얻는 점수를 return 하는 solution 함수를 작성해 주세요.
+
+=== "java"
+    ``` java
+    import java.util.HashSet;
+    class Solution {
+        public int solution(int a, int b, int c) {
+            HashSet<Integer> numList = new HashSet<>();
+            numList.add(a);
+            numList.add(b);
+            numList.add(c);
+            
+            int stNum = 4;
+            int answer = 1;
+            
+            for (int i=stNum-numList.size(); i>0; i--)
+                answer *= Math.pow(a,i)+Math.pow(b,i)+Math.pow(c,i);
+            
+            return answer;
+        }
+    }
+    ```
+=== "python"
+    ``` python
+    def solution(a, b, c):
+        check = len({a,b,c})
+        result = 1
+        for num in range(4-check):
+            result *= a**(num+1)+b**(num+1)+c**(num+1)
+        return result
+    ```

@@ -142,17 +142,6 @@
         return sum((a+d*idx)*int(included[idx]) for idx in range(len(included)))
     ``` 
 
-### 주사위 게임 2
-
-``` python
-def solution(a, b, c):
-    check = len({a,b,c})
-    result = 1
-    for num in range(4-check):
-        result *= a**(num+1)+b**(num+1)+c**(num+1)
-    return result
-```
-
 ### 원소들의 곱과 합
 정수가 담긴 리스트 num_list가 주어질 때, 모든 원소들의 곱이 모든 원소들의 합의 제곱보다 작으면 1을 크면 0을 return하도록 solution 함수를 완성해주세요.
 
