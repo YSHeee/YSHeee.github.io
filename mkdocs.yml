@@ -118,6 +118,9 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Web:
+    - Basic : web/basic.md
+    - HTML : web/html.md
+    - CSS : web/css.md
     - HTTP Status Code: web/status-code.md 
   - Linux: 
     - Directory Structure: linux/directory-structure.md
