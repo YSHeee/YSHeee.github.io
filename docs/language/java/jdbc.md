@@ -182,7 +182,18 @@ conn.close();
     **추상 클래스**와 **인터페이스**의 경우에는 new/생성자 메서드 대신 자식 클래스를 만들어 대신 객체를 생성하여 사용한다<br>
     **JDBC의 경우 대부분의 API가 인터페이스이다**
 
+---
+## MVC (Model View Controller)
+: 프로그램을 개발할 때 역할을 나눠서 개발하는 패턴
+- Model
+    - Domain Model(DTO, VO, Entity) : 변경은 DTO, 조회는 VO
+    - Service Model(DAC) : Data Access Object
+- View : 사용자(User)와의 인터페이스 --> JSP, Thymeleaf, Vue.js
+- Controller : Model과 View 사이에서 여러 다양한 역할을 담당하는 객체 (비즈니스로직) --> Servlet
 
+-- Java Application : JVM에 의해 단독으로 수행되는 프로그램
+-- Java Android App : 안드로이드 운영체제에서 수행되는 심플한 프로그램
+-- Java Servlet : 웹 서버에서 수행되는 자바 프로그램 (-> MVC!)
 
 ---
 
