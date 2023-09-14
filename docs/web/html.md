@@ -223,23 +223,23 @@
 - required : 값이 입력되었는지 브라우저에서 체크
 - multiple : 다중 파일 업로드를 처리하려는 경우 사용 (file 타입일 경우)
 
-| 폼 종류 | HTML 태그와 속성  | 특징
-| :-----: | :-----: | 
-| 텍스트 입력 창 | `<input type="text">`
-| 비밀번호 입력 창 | `input type="password"`
-| 라디오 버튼 | `input type="radio"`
-| 체크 박스 | `input type="checkbox"`
-| 파일 | `input type="file"`
-| 버튼 | `input type="submit"`<br>`input type="button"`<br>`input type="reset"`<br>`<button>`
-| 선택 박스 | `<select>`, `<option>`
-| 다중 입력 창 | `<textarea>`
-| 이메일 입력 | `<input type="email">` | 서버로 전송시 이메일 형식 자동 체크
-| 웹사이트 주소 입력 | `<input type="url">` |
-| 스핀 박스로 숫자 입력 | `<input type="number">`| min, max, step:간격, value:초기값
-| 슬라이드 막대로 숫자 입력 | `<input type="range">` | min, max, step, value
-| 검색 상자 | `<input type="search">` | 검색어를 입력하면 오른쪽에 x가 표시됨
-| 날짜 선택 | `<input type="date">` <br> `<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택
-| 색상 선택 | `<input type="color">` | 색상 선택 상자 표시
+| 폼 종류 | HTML 태그와 속성  | 특징 |
+| :-----: | :-----: | :-----: |
+| 텍스트 입력 창 | `<input type="text">` |
+| 비밀번호 입력 창 | `input type="password"` |
+| 라디오 버튼 | `input type="radio"` |
+| 체크 박스 | `input type="checkbox"` |
+| 파일 | `input type="file"` |
+| 버튼 | `input type="submit"`<br>`input type="button"`<br>`input type="reset"`<br>`<button>` |
+| 선택 박스 | `<select>`, `<option>` |
+| 다중 입력 창 | `<textarea>` |
+| 이메일 입력 | `<input type="email">` | 서버로 전송시 이메일 형식 자동 체크 
+| 웹사이트 주소 입력 | `<input type="url">` | 
+| 스핀 박스로 숫자 입력 | `<input type="number">`| min, max, step:간격, value:초기값 
+| 슬라이드 막대로 숫자 입력 | `<input type="range">` | min, max, step, value 
+| 검색 상자 | `<input type="search">` | 검색어를 입력하면 오른쪽에 x가 표시됨 
+| 날짜 선택 | `<input type="date">` <br> `<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택 
+| 색상 선택 | `<input type="color">` | 색상 선택 상자 표시 
 
  
 ### 텍스트 입력
