@@ -1,5 +1,12 @@
-# HTML
+# HTML5
 : HyperText Markup Language
+<br> 1991년 처음 HTML 이라는 용어로 사용되었고, 1995년 W3C에서 정식으로 HTML2.0 표준안 발표
+<br> HTML5는 '(문서의 내용과 구조 = HTML 태그(시멘틱 태그)) + (스타일 표현 = CSS) + (동작 구현 = JavaScript)'으로 처리하게 하여 웹 표준에 기반한 웹사이트를 개발하도록 지원하며 브라우저/디바이스에 무관한 웹사이트 개발을 가능케 함
+
+- W3C의 HTML WG을 통해 만들어지고 있는 차세대 마크업 언어 표준
+- 문서 작성 중심으로 구성된 기존 표준 + 그림, 동영상, 음악 등을 실행하는 기능 + 다양한 기능의 클라이언트 애플리케이션 구현 API
+- 플랫폼 중립적이며 특정 디바이스에 종속되지 않음
+- Active-X를 설치하지 않아도 동일한 기능 구현 가능
 
 ``` html
 <!-- 
@@ -12,8 +19,11 @@
     <meta charset="utf-8">
     <title>TITLE</title>
     <style>
-        h3 {
-            color: red;
+        body{
+            background-color: white;
+        }
+        p{
+            background-color: blue;
         }
     </style>
 </head>
@@ -33,6 +43,7 @@
 - `<style>` : HTML 문서를 꾸미는 CSS 코드가 삽입되는 곳. `<head>` 태그 내에 삽입되어야 함
 - `<title>` : 웹 페이지의 제목 설정. `<head>` 태그 내에 삽입되어야 함
 - `<!--`, `-->` : 주석
+
 
 ## 텍스트
 
@@ -63,6 +74,8 @@
     paragraph2</p>
 </body>
 ```
+
+### 수평선 `<hr>`
 
 ### HTML 특수 문자
 공백, `<`, `>`, `"`, `'` 등
