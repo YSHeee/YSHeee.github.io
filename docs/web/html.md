@@ -98,7 +98,8 @@
 </body>
 ```
 
-### 수평선 `<hr>`
+### 구분선 `<hr>`
+### _강조 텍스트_ `em`
 
 ### HTML 특수 문자
 공백, `<`, `>`, `"`, `'` 등
@@ -212,6 +213,7 @@
 ## 폼양식
 사용자가 키보드로 데이터를 입력하거나 마우스로 선택할 수 있는 서식
 
+- `form ation="URL" method="get|post"` : 폼 데이터를 서버로 보낼 때 해당 데이터가 도착할 URL 
 - value : 초기값 설정
 - readonly : 필드를 읽기 모드로 설정 (입력값 수정 불가)
 - disabled : 필드 비활성화
@@ -225,31 +227,47 @@
 
 | 폼 종류 | HTML 태그와 속성  | 특징 |
 | :-----: | :-----: | :-----: |
-| 텍스트 입력 창 | `<input type="text">` |
+| 텍스트 입력 창 | `<input type="text">` | maxlength
 | 비밀번호 입력 창 | `input type="password"` |
 | 라디오 버튼 | `input type="radio"` |
-| 체크 박스 | `input type="checkbox"` |
-| 파일 | `input type="file"` |
-| 버튼 | `input type="submit"`<br>`input type="button"`<br>`input type="reset"`<br>`<button>` |
+| 체크 박스 | `input type="checkbox name="" value="""` | value 필수
+| 파일 | `input type="file" name="files" multiple` |
+| 버튼 | `input type="submit"`<br>`input type="button"`<br>`input type="reset"`<br>`<button>` | input 대신 button도 가능
 | 선택 박스 | `<select>`, `<option>` |
 | 다중 입력 창 | `<textarea>` |
 | 이메일 입력 | `<input type="email">` | 서버로 전송시 이메일 형식 자동 체크 
-| 웹사이트 주소 입력 | `<input type="url">` | 
-| 스핀 박스로 숫자 입력 | `<input type="number">`| min, max, step:간격, value:초기값 
+| 웹사이트 주소 입력 | `<input type="url">` | url 문자열에 부합되는지 확인 <br> **유효성 검증은 안함**
+| 스핀 박스로 숫자 입력 | `<input type="number">`| min, max, step:간격, value:초기값<br>숫자만 입력 가능
 | 슬라이드 막대로 숫자 입력 | `<input type="range">` | min, max, step, value 
 | 검색 상자 | `<input type="search">` | 검색어를 입력하면 오른쪽에 x가 표시됨 
-| 날짜 선택 | `<input type="date">` <br> `<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택 
-| 색상 선택 | `<input type="color">` | 색상 선택 상자 표시 
+| 날짜 선택 | `<input type="date">` <br> `<input type="datetime-local">` <br>`<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택 
+| 색상 선택 | `<input type="color">` | 색상 선택 상자 표시
+| 전화번호 입력 | `<input type="tel">` | 정규표현식으로 패턴 설정 가능<br>(pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}")
 
  
 ### 텍스트 입력
-``` html
-<body>
-    <form>
-        내용 : <input type="text">
-    </form>
-</body>
-```
+==="Example1"
+    ``` html
+    <body>
+        <form action="URL">
+            내용 : <input type="text">
+        </form>
+    </body>
+    ```
+==="Example2-List"
+    ```html
+    <!-- 자주 선택되는 항목을 제시해줄 뿐, 리스트 외 데이터도 입력 가능 -->
+    <li>
+        <label for=favorite_star>좋아하는 연예인</label>
+        <input id=favorite_star name=favorite_star type=text list=favorite_star_list>
+        <datalist id=favorite_star_list>
+            <option value=아이유>
+            <option value=뉴진스>
+            <option value=NCT>
+            <option value=태연>			
+        </datalist>
+    </li>
+    ```
 
 ### 비밀번호 입력
 ``` html
@@ -276,8 +294,8 @@
 ``` html
 <body>
     <form>
-        <input type="checkbox" name="fruit" checked>사과
-        <input type="checkbox" name="fruit2">배
+        <input type="checkbox" name="fruit" value="f1"checked>사과
+        <input type="checkbox" name="fruit" value="f2">배
     </form>
 </body>
 ```
@@ -381,6 +399,25 @@
         </tr>
     </table>
 </body>
+```
+
+---
+## 그 외
+
+### 박스 
+- `<fieldset>`, `</fieldset>`
+- `<legend>`, `</legend>`
+``` html
+<fieldset>
+	<legend>필수 항목</legend>
+</fieldset>
+```
+
+### `<label>`
+- 사용자 인터페이스 요소의 라벨을 정의할 때 사용
+- `<button>`, `<input>`, `<meter>`, `<output>`, `<progress>`, `<select>`, `<textarea>`에 사용
+```html
+<label for=size>내용</label>
 ```
 
 ---
