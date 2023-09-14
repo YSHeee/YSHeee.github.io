@@ -44,7 +44,30 @@
 - `<title>` : 웹 페이지의 제목 설정. `<head>` 태그 내에 삽입되어야 함
 - `<!--`, `-->` : 주석
 
+---
+## 문서 구조
+- 기존 레이아웃 방식
+    - 모든 레이아웃 영역에 `<div>` 태그 사용 -> 세부적인 구별이 어려움
+    - `<div>` 태그의 id 속성값으로 의미를 표시하거나 class 속성값으로 의미 표현
+- 시맨틱 레이아웃 방식
+    - 레이아웃 영역을 시맨틱 태그를 이용하여 구분
+    - `<div>` 대신 여러 시맨틱 태그로 표시
+    - 표준 시맨틱 태그로 정의함으로써 문서의 의미 구조를 명확하고 간결하게 표현하도록 개선
 
+![HTML-1](./images/html_1.PNG)
+
+### 시맨틱 레이아웃
+- `<body>`
+    - `<header>` : 주로 머리말, 제목 표현
+    - `<section>` : 본문 콘텐트 담당
+    - `<footer>` : 회사소개/저작권/약관/제작정보 등 (연락처는 `<address>`)
+- `<nav>` : 네비게이션. 콘텐츠를 담고 있는 문서를 사이트간에 서로 연결하는 링크 역할 담당 <br> 위치에 영향을 받지 않아 어디에서든 사용 가능
+- `<article>` : 실질적인 내용 (ex. 뉴스에서 정치/사회 대분류는 section, 기사내용은 article)
+- `<aside>` : 본문 이외의 내용을 담는 사이드바. 주로 광고나 링크
+- `<div>` : HTML5에 와서는 글자나 사진등의 콘텐트들을 묶어서 CSS 스타일을 적용시킬 때 사용
+
+
+---
 ## 텍스트
 
 ### 글 제목 `<h1> ~ <h6>`
@@ -90,8 +113,10 @@
 | `&#039;`| ' | 단따옴표
 | `&copy;`| | 저작권 기호
 
-
+---
 ## 이미지
+- `<figure>`, `</figure>` : 그림이나 비디오 같은 멀티미디어 요소
+- `<figcaption>`, `</figcaption>` : Figure 요소에 대한 제목 (개략적 설명)
 ``` html
 <body>
     <!-- title: 마우스 커서를 올렸을 때, 나타나는 이미지 제목-->
@@ -113,7 +138,7 @@
 ## 오디오
 - controls : 화면에 플레이어 표시
 - autoplay : 자동재생 (크롬은 허용x)
-- loop : 무한 반복
+- loop : 반복 재생 횟수 지정
 ``` html
 <!-- 화면에 나타난 오디오 플레이어의 재생 버튼을 클릭하면, 오디오 파일 재생 -->
 <body>
@@ -124,15 +149,26 @@
 </body>
 ```
 
+
 ## 비디오
+- controls : 화면에 플레이어 표시
+- autoplay : 자동재생 (크롬은 허용x)
+- loop : 반복 재생 횟수 지정
+- poster : 동영상이 화면에 나타나지 않을 때 대신 표시할 그림 지정
+- preload : 동영상이 백그라운드에서 다운로드되어 재생 단추를 눌렀을 때 재생
+- width : 동영상 화면 너비 지정
+- height : 동영상 화면 높이 지정
+- **iframe** : youtube 영상을 끌어오는 태그 
 ``` html
 <body>
     <video width="320" height="240" controls>
         <source src="https://www.youtube.com/watch?v=9bZkp7q19f0" type="video/mp4">
+    <iframe width="677" height="400" src="https://www.youtube.com/video" title="YouTube video player"></iframe>
     </video>
 </body>
 ```
 
+---
 ## 목록
 
 ### 순서없는 목록 Unordered List `<ul>`, `<li>`
@@ -158,30 +194,36 @@
 </body>
 ```
 
+---
 ## 하이퍼링크 
 : 텍스트, 이미지 같은 요소에 링크를 걸어두는 것
 
 - href : 이동할 페이지의 url 주소 설정
+- title : 마우스 커서를 올렸을 때, 나타나는 제목
 - `target='_black'` : 새 창에 페이지를 표시
 ``` html
 <body>
-    <p><a href="test.html">test로 가요</a></p> <!-- 텍스트+링크 -->
+    <p><a href="test.html" title="하이퍼링크에요">test로 가요</a></p> <!-- 텍스트+링크 -->
     <a href="test.html"><img src="image.png"></a> <!-- 이미지+링크 -->
 </body>
 ```
 
 ---
-
 ## 폼양식
 사용자가 키보드로 데이터를 입력하거나 마우스로 선택할 수 있는 서식
 
 - value : 초기값 설정
-- autofocus : 필드에 마우스 커서가 깜빡이게 함
 - readonly : 필드를 읽기 모드로 설정 (입력값 수정 불가)
 - disabled : 필드 비활성화
-- placeholder : 값 입력의 힌트 부여
+- checked : 선택된 채로 시작 (라디오 버튼, 체크 박스)
+- autocomplete : 자동완성제어기능(default: on)
+- autofocus : 웹페이지 로딩 완료시 자동으로 포커스 이동 (필드에 마우스 커서가 깜빡이게 함)
+- min, max, step : 입력 값 제한 (date, month, week, time, number, range일 경우)
+- placeholder : 필드 안에 힌트 내용 표시. 값을 입력하면 핀트표시는 자동으로 사라짐
+- required : 값이 입력되었는지 브라우저에서 체크
+- multiple : 다중 파일 업로드를 처리하려는 경우 사용 (file 타입일 경우)
 
-| 폼 종류 | HTML 태그와 속성 
+| 폼 종류 | HTML 태그와 속성  | 특징
 | :-----: | :-----: | 
 | 텍스트 입력 창 | `<input type="text">`
 | 비밀번호 입력 창 | `input type="password"`
@@ -191,7 +233,15 @@
 | 버튼 | `input type="submit"`<br>`input type="button"`<br>`input type="reset"`<br>`<button>`
 | 선택 박스 | `<select>`, `<option>`
 | 다중 입력 창 | `<textarea>`
+| 이메일 입력 | `<input type="email">` | 서버로 전송시 이메일 형식 자동 체크
+| 웹사이트 주소 입력 | `<input type="url">` |
+| 스핀 박스로 숫자 입력 | `<input type="number">`| min, max, step:간격, value:초기값
+| 슬라이드 막대로 숫자 입력 | `<input type="range">` | min, max, step, value
+| 검색 상자 | `<input type="search">` | 검색어를 입력하면 오른쪽에 x가 표시됨
+| 날짜 선택 | `<input type="date">` <br> `<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택
+| 색상 선택 | `<input type="color">` | 색상 선택 상자 표시
 
+ 
 ### 텍스트 입력
 ``` html
 <body>
@@ -287,9 +337,10 @@
 ## 테이블 
 
 ### 테이블 생성
-- `<table>` : 전체 테이블을 감싸는 태그. border는 경계선 두께 설정을 의미
+- `<table>` : 전체 테이블을 감싸는 태그. 
+    - border는 경계선 두께 설정을 의미 (`border=1`은 있어야 경계선 생김)
 - `<tr>` : 각각의 행을 나타냄
-- `<th>` : 테이블의 첫번째 행에서 사용. 각 열의 제목
+- `<th>` : 테이블의 첫번째 행에서 사용. 각 열의 제목 (가운데 정렬, bold체)
 - `<td>` : 각각의 셀 표현
 ``` html
 <body>
@@ -331,6 +382,11 @@
     </table>
 </body>
 ```
+
+---
+## NOTE
+
+
 
 ---
 !!! quote
