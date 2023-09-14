@@ -121,6 +121,8 @@ nav:
     - Basic : web/basic.md
     - HTML : web/html.md
     - CSS : web/css.md
+    - Layout : web/layout.md
+    - Javascript : web/javascript.md
     - HTTP Status Code: web/status-code.md 
   - Linux: 
     - Directory Structure: linux/directory-structure.md

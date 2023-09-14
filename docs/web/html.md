@@ -1,7 +1,9 @@
 # HTML5
 : HyperText Markup Language
 <br> 1991년 처음 HTML 이라는 용어로 사용되었고, 1995년 W3C에서 정식으로 HTML2.0 표준안 발표
-<br> HTML5는 '(문서의 내용과 구조 = HTML 태그(시멘틱 태그)) + (스타일 표현 = CSS) + (동작 구현 = JavaScript)'으로 처리하게 하여 웹 표준에 기반한 웹사이트를 개발하도록 지원하며 브라우저/디바이스에 무관한 웹사이트 개발을 가능케 함
+<br> 2014년 HTML5의 최종 권고안이 확정되어 최신 표준으로 지정되었다
+
+:material-book-plus: HTML5는 '(문서의 내용과 구조 = HTML 태그(시멘틱 태그)) + (스타일 표현 = CSS) + (동작 구현 = JavaScript)'으로 처리하게 하여 웹 표준에 기반한 웹사이트를 개발하도록 지원하며 브라우저/디바이스에 무관한 웹사이트 개발을 가능케 함
 
 - W3C의 HTML WG을 통해 만들어지고 있는 차세대 마크업 언어 표준
 - 문서 작성 중심으로 구성된 기존 표준 + 그림, 동영상, 음악 등을 실행하는 기능 + 다양한 기능의 클라이언트 애플리케이션 구현 API
@@ -43,28 +45,6 @@
 - `<style>` : HTML 문서를 꾸미는 CSS 코드가 삽입되는 곳. `<head>` 태그 내에 삽입되어야 함
 - `<title>` : 웹 페이지의 제목 설정. `<head>` 태그 내에 삽입되어야 함
 - `<!--`, `-->` : 주석
-
----
-## 문서 구조
-- 기존 레이아웃 방식
-    - 모든 레이아웃 영역에 `<div>` 태그 사용 -> 세부적인 구별이 어려움
-    - `<div>` 태그의 id 속성값으로 의미를 표시하거나 class 속성값으로 의미 표현
-- 시맨틱 레이아웃 방식
-    - 레이아웃 영역을 시맨틱 태그를 이용하여 구분
-    - `<div>` 대신 여러 시맨틱 태그로 표시
-    - 표준 시맨틱 태그로 정의함으로써 문서의 의미 구조를 명확하고 간결하게 표현하도록 개선
-
-![HTML-1](./images/html_1.PNG)
-
-### 시맨틱 레이아웃
-- `<body>`
-    - `<header>` : 주로 머리말, 제목 표현
-    - `<section>` : 본문 콘텐트 담당
-    - `<footer>` : 회사소개/저작권/약관/제작정보 등 (연락처는 `<address>`)
-- `<nav>` : 네비게이션. 콘텐츠를 담고 있는 문서를 사이트간에 서로 연결하는 링크 역할 담당 <br> 위치에 영향을 받지 않아 어디에서든 사용 가능
-- `<article>` : 실질적인 내용 (ex. 뉴스에서 정치/사회 대분류는 section, 기사내용은 article)
-- `<aside>` : 본문 이외의 내용을 담는 사이드바. 주로 광고나 링크
-- `<div>` : HTML5에 와서는 글자나 사진등의 콘텐트들을 묶어서 CSS 스타일을 적용시킬 때 사용
 
 
 ---
@@ -402,6 +382,24 @@
 ```
 
 ---
+## 폼 꾸미기
+``` html
+    <style>
+        li {list-style: none;}/* 목록의 글머리 기호 삭제 */
+        h3, #title {text-align: center;}
+        #title {color: red;}
+        .cols li {display: inline-block;} /* 클래스 cols 하위의 li 요소를 인라인-블록으로 설정 */
+        .hello {vertical-align:top} /* 수직방향 정렬 */
+        #buttons button {
+            width: 100px;
+            height: 50px;
+            background-color: #eee;
+            border: 1px solid #aaa;
+            border-radius: 10px;}
+    </style>
+```
+
+---
 ## 그 외
 
 ### 박스 
@@ -419,6 +417,18 @@
 ```html
 <label for=size>내용</label>
 ```
+
+### 링크 걸린 글자 꾸미기
+: `<a>` 태그로 링크가 걸린 글자 색상과 글자 스타일 등을 설정
+``` html
+<style>
+    a:link, a:visited, a:hover, a:active {
+        color: black;
+        text-decoration: none;
+    }
+</style>
+```
+
 
 ---
 ## NOTE
