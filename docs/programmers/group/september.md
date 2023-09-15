@@ -136,8 +136,7 @@ comments: true
 
 
 ---
-### 23.09.13
-### [Level1] 정수 제곱근 판별
+### [23.09.13 Level1] 정수 제곱근 판별
 임의의 양의 정수 n에 대해, n이 어떤 양의 정수 x의 제곱인지 아닌지 판단하려 합니다.
 n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양의 정수 x의 제곱이 아니라면 -1을 리턴하는 함수를 완성하세요.
 
@@ -158,4 +157,37 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
     ```
 
 ---
+### [23.09.14 Level1]하샤드 수
+양의 정수 x가 하샤드 수이려면 x의 자릿수의 합으로 x가 나누어져야 합니다. 예를 들어 18의 자릿수 합은 1+8=9이고, 18은 9로 나누어 떨어지므로 18은 하샤드 수입니다. 자연수 x를 입력받아 x가 하샤드 수인지 아닌지 검사하는 함수, solution을 완성해주세요.
+
+=== "My code"
+    ``` java
+    class Solution {
+        public boolean solution(int x) {
+            int numSum = 0;
+            String numStr = Integer.toString(x);
+            
+            for (int i=0; i<numStr.length(); i++)
+                numSum += Character.getNumericValue(numStr.charAt(i));
+            
+            return x % numSum == 0;
+        }
+    }
+    ```
+=== "Others"
+    ``` java 
+    // 내 코드가 약 3-4배 정도 더 빠르다 왜지
+    class Solution {
+        public boolean solution(int x) {
+            int numSum = 0;
+            String [] tmp = String.valueOf(x).split("");
+            
+            for (String ch:tmp)
+                numSum += Integer.parseInt(ch);
+    
+            return x%numSum==0;
+        }
+    }
+    ``` 
+
 ### [9월 2주차] 기사단원의 무기
