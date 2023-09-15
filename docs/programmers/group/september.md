@@ -157,7 +157,7 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
     ```
 
 ---
-### [23.09.14 Level1]하샤드 수
+### [23.09.14 Level1] 하샤드 수
 양의 정수 x가 하샤드 수이려면 x의 자릿수의 합으로 x가 나누어져야 합니다. 예를 들어 18의 자릿수 합은 1+8=9이고, 18은 9로 나누어 떨어지므로 18은 하샤드 수입니다. 자연수 x를 입력받아 x가 하샤드 수인지 아닌지 검사하는 함수, solution을 완성해주세요.
 
 === "My code"
@@ -190,4 +190,35 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
     }
     ``` 
 
+---
+### [23.09.15 Level1] 수박수박수박수박수박수?
+길이가 n이고, "수박수박수박수...."와 같은 패턴을 유지하는 문자열을 리턴하는 함수, solution을 완성하세요. 예를들어 n이 4이면 "수박수박"을 리턴하고 3이라면 "수박수"를 리턴하면 됩니다.
+
+=== "java"
+    ``` java
+    import java.util.ArrayList;
+    class Solution {
+        public String solution(int n) {
+            ArrayList<String> tmp = new ArrayList<>();
+            for (int i=1; i<=n; i++){
+                tmp.add(i%2==0 ? "박" : "수");
+            }
+            String str = String.join("", tmp);
+            return str;
+        }
+    }
+    ```
+=== "python"
+    ``` python
+    def solution(n):
+        answer = ["박" if i%2==0 else "수" for i in range(1, n+1)]
+        return ''.join(answer)
+    ```
+=== "python Others"
+    ``` python
+    def solution(n):
+        return "".join(["수박"[i%2] for i in range(n)])
+    ```
+
+---
 ### [9월 2주차] 기사단원의 무기

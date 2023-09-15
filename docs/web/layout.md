@@ -4,6 +4,7 @@
 - `margin: 0 auto;` : 상하단 마진은 0, 좌우측 마진은 auto = 박스 중앙 배치
 - `text-align: right;` : 우측 정렬
 - `text-align: center;` : 가운데 정렬
+- `height: 100px` = `line-height: 100px` : 둘을 같은 크기로 선언하면 상하 중앙에 배치
 ``` html
 <head>
     <meta charset="utf-8">
@@ -38,7 +39,7 @@
     <title>TITLE</title>
     <style>
         div {float:left;}
-        h3 {clear:left;}
+        h3 {clear:both;}
     </style>
 </head>
 <body>

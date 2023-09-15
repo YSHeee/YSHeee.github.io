@@ -1,5 +1,6 @@
 # CSS
-: Cascading Style Sheets, 웹페이지에서 HTML을 보조하여 글꼴, 색상 등 웹페이지를 꾸미는 데 사용
+: Cascading Style Sheets
+<br>웹페이지에서 HTML을 보조하여 글꼴, 색상 등 웹페이지를 꾸미는 데 사용
 <br>모든 디자인적 요소에 사용
 
 - :material-numeric-1-circle: `<style>`, `</style>` 태그 이용
@@ -24,6 +25,12 @@
     <p style="color:aqua">CSS가 적용되는 단락</p>
 </body>
 ```
+
+### 역사
+- CSS1 : 1996년 12월 출시
+- CSS2 : 1998년 5월 권고안 출시
+- CSS3 : 2005년 12월 5일 이후 개발 중
+
 ---
 ## 색상
 
@@ -61,7 +68,7 @@
 | line-height | 150%, 180% 등 | 줄 간격
 | text-decoration | underline, none | 글자 장식<br>underline: 밑줄<br>none: 글자 장식 삭제
 | font-family | "돋움", "맑은고딕" 등 | 글자 폰트
-| font-size | 16px, 20px 등 | 글자 크기
+| font-size | 16px, 20px, 1.5em(=1.5배) 등 | 글자 크기
 | font-weight | bold, normal | 글자 두께
 | text-shadow | 3px 3px 5px #44444 | 글자 그림자
 
@@ -145,8 +152,9 @@
 |  속성  |  속성값의 예 |  의미  |
 | :-----: | :-----: | :-----: |
 | margin | 20px | 상하좌우 마진을 모두 20px로 설정
-| margin | 10px 20px 30px 40px | 상단, 우측, 하단, 좌측 마진을 각각 10, 20, 30, 40px로 설정
 | margin | 10px 20px | 상하단 마진을 40px, 좌우측 마진을 20px로 설정
+| margin | 10px 20px 30px | 상하단 10px, 좌측 20px, 우측 30px
+| margin | 10px 20px 30px 40px | 상단, 우측, 하단, 좌측 마진을 각각 10, 20, 30, 40px로 설정
 | margin-top | 30px | 상단 마진을 30px로 설정
 | margin-bottom | 30px | 하단 마진을 30px로 설정
 | margin-left | 30px | 좌측 마진을 30px로 설정
@@ -233,6 +241,7 @@
 : 웹페이지에서 특정 영역 하나를 선택하여 꾸미고자 할 때 사용
 
 - id 속성 : HTML의 특정 요소 지정에 사용
+- HTML 문서 내에서 유일값이어야 함
 - 아이디 선택자 `#` : 아이디 이름 앞에 샾 기호를 붙여 사용
 ``` html
 <head>
@@ -252,6 +261,7 @@
 : 웹페이지에서 **두 군데 이상의 특정 영역**을 선택할 때 사용
 
 - `.`
+- 중복 정의 가능 
 ``` html
 <head>
     <meta charset="utf-8">
@@ -318,6 +328,11 @@ body{
 </style>
 ```
 
+### 이미지
+- opacity : 투명도
+- width : n% (크기)
+- transition : width 2s; (크기가 점점 커짐)
+
 ### 테이블 꾸미기
 
 |  속성(속성값)  |  의미  |
@@ -369,8 +384,18 @@ body{
 | `<span>`, `<a>`, `<img>`, `<input>`, `<textarea>`, `<br>`, `<button>`, `<select>`, `<option>`, `<script>` 등 | `<div>`, `<p>`, `<h1>`~`<h6>`, `<form>`, `<table>`, `<ul>`, `<ol>`, `<li>`, `<video>`, `<header>`, `<footer>`, `<selection>` 등
 
 
-### 목록 꾸미기
-
-
-
-### HTML 요소를 브라우저 화면에 표시하기
+---
+### nth-of-type
+- `nth-child(n)` : 형제 요소 중 순서에 따라 n번째를 선택하여 스타일 적용
+- `nth-of-type(n)` : 같은 타입의 형제 요소 중 순서에 따라 n번째를 선택하여 스타일 적용
+    - n=`odd` : 형제 요소중 홀수번째 요소 선택
+    - n=`even` : 형제 요소중 짝수번째 요소 선택
+    - n=`An+B` : Axn+B 계산값 대입
+``` html
+    <!-- 지금은 body를 부모로 두고, body 기준으로 3, 5, 8번째 행에 적용 -->
+    <style>
+        h2:nth-child(3) {color : green;}
+        h2:nth-child(5) {color : red;}
+        h2:nth-child(8) {color : blue;background-color : yellow;}
+    </style>
+```

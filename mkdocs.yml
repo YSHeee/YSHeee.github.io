@@ -122,6 +122,7 @@ nav:
     - HTML : web/html.md
     - CSS : web/css.md
     - Layout : web/layout.md
+    - CSS-SS: web/style-sheet.md
     - Javascript : web/javascript.md
     - HTTP Status Code: web/status-code.md 
   - Linux: 
@@ -240,6 +241,7 @@ nav:
   - Programmers: 
     - Python:
       - Level 0: programmers/python/level0.md
+      - Level 1: programmers/python/level1.md
     - Java:
       - Level 0: programmers/java/level0.md
       - Level 1: programmers/java/level1.md
