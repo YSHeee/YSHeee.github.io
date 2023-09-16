@@ -222,3 +222,53 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
 
 ---
 ### [9월 2주차] 기사단원의 무기
+
+=== "java"
+    ``` java
+    class Solution {
+        public int solution(int number, int limit, int power) {
+            int answer = 1;
+            int num;
+            double square_root;
+
+            for (int knight=2; knight <= number; knight++){
+                num = 0;
+                square_root = Math.sqrt(knight);
+                for (int weapon=1; weapon <= (int)square_root; weapon++){
+                    if (knight % weapon == 0)
+                        num += 2;
+                }
+                if (square_root % 1 == 0)
+                    num--;
+                
+                if (num > limit)
+                    num = power;
+                
+                answer += num;
+                
+            }
+            return answer;
+        }
+    }
+    ```
+=== "python"
+    ``` python
+    def solution(number, limit, power):
+        result = 0
+        for knight in range(2, number+1):
+            num = 0
+            square_root = knight**0.5 
+            
+            for weapon in range(1, int(square_root)+1):
+                if knight % weapon == 0:
+                    num+=2
+                    
+            if square_root % 1 == 0:
+                num -= 1
+                
+            if num > limit:
+                num = power
+                
+            result += num
+        return result + 1
+    ```
