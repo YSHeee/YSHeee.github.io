@@ -23,7 +23,7 @@ comments: true
         }
     }
     ```
-=== "java_Others"
+=== "java Others"
     ``` java
     class Solution {
         public String solution(String my_string, String overwrite_string, int s) {
@@ -221,8 +221,8 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
     ```
 
 ---
-### [9월 2주차] 기사단원의 무기
-
+### [9월 2주차 Level1] 기사단원의 무기
+기사단원의 수를 나타내는 정수 number와 이웃나라와 협약으로 정해진 공격력의 제한수치를 나타내는 정수 limit와 제한수치를 초과한 기사가 사용할 무기의 공격력을 나타내는 정수 power가 주어졌을 때, 무기점의 주인이 무기를 모두 만들기 위해 필요한 철의 무게를 return 하는 solution 함수를 완성하시오.
 === "java"
     ``` java
     class Solution {
