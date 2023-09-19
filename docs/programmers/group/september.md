@@ -272,3 +272,27 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
             result += num
         return result + 1
     ```
+
+---
+### [23.09.18 Level1] 신고 결과 받기
+이용자의 ID가 담긴 문자열 배열 id_list, 각 이용자가 신고한 이용자의 ID 정보가 담긴 문자열 배열 report, 정지 기준이 되는 신고 횟수 k가 매개변수로 주어질 때, 각 유저별로 처리 결과 메일을 받은 횟수를 배열에 담아 return 하도록 solution 함수를 완성해주세요.
+=== "Java"
+    ``` java
+
+    ```
+=== "Python"
+    ``` python
+    from collections import Counter
+    def solution(id_list, report, k):
+        count_table = {key:0 for key in id_list}
+        name_table = {key:[] for key in id_list}
+        
+        for val in set(report):
+            id = val.split(" ")
+            count_table[id[1]] += 1
+            name_table[id[0]].append(id[1])
+            
+        reports = {key for key,val in count_table.items() if val>=k}
+
+        return [len(set(val)&reports) for val in name_table.values()]
+    ```
