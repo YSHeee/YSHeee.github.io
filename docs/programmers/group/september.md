@@ -296,3 +296,47 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
 
         return [len(set(val)&reports) for val in name_table.values()]
     ```
+
+---
+### [23.09.19 Level0] 겹치는 선분의 길이
+선분 3개가 평행하게 놓여 있습니다. 세 선분의 시작과 끝 좌표가 [[start, end], [start, end], [start, end]] 형태로 들어있는 2차원 배열 lines가 매개변수로 주어질 때, 두 개 이상의 선분이 겹치는 부분의 길이를 return 하도록 solution 함수를 완성해보세요.
+<br>lines가 [[0, 2], [-3, -1], [-2, 1]]일 때 그림으로 나타내면 다음과 같습니다.
+
+=== "Java"
+    ``` python
+    class Solution {
+        public int solution(int[][] lines) {
+            int[] table = new int[201];
+            int count = 0;
+            
+            for (int[] line: lines)
+                for (int c=line[0]; c<line[1]; c++)
+                    table[c+100] += 1;
+
+            for (int cnt: table){
+                if (cnt > 1)
+                    count += 1;
+        }     
+            return count;
+        }
+    }
+    ```
+=== "Python"
+    ``` python
+    from collections import Counter
+    def solution(lines):
+        tmp = []
+        for line in lines:
+            tmp.extend([(i, i+1) for i in range(line[0], line[1])])
+        return len([1 for i in Counter(tmp).values() if i>1])
+    ```
+=== "Python-JSH"
+    ``` python
+    def solution(lines):
+        cnt_list = [0] * 200
+        for line in lines:
+            for i in range(line[0], line[1]):
+                cnt_list[i+100] += 1
+        over_one = [cnt for cnt in cnt_list if cnt > 1]
+        return len(over_one)
+    ```
