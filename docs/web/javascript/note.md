@@ -1,5 +1,12 @@
 # Note
 
+
+- NaN: Not a Number
+    - `NaN == NaN;` : false
+    - `NaN === NaN;` : false
+    - `Object.is(NaN, NaN)` : true
+    - `isNaN(NaN)` : true
+
 1. eval() : 문자열로 표현된 JS 코드를 실행하는 함수
     ```javascript
     var a=1, b=2;
@@ -15,8 +22,10 @@
     isFinite(NaN); //false
     isFinite("문자열"); //false
     ```
-3. isNaN() : NaN인지 판단 (null은 체크 불가)
-- ECMAScript 6부터는 Number.isNaN() 메소드의 사용 권장
+3. isNaN() : NaN인지 판단함으로써 매개변수가 숫자인지 검사
+    - 매개변수가 숫자이면 false, 숫자가 아니면 true 반환
+    - null은 체크 불가
+    - ECMAScript 6부터는 Number.isNaN() 메소드의 사용 권장<br>(Number.isNaN()은 문자열을 전달하면 false 반환)
     ```javascript
     if(isNaN(num) || num == '' || num == null );
 
@@ -24,6 +33,7 @@
     isNaN(undefined); // true
     isNaN(NaN);       // true
 
+    isNaN(null); //false
     isNaN(0) ; // false
     isNaN(true) ; // false
     ```
@@ -39,7 +49,6 @@
     - `escape("문자열");`
 11. ~~unescape()~~ : 이스케이프 시퀀스 문자를 원래의 문자로 변환
     - `unescape(escape("문자열"));`
-
 
 
 ---

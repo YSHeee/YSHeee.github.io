@@ -80,7 +80,7 @@ function add(a, ...b){ // 첫번째 인수를 a에 저장하고, 나머지 인�
 - 웹 페이지가 닫혀야만 메모리에서 사라짐
 - 함수 내부에서도 접근하여 변경 가능
 
-### 블록 변수
+### 블록 변수 Block Variable
 : 블록 안에서만 사용되는 변수
 
 - let
@@ -133,3 +133,83 @@ function printNum(){
     document.write(num); // 20
 }
 ```
+
+## High Order Function
+: 함수를 데이터로 다루는 함수
+<br>함수 호출 시 인수로 또다른 함수를 전달할 수 있으며 리턴값으로 함수를 전달할 수 있다
+
+=== "function(fuction())"
+    ``` javascript
+    function highOrderFunction(p) {
+        if (typeof p == 'function') {
+            p('ㅋㅋㅋ');		
+        } else {
+            alert(p);
+        }
+    }
+    highOrderFunction(function (msg) {document.write(msg);});
+    highOrderFunction(function (msg) {console.log(msg);});
+    highOrderFunction();
+    ```
+=== "return function"
+    ``` javascript
+    function outerFunction() {
+        return function () {
+            document.write('<H1>Hello World .. !</h1>');
+        };
+    }
+    outerFunction( )( ); // return문을 즉시 호출
+    var result = outerFunction( ); // 함수를 담은 result 변수
+    result( ); // return문 실행
+    ```
+=== "return function 2"
+    ``` javascript
+    function action(type) {
+        if (type == "add")
+            return function (a, b) {
+                write(a+b, "h2");
+            };
+        else if (type == "sub")
+            return function (a, b) {
+                write(a-b, "h2");
+            };
+        else
+            return function (a, b) {
+                write(a*b, "h2");
+            };
+    }
+    action("add")(10,20);
+    action("sub")(10,20);
+    action("" )(10,20);
+    ```
+=== "button & function"
+    ``` javascript
+    <button onClick="clickProcess(100);">숫자</button>
+    <button onCLICK="clickProcess('100');">문자열</button>
+    <button onclick="clickProcess(true);">논리값</button>
+    <button onclick="clickProcess(function(){ });">함수</button>
+    <button onclick="clickProcess([ ]);">배열</button>
+    <button onclick="clickProcess({ });">객체</button>
+    <button onclick="clickProcess();">????</button>
+    <script>
+    function clickProcess(p) {
+        if (typeof p == "number") {
+            window.alert("숫자 전달!!");
+        } else if (typeof p == "string") {
+            alert("문자열 전달!!");
+        } else if (typeof p == "boolean") {
+            alert("논리값 전달!!");
+        } else if (typeof p == "function") {
+            alert("함수 전달!!");
+        } else if (typeof p == "object") {
+            if (Array.isArray(p))
+                alert("배열객체 전달!!");
+            else 
+                alert("객체 전달!!");
+        } else if (typeof p == "undefined") {  // p == undefined
+            alert("전달된 아규먼트 없음!!");
+        }	
+    }
+    </script>
+    ```
+
