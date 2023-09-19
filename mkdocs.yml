@@ -119,6 +119,7 @@ nav:
   - Home: index.md
   - Web:
     - Basic : web/basic.md
+    - HTTP Status Code: web/status-code.md 
     - HTML & CSS:
       - HTML: web/design/html.md
       - CSS: web/design/css.md
@@ -134,7 +135,6 @@ nav:
       - DOM: web/javascript/dom.md
       - BOM: web/javascript/bom.md
       - Note: web/javascript/note.md
-    - HTTP Status Code: web/status-code.md 
   - Linux: 
     - Directory Structure: linux/directory-structure.md
     - Command: linux/command.md

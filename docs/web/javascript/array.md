@@ -75,3 +75,9 @@ document.write(str[2]); // l
 - Array.isArray() 메서드 (ECMAScript5~)
 - instanceof 연산자
 - constructor 프로퍼티
+
+
+
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

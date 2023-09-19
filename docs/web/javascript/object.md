@@ -252,13 +252,88 @@ myDog.propertyIsEnumerable("name"); // false
 myDog.propertyIsEnumerable("birthday"); // true
 ```
 
-3. isPrototypeOf()
+#### isPrototypeOf()
+: 특정 객체의 프로토타입 체인에 현재 객체가 존재하는지 검사
 
-4. isExtensible()
+``` javascript
+var day = new Date();
 
-5. toString()
+Date.prototype.isPrototypeOf(day); // true
+Date.prototype.isPrototypeOf(new String()); // false
+```
 
-6. valueOf()
+#### isExtensible()
+: 객체에 새로운 property를 추가할 수 있는지 여부 반환
+
+- JS의 모든 객체는 기본적으로 새로운 프로퍼티를 추가할 수 있다
+- preventExtensions() : 해당 객체에 새로운 property를 추가할 수 없도록 설정
+``` javascript
+var day = new Date();
+Object.isExtensible(day); // true
+
+var myDay = Object.preventExtensions(day); // property를 추가할 수 없도록 설정
+Object.isExtensible(myDay); // false
+```
+
+#### toString()
+: 메소드를 호출한 객체의 값을 문자열로 반환
+
+``` javascript
+var arr = [10, "문자열", true]
+arr.toString(); // 10,문자열,true
+
+var bool = false;
+bool.toString(); // false
+
+function func() {return;}
+func.toString(); // 함수의 소스 코드 전부 문자열로 반환
+```
+
+#### valueOf()
+: 특정 객체의 primitive type의 값을 반환
+
+- JS에서는 primitive type 값이 기대되는 곳에 객체가 사용되면, 내부적으로 해당 메서드를 호출하여 처리
+- 객체가 primitive type을 갖고 있지 않다면, 해당 메서드는 객체 자신을 반환함
+
+``` javascript
+function func(n){
+    this.number = n;
+}
+
+f = new func(4);
+f + 5; // [object Object]5 : valueOf()가 정의되지 않아 객체 자신을 반환
+
+func.prototype.valueOf = function(){ // valueOf() 메서드 정의
+    return this.number;
+} 
+f + 5; // 9 : number의 property 반환
+```
+
+#### getter와 setter 메서드의 정의
+: getter와 setter 메소드로 정의된 property는 접근자 property라 부른다
+
+- getter : 특정 property의 값을 받아오기 위한 메서드
+- setter : 특정 property의 값을 설정하기 위한 메서드
+
+=== "getter"
+    ``` javascript
+    var dog = {age: 5};
+    dog.age; // 5
+
+    Object.defineProperty(dog, "personAge", {get: function() {return this.age * 7}});
+    dog.personAge; // 35
+    ```
+=== "setter"
+    ``` javascript
+    var dog = {age: 5};
+    dog.age = 7;
+    dog.age; // 7
+
+    Object.defineProperty(dog, "changeAge", {set: function(n) {this.age = this.age - n;}});
+    dog.changeAge = 5;
+    dog.age; // 2
+    ```
+
 
 ---
 !!! quote

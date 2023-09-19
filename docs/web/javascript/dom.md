@@ -6,3 +6,6 @@
 - window의 property인 Document 객체 사용
 - Document 객체의 property는 문서 내의 주요 요소에 접근할 수 있는 객체 제공
 
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

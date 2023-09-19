@@ -9,3 +9,10 @@
 - location : 현재 보여지고 있는 웹 페이지에 대한 URL 정보를 보관하는 객체
 - history : 현재의 브라우저가 접근했던 URL의 정보를 보관하는 객체
 - screen : 클라이언트 머신의 화면 크기나 해상도 등의 정보를 얻을 수 있는 객체
+
+
+
+
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

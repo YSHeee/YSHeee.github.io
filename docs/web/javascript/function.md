@@ -213,3 +213,6 @@ function printNum(){
     </script>
     ```
 
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

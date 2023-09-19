@@ -71,7 +71,7 @@
     </div>
 </body>
 ```
-![HTML-layout](./images/html_layout.png){:style width=80%;height=70%}
+![HTML-layout](../images/html_layout.png){:style width=80%;height=70%}
 
 ---
 ## HTML 레이아웃 요소 :star:
@@ -83,7 +83,7 @@
     - `<div>` 대신 여러 시맨틱 태그로 표시
     - 표준 시맨틱 태그로 정의함으로써 문서의 의미 구조를 명확하고 간결하게 표현하도록 개선
 
-![HTML-1](./images/html_1.PNG)
+![HTML-1](../images/html_1.PNG)
 
 ### 시맨틱 레이아웃
 - `<body>`
@@ -95,7 +95,7 @@
 - `<aside>` : 본문 이외의 내용을 담는 사이드바. 주로 광고나 링크
 - `<div>` : HTML5에 와서는 글자나 사진등의 콘텐트들을 묶어서 CSS 스타일을 적용시킬 때 사용
 
-![HTML-layout2](./images/html_layout2.png)
+![HTML-layout2](../images/html_layout2.png)
 ``` html
 <head>
     <meta charset="utf-8">
