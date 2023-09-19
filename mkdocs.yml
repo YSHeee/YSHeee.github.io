@@ -119,15 +119,20 @@ nav:
   - Home: index.md
   - Web:
     - Basic : web/basic.md
-    - HTML : web/html.md
-    - CSS : web/css.md
-    - Layout : web/layout.md
-    - CSS-SS: web/style-sheet.md
+    - HTML & CSS:
+      - HTML: web/design/html.md
+      - CSS: web/design/css.md
+      - Layout: web/design/layout.md
+      - CSS-SS: web/design/style-sheet.md
     - Javascript:
       - JS: web/javascript/js.md
       - Basic: web/javascript/basic.md
-      - Array : web/javascript/array.md
-      - Function : web/javascript/function.md
+      - Array: web/javascript/array.md
+      - Function: web/javascript/function.md
+      - Object: web/javascript/object.md
+      - Standard Object: web/javascript/standard_object.md
+      - DOM: web/javascript/dom.md
+      - BOM: web/javascript/bom.md
       - Note: web/javascript/note.md
     - HTTP Status Code: web/status-code.md 
   - Linux: 

@@ -38,27 +38,37 @@ dog.fullId; // function(){return this.birthday + this.pid;}
 - Object.create() 
     - 지정된 prototype 객체와 property를 가지고 새로운 객체 생성
     - Object.create( prototypeObject[, newObjectProperty1, newObjectProperty, ...] )
-``` javascript
-// Literal notation
-var dog = {
-    name: "초코",
-    birthday: "000330",
-    pid: "115"
-    fullId: function(){return this.birthday + this.pid;}
-};
 
-// Constructor function - new
-var date = new Date(); // Date 타입의 객체 생성
+=== "Literal notation"
+    ``` javascript
+    // 1
+    var dog = {
+        name: "초코",
+        birthday: "000330",
+        pid: "115"
+        fullId: function(){return this.birthday + this.pid;}
+    };
 
-// Object.create()
-// null 프로토타입을 사용하여 새로운 객체를 생성하고 x좌표, y좌표 프로퍼티 추가
-var obj = Object.create(
-        null, 
-        {x: {value:100, enumeratble:true}, y: {value:200, enumerable:true}});
-obj.x; // x좌표
-obj.y; // y좌표
-Object.getPrototypeOf(obj); // 객체의 프로토타입 반환
-```
+    // 2
+	const person = { };        
+	person.이름 = '홍길동';
+	person.취미 = '악기';
+	person.특기 = '프로그래밍';
+	person.장래희망 = '생명공학자';
+    ```
+=== "Constructor function - new"
+    ``` javascript
+    var date = new Date(); // Date 타입의 객체 생성
+
+    // Object.create()
+    // null 프로토타입을 사용하여 새로운 객체를 생성하고 x좌표, y좌표 프로퍼티 추가
+    var obj = Object.create(
+            null, 
+            {x: {value:100, enumeratble:true}, y: {value:200, enumerable:true}});
+    obj.x; // x좌표
+    obj.y; // y좌표
+    Object.getPrototypeOf(obj); // 객체의 프로토타입 반환
+    ```
 
 ## 객체에 Proeprty 및 Method 추가
 
