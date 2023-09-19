@@ -11,13 +11,14 @@
 - JS에서 배열은 Array 객체로 다루어진다
 
 ### 생성
+
+- `document.write(arr);` : 배열 요소 모두 출력
+- `document.write(arr.length)` : 배열 길이 출력
 ``` javascript
 var arr = [element, element, ...]; // 배열 리터럴 이용
 var arr = Array(element, element, ...); // Array 객체의 생성자 이용
 var arr = new Array(element, element, ...); // new 연산자 이용
 ```
-- `document.write(arr);` : 배열 요소 모두 출력
-- `document.write(arr.length)` : 배열 길이 출력
 
 ### 요소 추가
 - push()

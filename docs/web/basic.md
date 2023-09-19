@@ -26,10 +26,14 @@ graph TB
     end
 ```
 
-
-
-
-
+---
+### [MDN](https://developer.mozilla.org/ko/docs/Web)
+### [W3School](https://www.w3schools.com/)
+### [ECMA-262](https://262.ecma-international.org/14.0/#sec-islooselyequal)
+### [HTML5-Test](https://html5test.com/)
+### [Can I use](https://caniuse.com/)
+### [W3C](https://www.w3.org/)
+### [trio.co.kr](http://trio.co.kr/)
 
 
 ---

@@ -4,9 +4,6 @@
 - JS에서는 Function도 하나의 타입으로 취급한다
     - 따라서 함수를 변수에 대입하거나 함수에 프로퍼티를 지정할 수 있다
 - return문이 없을 때, 함수는 undifined를 반환한다
-- JS는 **인수의 개수와 매개변수의 개수가 일치하는 지 체크하지 않는다**
-    - 매개변수에 인수를 전달하지 않으면, 매개변수의 값은 undefined가 된다
-    - 전달된 인수를 모두 추출하려면 `arguments`를 사용한다
 - 선언적(명시적) 함수 정의 : 위치 상관 없음
     ``` javascript
     function 함수이름(매개변수, 매개변수,...){
@@ -14,11 +11,12 @@
     }
 
     //Example
+    var sum = sumNum(1,2); // 함수 sumNum에 인수 1,2를 전달하여 반환값을 sum에 대입
+    document.write(sumNum(1,2)+"<br>");
+
     function sumNum(x,y){
         return x+y;
     };
-    var sum = sumNum(1,2); // 함수 sumNum에 인수 1,2를 전달하여 반환값을 sum에 대입
-    document.write(sumNum(1,2)+"<br>");
     ```
 - 표현식(익명) 함수 정의 방법 : 호출 전에 미리 선언되어있어야 함
     ``` javascript
@@ -31,6 +29,38 @@
     };
     msg("자바스크립트", "안녕!");
     ```
+
+## 매개변수
+
+- JS는 **인수의 개수와 매개변수의 개수가 일치하는 지 체크하지 않는다**
+    - 매개변수에 인수를 전달하지 않으면, 매개변수의 값은 undefined가 된다
+    - 전달된 인수를 모두 추출하려면 `arguments`를 사용한다
+    ``` javascript
+    function add(){
+        var sum = 0; //전달받은 각각의 인수를 sum에 더함
+        for (var i=0; i<arguments.length; i++){ 
+            sum += arguments[i];
+        }
+        return sum;
+    }
+    ```
+- 디폴트 매개변수 Default parameter : 함수 호출 시 명시된 인수를 전달하지 않았을 경우에 사용하게 될 기본값
+    - JS의 디폴트 매개변수값은 undefined
+    - 사파리, 오페라, 익스플로러에서 지원하지 않음
+    ``` javascript
+    function add(a, b=1){ // b의 default 값을 1로 변경
+        return a+b
+    }
+    ```
+- 나머지 매개변수 Rest Parameter : 생략 접두사 `...`를 사용하여 특정 위치의 인수부터 마지막 인수까지 한 번에 지정
+``` javascript
+function add(a, ...b){ // 첫번째 인수를 a에 저장하고, 나머지 인수들은 배열 b에 저장
+    for(var i=0; i<b.length; i++){
+        a -= b[i];
+    }
+    return a
+}
+```
 
 ## 변수의 유효 범위 Variable scope
 
@@ -52,6 +82,7 @@
 
 ### 블록 변수
 : 블록 안에서만 사용되는 변수
+
 - let
 
 ## 함수의 유효 범위 Function scope

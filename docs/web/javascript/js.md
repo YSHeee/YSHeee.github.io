@@ -2,7 +2,7 @@
 : 넷스케이프 커뮤니케이션즈 코퍼레이션의 Brendan Eich가 Mocha라는 이름으로, 나중에는 LiveScript, 최종적으로 Javascrip라는 이름으로 개발중인 언어
 
 - 객체 기반의 스크립트 프로그래밍 언어
-- 동적이며, 타입을 명시할 필요 없는 인터프리터 언어<br> (컴파일 작업을 거치지 않고, 소스 코드를 바로 실행할 수 있는 언어)
+- 동적이며, 타입을 명시할 필요 없는 인터프리터 언어<br> (컴파일 작업을 거치지 않고, 소스 코드를 바로 실행할 수 있음)
 - 객체 지향형 프로그래밍과 함수형 프로그래밍 모두 표현 가능
 - 웹브라우저 내에서 주로 사용되며 웹의 동작 구현
 - 유니코드 문자셋 사용
@@ -66,10 +66,10 @@ a=1, b=2;
     - innerHTML 프로퍼티를 이용하여 선택된 HTML 요소의 내용이나 속성값 등을 변경
 
 ### 내/외부 적용
-- 내부 자바스크립트 코드로 적용 
+- 내부 자바스크립트 -> 코드로 적용 
     - `<script>` 태그를 이용하여 HTML 문서 안에 삽입
     - `<head>` 태그나 `<body>` 태그, 또는 양쪽 모두에 위치 가능
-- 외부 자바스크립트 파일 적용
+- 외부 자바스크립트 -> 파일로 적용
     - 외부 파일로 생성하여 HTML 문서에 삽입
     - 웹 브라우저가 js 파일을 미리 읽어 올 수 있어 웹페이지의 로딩 속도 상향
 ``` javascript
@@ -78,6 +78,7 @@ a=1, b=2;
 ---
 ## Javascript와 HTML
 Javascript는 ...
+
 - HTML의 내용을 변경할 수 있다
 - HTML의 속성을 변경할 수 있다
 - HTML의 스타일을 변경할 수 있다
@@ -85,28 +86,6 @@ Javascript는 ...
 JS 코드는 HTML 내의 어느 부분에 삽입해도 가능하나 주로 `<head>`나 `body`에 삽입한다
 <br>헤더에 위치한 JS 코드는 Content(`<body>`)의 렌더링 이전에 브라우저에 의해 먼저 해석되어 렌더링을 지연시킬 수 있다
 <br>따라서, 이벤트 핸들러 기능의 JS 코드는 가급적 **`</body>` 태그의 바로 위에 삽입한다**
-``` javascript
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>자바스크립트학습</title>
-</head>
-<body>
-	<h1>자바스크립트의 수행 결과 출력</h1>
-	<hr>
-	<h2>자바스크립트를 재미있게 학습합시다...</h2>
-	<h3></h3>
-	<script> // script 코드가 구동되는 동안, html parser는 대기중.. (단일스레드이므로)
-		window.alert("(1) 어디에 출력될까?");
-		console.log("(2) 어디에 출력될까?");
-		document.write("(3) 어디에 출력될까?"); 
-		// DOM 기술을 활용하여 출력
-		document.getElementsByTagName("h3")[0].textContent = "(4) 어디에 출력될까?";
-	</script>
-</body>
-</html>
-```
 
 ---
 ## JS error
@@ -126,23 +105,8 @@ JS 코드는 HTML 내의 어느 부분에 삽입해도 가능하나 주로 `<hea
 	</script>
 	<hr>
 	<script> //해당 영역은 출력 가능
-        // var는 여러 번 선언 가능. 디버깅 ...
-        // writeln이 개행문자를 넣어주지만, HTML에서 개행문자는 공백` `이므로 br을 붙여줌
 		var v1; //let, const
-		document.writeln(v1+"<br>"); //undefined
-		v1 = 100;
-		document.writeln(v1+"<br>"); //100
-		v1 = '가나다';
-		document.writeln(v1+"<br>"); //가나다
-		var v1 = true;
-		document.writeln(v1+"<br>"); //true	
-		v1 = 123;
-		document.writeln(v1+45+"<br>"); //168	
 		v1 = '123';
-		document.writeln(v1+45+"<br>");	//12345
-	</script>
-	<hr>
-	<script>
 		document.writeln(v1+"<br>"); //123
 	</script>
 </body>

@@ -15,9 +15,6 @@ var sym = Symbol("javascript");  // symbol 타입
 var symObj = Object(sym);        // object 타입
 ```
 
-### Object type
-- `var`
-
 ``` javascript
 <script>
     var v1;
@@ -45,6 +42,7 @@ var symObj = Object(sym);        // object 타입
 </script>
 ```
 
+---
 ## Type conversion 타입 변환
 : JS의 변수는 타입이 정해져 있지 않으며, 같은 변수에 다른 타입의 값을 다시 대입할 수도 있다
 
@@ -85,7 +83,16 @@ var symObj = Object(sym);        // object 타입
 - parseFloat() : 문자열을 파싱하여 부동 소수점 수 반환
 
 #### 날짜 -> 문자열, 숫자
-|   메소드    |    설명    |
+
+``` javascript
+var d = new Date(); //Tue Sep 19 2023 10:35:58 GMT+0900 (한국 표준시)
+var da = new Date(milliseconds);
+var dat = new Date(dateString);
+var date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+Date.now(); // Mon Oct 03 2022 00:00:00 GMT+0900 (한국 표준시)
+```
+
+|   메소드    |    설명    | 
 | :--------:  | :--------: |
 |  getDate()  | 날짜 중 일자를 숫자로 반환 (1~31) |
 |  getDay()   | 날짜 중 요일을 숫자로 반환 (일요일:0 ~ 토요일: 6) |
@@ -95,6 +102,7 @@ var symObj = Object(sym);        // object 타입
 |  getHours() | 시간 중 시를 숫자로 반환 (0~23) |
 | getMinutes() | 시간 중 분을 숫자로 반환 (0~59) |  
 | getMilliseconds() | 시간 중 초를 밀리초 단위 숫자로 반환 (0~999) |
+| toLocaleString() | `2023. 9. 19. 오전 10:35:58` 형태로 반환 | 
 
 #### Boolean -> 문자열
 - `String(true);` : 문자열 "true"로 변환
@@ -199,8 +207,20 @@ for (var i = 0, j = 9; i <= j; i++, j--) {
 - while
 - do-while
 - for
+``` javscript
+for(let i=0; i < ary.length; i++)
+    document.write(ary[i]);
+```
 - for-in
-- for-of
+``` javascript
+for(let i in ary) //Index
+	document.write(ary[i]);
+```
+- for-of (ECMAScript 6(ES 6)~)
+``` javascript
+for(let e of ary) //Element
+    document.write(e);
+```
 - break/continue
 
 
