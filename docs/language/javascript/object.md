@@ -62,15 +62,16 @@ dog.fullId; // function(){return this.birthday + this.pid;}
 	person.특기 = '프로그래밍';
 	person.장래희망 = '생명공학자';
     ```
-=== "Constructor function - new"
+=== "Constructor && Object.create()"
     ``` javascript
-    var date = new Date(); // Date 타입의 객체 생성
+    var date = new Date(); // 생성자 new : Date 타입의 객체 생성
 
     // Object.create()
     // null 프로토타입을 사용하여 새로운 객체를 생성하고 x좌표, y좌표 프로퍼티 추가
     var obj = Object.create(
             null, 
-            {x: {value:100, enumeratble:true}, y: {value:200, enumerable:true}});
+            {x: {value:100, enumeratble:true}, y: {value:200, enumerable:true}}
+            );
     obj.x; // x좌표
     obj.y; // y좌표
     Object.getPrototypeOf(obj); // 객체의 프로토타입 반환
@@ -80,7 +81,7 @@ dog.fullId; // function(){return this.birthday + this.pid;}
 
 - 새롭게 추가된 property와 method는 오직 해당 인스턴스에만 추가됨
 ``` javascript
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
@@ -94,7 +95,7 @@ myDog.introduce = function(){return this.name+"는 "+this.family;} // 자기소�
 ## 객체 Property 삭제
 - delete objectName.propertyName;
 ``` javascript
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
@@ -110,7 +111,7 @@ myDog.name; // undefined 출력
 - Object.keys() : 해당 객체가 가진 고유 property 중 열거할 수 있는 property의 이름을 배열에 담아 반환
 - Object.getOwnPropertyNames() : 해당 객체가 가진 모든 고유 property의 이름을 배열에 담아 반환
 ``` javascript
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
@@ -130,7 +131,7 @@ Object.getOwnPropertyNames(myDog); // name, birthday, pid
 
 ## 객체간의 비교
 ``` javascript
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
@@ -186,7 +187,7 @@ var date = new Date(); // Prototype Chain: Date.prototype && Object.prototype
 
 ``` javascript
 // Dog 생성자 함수
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
@@ -199,13 +200,17 @@ var myDog = new Dog("초코", "000330", "115"); // Dog.prototype
 : Method는 인스턴스별 메모리 할당보다 독자적으로 메모리 할당됨으로써 공유되는 것이 효율적이므로 생성자 함수에 선언하기보다 prototype에 선언하는 것이 효율적이다
 
 ``` javascript
-function Dog(name, birthday, pid) = {
+function Dog(name, birthday, pid){
     this.name = name;
     this.birthday = birthday;
     this.pid = pid;
 };
+
 Dog.prototype.family = "푸들"; // Dog 프로토타입에 family property 추가
 Dog.prototype.introduce = function(){return this.name+"는 "+this.family;}; // Dog 프로토타입에 introduce method 추가
+
+var myDog = new Dog("초코", "000330", "115");
+myDog.introduce();
 ```
 
 ---

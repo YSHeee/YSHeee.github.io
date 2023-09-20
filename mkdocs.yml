@@ -125,16 +125,6 @@ nav:
       - CSS: web/design/css.md
       - Layout: web/design/layout.md
       - CSS-SS: web/design/style-sheet.md
-    - Javascript:
-      - JS: web/javascript/js.md
-      - Basic: web/javascript/basic.md
-      - Array: web/javascript/array.md
-      - Function: web/javascript/function.md
-      - Object: web/javascript/object.md
-      - Standard Object: web/javascript/standard-object.md
-      - DOM: web/javascript/dom.md
-      - BOM: web/javascript/bom.md
-      - Note: web/javascript/note.md
   - Linux: 
     - Directory Structure: linux/directory-structure.md
     - Command: linux/command.md
@@ -232,6 +222,19 @@ nav:
       - JDBC : language/java/jdbc.md
       - Note : 
         - 1 : language/java/note/1.md
+    - Javascript:
+      - JS: language/javascript/js.md
+      - Basic: 
+        - Syntax : language/javascript/syntax.md
+        - Data Types+: language/javascript/data-types.md
+        - Array: language/javascript/array.md
+        - Function: language/javascript/function.md
+        - Object: language/javascript/object.md
+        - Standard Object: language/javascript/standard-object.md
+        - DOM: language/javascript/dom.md
+        - BOM: language/javascript/bom.md
+        - Event: language/javascript/event.md
+      - Note: language/javascript/note.md
   - DB: 
     - Basic: db/basic.md
     - Mysql: 

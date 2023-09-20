@@ -1,19 +1,5 @@
-# Javascript
-: 넷스케이프 커뮤니케이션즈 코퍼레이션의 Brendan Eich가 Mocha라는 이름으로, 나중에는 LiveScript, 최종적으로 Javascrip라는 이름으로 개발중인 언어
+# Syntax
 
-- 객체 기반의 스크립트 프로그래밍 언어
-- 동적이며, 타입을 명시할 필요 없는 인터프리터 언어<br> (컴파일 작업을 거치지 않고, 소스 코드를 바로 실행할 수 있음)
-- 객체 지향형 프로그래밍과 함수형 프로그래밍 모두 표현 가능
-- 웹브라우저 내에서 주로 사용되며 웹의 동작 구현
-- 유니코드 문자셋 사용
-
-
-## ECMAScript
-: ECMA 인터내셔널의 ECMA-262 기술 규격에 정의된 스크립트 프로그래밍 언어의 표준화된 스펙 
-<br>현재 ECMA 국제 표준화 단체에서 Javascript 업데이트 중
-
----
-## Syntax
 - 실행문은 세미콜론`;`으로 구분
 - 대소문자를 구분하므로 변수나 함수 이름, 예약어 작성 시 주의
 - 리터럴(Literal) : 표현되는 값 그 자체 (여기서는 10)
@@ -50,6 +36,14 @@ var date = 25; // 변수의 선언과 동시에 초기화
 var a, b;
 var a=1, b=2;
 a=1, b=2;
+```
+
+### Template literals
+: 내장된 표현식을 허용하는 문자열 리터럴
+``` javascript
+var name = "푸들";
+var age = 15;
+`${name}님은 ${age}에 태어났어요.`;
 ```
 
 ---
@@ -112,9 +106,3 @@ JS 코드는 HTML 내의 어느 부분에 삽입해도 가능하나 주로 `<hea
 </body>
 </html>
 ```
-
-
----
-!!! quote
-    - 위키백과
-    - [TCP School](https://www.tcpschool.com/javascript/intro)

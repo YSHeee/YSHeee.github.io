@@ -1,4 +1,4 @@
-# Basic
+# Data Types + Control flow
 
 ## Data Types
 ### Primitive type
@@ -200,7 +200,7 @@ for (var i = 0, j = 9; i <= j; i++, j--) {
 ### 조건문 Conditional Statements
 - if
 - if-else
-- if-else if-else
+- if - else if - else
 - switch
 
 ### 반복문 Iteration Statements

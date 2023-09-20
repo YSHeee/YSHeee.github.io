@@ -1,6 +1,5 @@
 # Note
 
-return `${p.name}(${p.point})`;
 
 1. eval() : 문자열로 표현된 JS 코드를 실행하는 함수
     ```javascript

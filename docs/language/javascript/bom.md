@@ -10,7 +10,9 @@
 - 전역 코드에서의 this는 window 객체를 참조한다
 - JS의 모든 객체, 전역 함수, 전역 변수, DOM의 요소들은 window 객체의 property이다
 
-- - window.onload() : 로드가 끝난 후 수행
+``` javascript
+window.onload()  // 페이지 로드가 끝난 후 수행
+```
 
 #### 대화상자 Dialog box :star:
 : 사용자에게 보여줄 수 있는 간단한 대화 상자 생성
@@ -97,7 +99,7 @@ location.hostname // 현재 문서의 인터넷 호스트 이름
 ```
 
 #### 현재 문서의 파일 경로명 pathname
-- URL : Hostname + Pathname, 웹 서버로 컨텐츠를 요청할 때 해당 컨텐츠의 위치를 알려주기 위한 규약
+- URL : Hostname + Pathname, 웹 서버로 컨텐츠를 요청할 때, 컨텐츠의 위치를 알려주기 위한 규약
 ``` javascript
 location.pathname
 ```
@@ -169,13 +171,14 @@ screen.pixelDepth;
 : 브라우저(이름, 버전등) 정보를 보관하는 객체
 <br>Netscape의 초기 웹 브라우저였던 Navigator에서 유래
 
-- 브라우저 스니핑 Browser sniffing
+#### 브라우저 스니핑 Browser sniffing
 : 방문자의 웹 브라우저의 종류를 미리 파악하여 조치함으로써 브라우저 간의 호환성을 유지하는 방법
 
 #### 현재 브라우저의 이름
-: 브라우저 간의 호환성을 위해 스니핑 코드로 대부분의 브라우저가 이름을 "Netscape", 코드명을 "Mozilla"로 사용한다
-- 익스플로러 11, 크롬, 파이어폭스, 사파리 : Browser name - Netscape
-- 익스플로러 10 이하, 크롬, 파이어폭스, 사파리, 오페라 : Browser code name - Mozilla
+: 브라우저 간의 호환성을 위해 대부분의 브라우저가 이름을 "Netscape", 코드명을 "Mozilla"로 사용
+
+- Browser name (Netscape) : 익스플로러 11, 크롬, 파이어폭스, 사파리
+- Browser code name (Mozilla) : 익스플로러 10 이하, 크롬, 파이어폭스, 사파리, 오페라
 - ~~appName~~
 - ~~appCodeName~~
 
@@ -190,7 +193,7 @@ navigator.language;
 ```
 
 #### 자바 애플릿 실행 여부
-- javaEnabled() : 현재 사용 중인 브라우저가 자바 애플릿을 실행할 수 있는지 검사하는 비표준 method
+- javaEnabled() : 현재 브라우저가 자바 애플릿을 실행할 수 있는지 검사하는 비표준 Method
 ``` javascript
 navigator.javaEnabled()
 ```
@@ -204,14 +207,15 @@ navigator.cookieEnabled
 ---
 ## 타이머
 : 일정 시간이 지난 뒤에 함수 호출
-- setTimeout() : 명시된 시간이 지난 뒤에 지정된 함수 호출
+
+- `setTimeout()` : 명시된 시간이 지난 뒤에 지정된 함수 호출
     - 밀리초 단위 설정
     - 성공적으로 호출하면, timeoutId 반환
-- setInterval() : 지정된 시간 간격마다 지정된 함수를 반복적으로 호출
+- `setInterval()` : 지정된 시간 간격마다 지정된 함수를 반복적으로 호출
     - 밀리초 단위 설정
     - 성공적으로 호출하면, timeoutId 반환
-- clearTimeout() : setTimeout() 메소드의 반환값을 clearTimeout() 메소드의 인수로 전달하여 계획된 함수의 호출 취소
-- clearInterval() : 메소드의 반환값을 clearInterval() 메소드의 인수로 전달하여 반복되는 함수의 호출 취소
+- `clearTimeout()` : setTimeout() 메소드의 반환값을 clearTimeout() 메소드의 인수로 전달하여 계획된 함수의 호출 취소
+- `clearInterval()` : 메소드의 반환값을 clearInterval() 메소드의 인수로 전달하여 반복되는 함수의 호출 취소
 === "set"
     ``` javascript
     window.setTimeout(호출할함수, 지연시간);
@@ -228,60 +232,56 @@ navigator.cookieEnabled
     }
     ```
 === "clear"
-``` javascript
-var timeoutId;
+    ``` javascript
+    var timeoutId;
 
-function startTimeout() {
-    timeoutId = setTimeout(printCurrentDate,2000);
-}
-function startInterval() {
-    timeoutId = setInterval(printCurrentDate, 2000);
-}
-function cancelTimeout() {
-    clearTimeout(timeoutId);
-}
-function cancelInterval() {
-    clearInterval(timeoutId);
-}
-function printCurrentDate() {
-    document.getElementById("date").innerHTML += new Date() + "<br>";
-}
-```
+    function startTimeout() {
+        timeoutId = setTimeout(printCurrentDate,2000);
+    }
+    function startInterval() {
+        timeoutId = setInterval(printCurrentDate, 2000);
+    }
+    function cancelTimeout() {
+        clearTimeout(timeoutId);
+    }
+    function cancelInterval() {
+        clearInterval(timeoutId);
+    }
+    function printCurrentDate() {
+        document.getElementById("date").innerHTML += new Date() + "<br>";
+    }
+    ```
 
 ---
+## Example
 
-- location : 현재 웹 페이지에 대한 URL 정보를 보관하는 객체
-    - href
-    - reload()
-``` javascript
-function getLocation() {
-    if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition,showError);
+=== "Location"
+    ``` javascript
+    function getLocation() {
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+        }
+        else{x.innerHTML=" 이 브라우저는 geolocation을 지원하지 않습니다.";}
     }
-    else{x.innerHTML=" 이 브라우저는 geolocation을 지원하지 않습니다.";}
-}
-function showPosition(position) {
-    window.alert("위도: " + position.coords.latitude + "\n경도: " + position.coords.longitude);       
-}
-function showError(error) {
-    switch(error.code) {
-    case error.PERMISSION_DENIED:
-        x.innerHTML="사용자가 위치 기능 사용을 거부했습니다."
-        break;
-    case error.POSITION_UNAVAILABLE:
-        x.innerHTML="위치를 구할 수 없습니다.";
-        break;
-    case error.TIMEOUT:
-        x.innerHTML="사용자가 위치 기능 사용을 거부했습니다.";
-        break;
-    case error.UNKNOWN_ERROR:
-        x.innerHTML="기타 에러";
+    function showPosition(position) {
+        window.alert("위도: " + position.coords.latitude + "\n경도: " + position.coords.longitude);       
     }
-}
-```
-
----
-
+    function showError(error) {
+        switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML="사용자가 위치 기능 사용을 거부했습니다."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML="위치를 구할 수 없습니다.";
+            break;
+        case error.TIMEOUT:
+            x.innerHTML="사용자가 위치 기능 사용을 거부했습니다.";
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML="기타 에러";
+        }
+    }
+    ```
 === "Select"
     ``` javascript
     <form name="fm">
