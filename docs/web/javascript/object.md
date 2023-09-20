@@ -32,9 +32,15 @@ dog.fullId; // function(){return this.birthday + this.pid;}
 
 ## 객체의 생성
 : 아래 방법들로 생성되어 메모리에 대입된 객체를 인스턴스 Instance 라고 한다 
+<br> 객체 리터럴 방식, 생성자 함수 방식
 
-- 리터럴 표기
+- 리터럴 
+    - 하나의 객체만 생성 (싱글톤 객체)
+    - prototype 속성 사용 불가
 - 생성자 함수 Constructor function
+    - 동일한 속성 사양을 갖는 객체들을 여러개 생성 가능
+    - prototype 속성 사용 가능
+    - 정적 멤버 정의 가능
 - Object.create() 
     - 지정된 prototype 객체와 property를 가지고 새로운 객체 생성
     - Object.create( prototypeObject[, newObjectProperty1, newObjectProperty, ...] )
@@ -189,35 +195,9 @@ var myDog = new Dog("초코", "000330", "115"); // Dog.prototype
 
 ```
 
-### 객체에 Proeprty 및 Method 추가
+### 프로토타입에 Proeprty 및 Method 추가 :star:
+: Method는 인스턴스별 메모리 할당보다 독자적으로 메모리 할당됨으로써 공유되는 것이 효율적이므로 생성자 함수에 선언하기보다 prototype에 선언하는 것이 효율적이다
 
-- 새롭게 추가된 property와 method는 오직 해당 인스턴스에만 추가됨
-``` javascript
-function Dog(name, birthday, pid) = {
-    this.name = name;
-    this.birthday = birthday;
-    this.pid = pid;
-};
-var myDog = new Dog("초코", "000330", "115"); // Dog.prototype
-
-myDog.family = "푸들" // 품종에 관한 property 추가
-myDog.introduce = function(){return this.name+"는 "+this.family;} // 자기소개 메서드 추가
-```
-
-### 프로토타입에 Proeprty 및 Method 추가
-
-- 생성자 함수에 직접 추가
-``` javascript
-function Dog(name, birthday, pid) = {
-    this.name = name;
-    this.birthday = birthday;
-    this.pid = pid;
-    this.family = "푸들"; // prototype에 property를 추가하면서 기본값 지정
-    this.introduce = function(){return this.name+"는 "+this.family;}
-};
-var myDog = new Dog("초코", "000330", "115"); // Dog.prototype
-```
-- Prototype Property 이용
 ``` javascript
 function Dog(name, birthday, pid) = {
     this.name = name;

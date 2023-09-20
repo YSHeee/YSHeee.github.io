@@ -1,12 +1,6 @@
 # Note
 
 
-- NaN: Not a Number
-    - `NaN == NaN;` : false
-    - `NaN === NaN;` : false
-    - `Object.is(NaN, NaN)` : true
-    - `isNaN(NaN)` : true
-
 1. eval() : 문자열로 표현된 JS 코드를 실행하는 함수
     ```javascript
     var a=1, b=2;

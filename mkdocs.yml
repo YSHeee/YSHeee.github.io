@@ -131,7 +131,7 @@ nav:
       - Array: web/javascript/array.md
       - Function: web/javascript/function.md
       - Object: web/javascript/object.md
-      - Standard Object: web/javascript/standard_object.md
+      - Standard Object: web/javascript/standard-object.md
       - DOM: web/javascript/dom.md
       - BOM: web/javascript/bom.md
       - Note: web/javascript/note.md
