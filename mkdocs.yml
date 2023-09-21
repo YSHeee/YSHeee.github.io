@@ -234,6 +234,7 @@ nav:
         - DOM: language/javascript/dom.md
         - BOM: language/javascript/bom.md
         - Event: language/javascript/event.md
+        - RegExp: language/javascript/regexp.md
       - Note: language/javascript/note.md
   - DB: 
     - Basic: db/basic.md

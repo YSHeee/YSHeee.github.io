@@ -207,6 +207,7 @@ for (var i = 0, j = 9; i <= j; i++, j--) {
 - while
 - do-while
 - for
+- break/continue
 ``` javscript
 for(let i=0; i < ary.length; i++)
     document.write(ary[i]);
@@ -221,7 +222,7 @@ for(let i in ary) //Index
 for(let e of ary) //Element
     document.write(e);
 ```
-- break/continue
+
 
 
 ### label
@@ -236,6 +237,24 @@ label:
 arrIndex:
 for (var i in arr) {
     console.log(i);}
+```
+
+### 예외 처리 Exception
+- throw
+- try / catch
+- try / finally
+- try / catch/ finally
+
+``` javascript
+throw 표현식; // 예외 발생
+
+try {
+    예외를 처리하길 원하는 실행 코드;
+} catch (ex) {
+    예외가 발생할 경우에 실행될 코드;
+} finally {
+    try 블록이 종료되면 무조건 실행될 코드;
+}
 ```
 
 ---

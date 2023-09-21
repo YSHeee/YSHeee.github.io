@@ -9,7 +9,7 @@
 - Array : 배열 정의시 생성되는 객체
 - Math : : 다양한 수학 함수 기능을 제공하는 객체
 - Date : 날짜와 시간 정보 추출과 설정 관련 기능을 제공하는 객체
-- Error : 
+- Error : 런타임 오류가 발생할 때마다 Error 객체의 인스턴스가 생성되어 해당 오류의 정보 저장 `throw new Error();`
 - Function : 함수 정의시 사용되는 객체
 - RegExp: 정규표현식(패턴)을 이용하여 데이터를 처리하려는 경우 사용되는 객체
 
@@ -19,7 +19,7 @@
 - 전역 객체 : JS에 미리 정의된 객체로 전역 property나 전역 함수를 담는 공간의 역할
     - 전역 범위에서 this 연산자를 통해 접근
 - 래퍼 객체: primitive type의 property에 접근할 때 생성되는 임시 객체
-``` javascript
+``` javascript 
 /* 문자열 리터럴 str은 객체가 아니지만, 
 JS는 new String(str)을 호출한 것처럼 문자열 리터럴을 객체로 자동 변환한다
 이때 생성된 임시 객체는 String 객체의 메서드를 상속받아 property를 참조하는 데 사용되고
