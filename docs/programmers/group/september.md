@@ -339,3 +339,38 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
         over_one = [cnt for cnt in cnt_list if cnt > 1]
         return len(over_one)
     ```
+
+---
+### [23.09.20 Level0] 연속된 수의 합
+연속된 세 개의 정수를 더해 12가 되는 경우는 3, 4, 5입니다. 두 정수 num과 total이 주어집니다. 연속된 수 num개를 더한 값이 total이 될 때, 정수 배열을 오름차순으로 담아 return하도록 solution함수를 완성해보세요.
+
+``` python
+def solution(num, total):
+    quot = total // num 
+    result = [i for i in range(quot-num-1, quot+num+1)]
+    for i in range(len(result)-num):
+        if sum(result[i:i+num]) == total:
+            return result[i:i+num]
+```
+
+---
+### [23.09.21 Level1] 크레인 인형뽑기 게임
+
+=== "Python"
+    ``` python
+    def solution(board, moves):
+        count=0
+        basket=[-2, -1] # fake value
+        
+        for idx in moves:
+            for row in range(len(board)):
+                doll = board[row][idx-1]
+                if doll != 0:
+                    basket.append(doll)
+                    board[row][idx-1] = 0
+                    break
+            if basket[-2] == basket[-1]:
+                count += 2
+                del basket[-2:]
+        return count
+    ```

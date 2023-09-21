@@ -18,17 +18,35 @@
 ``` javascript
 <태그명 onxxx = "function()">;
 ```
-- 고전 이벤트 모델 : 대상 DOM 객체를 찾아 이벤트 핸들러 등록 (전역적)
+- 고전 이벤트 모델 : 대상 DOM 객체를 찾아 이벤트 핸들러 등록 (전역적)<br> 오직 한 개의 이벤트 리스너 등록 가능
 ``` javascript
 let dom  = document.querySelector("#target");
 dom.onxxx = function; // xxx : 이벤트 타입
 dom.onxxx = null; // 이벤트 해제
 ```
-- 표준 이벤트 모델 : 대상 DOM 객체에 다음 method 사용 (전역적) :star:
+- 표준 이벤트 모델 : 대상 DOM 객체에 다음 method 사용 (전역적) :star:<br> 여러개의 이벤트 리스너 등록 가능
 ``` javascript
 let dom  = document.querySelector("#target");
 dom.addEventListener = (eventName, handler_func, useCapture);
 dom.removeEventListener(eventName, handler_func); // 이벤트 해제
+```
+
+---
+## Event 객체
+: Event object. 특정 타입의 이벤트와 관련이 있는 객체로, 해당 타입의 이벤트에 대한 상세 정보를 저장하고 있다
+
+- event.type : 이벤트의 타입
+- event.target : 이벤트가 일어난 객체
+- e.target.nodeName
+- event.currentTarget : 이벤트가 행해지는 객체
+
+``` javascript hl_lines="3"
+function f1(e){
+    const outDom = document.getElementsByTagName("h2")[0];
+    outDom.style.color = e.target.value;	
+}
+const outDom = document.getElementById('btn');   
+outDom.addEventListener('click', f1);
 ```
 
 ---
@@ -75,34 +93,46 @@ function mouseoverBtn() {
 btn.removeEventListener("click", showText);
 ```
 
-### 이벤트 기본 동작의 취소
-- preventDefalult()
-- returnValue 
+### Default 이벤트 핸들러 취소
+: Default event handler에는 대표적으로 <a> 태그가 있다. 이때 default 이벤트 핸들러를 무시하려면,
 
-``` javascript
-// 각 요소마다 버블링 방식으로 click 이벤트 리스너를 등록
-document.getElementById("divBox").addEventListener("click", clickDiv);
-document.getElementById("paraBox").addEventListener("click", clickPara);
-document.getElementById("linkBox").addEventListener("click", clickLink);
+- 인라인 이벤트 모델 : `return false;`
+- 고전 이벤트 모델 : `return false;`
+- 표준 이벤트 모델 
+    - `preventDefalult()`
+    - `returnValue`
 
-function clickDiv(event) { document.getElementById("text").innerHTML += "div 요소를 click 하셨네요!<br>"; }
-function clickPara(event) { document.getElementById("text").innerHTML += "p 요소를 click 하셨네요!<br>"; }
-
-function clickLink(event) {
-    event.preventDefault(); // 링크의 기본 동작을 취소
-    document.getElementById("text").innerHTML += "링크의 기본 동작을 막았어요!<br>";
-    document.getElementById("text").innerHTML += "a 요소를 click 하셨네요!<br>";
+``` javascript hl_lines="4 13 14"
+<body>
+<h1>디폴트 이벤트 핸들러</h1>
+<hr>
+<a href="http://www.w3schools.com/" onclick="test1(); return false;">HTML5 학습하기(인라인)</a><hr>
+<a id="t1" href="http://www.w3schools.com/">HTML5 학습하기(고전)</a><hr>
+<a id="t2" href="http://www.w3schools.com/">HTML5 학습하기(표준)</a>
+<script>
+function test1() {
+	alert("인라인이벤트모델 버튼 클릭");	
 }
+function test2() {
+	alert("고전이벤트모델 버튼 클릭");	
+	return false;
+}
+function test3(e) {
+	e.preventDefault();
+	alert("표준이벤트모델 버튼 클릭");	
+}
+var link1 = document.querySelector("#t1");
+var link2 = document.getElementById("t2");
+link1.onclick = test2;  // 고전
+link2.addEventListener("click", test3);
+</script>
+</body>
 ```
 
 ---
 ### 이벤트 리스너 호출
 : 이벤트 리스너가 등록되고 해당 객체에 지정된 타입의 이벤트가 발생하면, 브라우저는 자동으로 이벤트 리스너를 호출한다
 <br>호출된 이벤트 리스너는 인수로 이벤트 객체를 전달받으며, 식별자를 통해 전달받은 이벤트 객체를 참조한다
-
-이벤트 객체 Event object
-: 특정 타입의 이벤트와 관련이 있는 객체로, 해당 타입의 이벤트에 대한 상세 정보를 저장하고 있음
-<br> 이벤트의 타입을 나타내는 `type`, 이벤트의 대상을 나타내는 `target`프로퍼티를 가진다
 
 ``` javascript
 <script>    
@@ -195,3 +225,9 @@ event.stopPropagation(); // 이벤트의 전파를 취소
 document.getElementById("text").innerHTML += "이벤트의 전파를 막았어요!<br>";
 }
 ```
+
+
+
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

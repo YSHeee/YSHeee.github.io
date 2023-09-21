@@ -1,5 +1,7 @@
 # Note
 
+- JSON.stringify(obj) : 자바스크립트 객체를 JSON 문자열로
+- JSON.parse(jsonStr) : JSON 문자열을 자바스크립트 객체로
 
 1. eval() : 문자열로 표현된 JS 코드를 실행하는 함수
     ```javascript
