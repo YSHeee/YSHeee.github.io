@@ -440,4 +440,4 @@
 !!! quote
     - HTML/CSS 입문 예제 중심 (지은이: 황재호 | 출판사: 인포앤북(주))
     - openAI
-    - 김정현 (unicodaum@hanmail.net)
+    - 김정현 강사님

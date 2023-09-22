@@ -106,3 +106,7 @@ JS 코드는 HTML 내의 어느 부분에 삽입해도 가능하나 주로 `<hea
 </body>
 </html>
 ```
+
+---
+!!! quote
+    - [TCP School](https://www.tcpschool.com/javascript/intro)

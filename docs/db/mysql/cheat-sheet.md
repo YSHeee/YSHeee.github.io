@@ -44,4 +44,4 @@
 
 ---
 !!! quote
-    - 김정현 (unicodaum@hanmail.net)
+    - 김정현 강사님

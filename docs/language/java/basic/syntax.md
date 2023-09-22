@@ -1,5 +1,9 @@
 # Basic Syntax
 
+- Java Standard Edition : 단독으로 사용되는 Java 프로그램, 클라이언트
+- Java Enterprise Edition : 서버에서 사용하는 Java 프로그램
+- Java Micro Edition : 임베디드 및 모바일 장치에서 실행되는 프로그램
+
 ### 자바 프로그램
 - 한 개 이상의 클래스(class)로 구성
 - 클래스는 한 개 이상의 필드(Field)나 메소드(Method)로 구성

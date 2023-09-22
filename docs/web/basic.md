@@ -26,17 +26,9 @@ graph TB
     end
 ```
 
----
-### [MDN](https://developer.mozilla.org/ko/docs/Web)
-### [W3School](https://www.w3schools.com/)
-### [ECMA-262](https://262.ecma-international.org/14.0/#sec-islooselyequal)
-### [HTML5-Test](https://html5test.com/)
-### [Can I use](https://caniuse.com/)
-### [W3C](https://www.w3.org/)
-### [trio.co.kr](http://trio.co.kr/)
 
 
 ---
 !!! quote
     - HTML/CSS 입문 예제 중심 (지은이: 황재호 | 출판사: 인포앤북(주))
-    - 김정현 (unicodaum@hanmail.net)
+    - 김정현 강사님

@@ -25,4 +25,4 @@
     - [점프 투 자바](https://wikidocs.net/book/31)
     - [TCP school](http://www.tcpschool.com/java/intro)
     - 이것이 자바다 (저자: 신용권, 임경균 | 출판사: 한빛미디어)
-    - MSA 3기
+    - 김정현 강사님
