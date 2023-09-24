@@ -94,7 +94,7 @@ btn.removeEventListener("click", showText);
 ```
 
 ### Default 이벤트 핸들러 취소
-: Default event handler에는 대표적으로 <a> 태그가 있다. 이때 default 이벤트 핸들러를 무시하려면,
+: Default event handler에는 대표적으로 `<a>` 태그가 있다. 이때 default 이벤트 핸들러를 무시하려면,
 
 - 인라인 이벤트 모델 : `return false;`
 - 고전 이벤트 모델 : `return false;`

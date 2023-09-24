@@ -131,3 +131,5 @@ def solution(n):
         result =  Counter(participant) - Counter(completion)
         return list(result)[0]
     ```
+
+---

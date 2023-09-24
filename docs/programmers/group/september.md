@@ -344,14 +344,15 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
 ### [23.09.20 Level0] 연속된 수의 합
 연속된 세 개의 정수를 더해 12가 되는 경우는 3, 4, 5입니다. 두 정수 num과 total이 주어집니다. 연속된 수 num개를 더한 값이 total이 될 때, 정수 배열을 오름차순으로 담아 return하도록 solution함수를 완성해보세요.
 
-``` python
-def solution(num, total):
-    quot = total // num 
-    result = [i for i in range(quot-num-1, quot+num+1)]
-    for i in range(len(result)-num):
-        if sum(result[i:i+num]) == total:
-            return result[i:i+num]
-```
+=== "Python"
+    ``` python
+    def solution(num, total):
+        quot = total // num 
+        result = [i for i in range(quot-num-1, quot+num+1)]
+        for i in range(len(result)-num):
+            if sum(result[i:i+num]) == total:
+                return result[i:i+num]
+    ```
 
 ---
 ### [23.09.21 Level1] 크레인 인형뽑기 게임
@@ -373,4 +374,90 @@ def solution(num, total):
                 count += 2
                 del basket[-2:]
         return count
+    ```
+
+---
+### [23.09.22 Level1] 핸드폰 번호 가리기
+프로그래머스 모바일은 개인정보 보호를 위해 고지서를 보낼 때 고객들의 전화번호의 일부를 가립니다.
+전화번호가 문자열 phone_number로 주어졌을 때, 전화번호의 뒷 4자리를 제외한 나머지 숫자를 전부 *으로 가린 문자열을 리턴하는 함수, solution을 완성해주세요.
+
+=== "Java"
+    ``` java
+    class Solution {
+        public String solution(String phone_number) {
+            String change_str = phone_number.substring(0, phone_number.length()-4);
+            change_str = change_str.replaceAll("[0-9+]", "*");
+            String answer = change_str + phone_number.substring(phone_number.length()-4);
+            return answer;
+        }
+    }
+    ```
+=== "Java Others"
+    ``` java
+    class Solution {
+        public String solution(String phone_number) {
+            return phone_number.replaceAll(".(?=.{4})", "*");
+        }
+    }
+    ```
+=== "Python"
+    ``` python
+    def solution(phone_number):
+        change_str = phone_number[:-4]
+        phone_number = phone_number.replace(change_str, "*"*len(change_str))
+        return phone_number
+    ```
+=== "Python Others"
+    ``` python
+    def solution(phone_number):
+        return "*"*(len(phone_number)-4) + phone_number[-4:]
+    ```
+
+
+
+
+---
+### [9월 3주차 Level1] 숫자 문자열과 영단어
+네오와 프로도가 숫자놀이를 하고 있습니다. 네오가 프로도에게 숫자를 건넬 때 일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.
+숫자의 일부 자릿수가 영단어로 바뀌어졌거나, 혹은 바뀌지 않고 그대로인 문자열 s가 매개변수로 주어집니다. s가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해주세요.
+
+=== "Java"
+    ``` java
+    import java.util.*;
+    class Solution {
+        public int solution(String s) {
+            String result = s;
+            Map<String, String> table = Map.of(
+                "zero", "0",
+                "one", "1",
+                "two", "2",
+                "three", "3",
+                "four", "4",
+                "five", "5",
+                "six", "6",
+                "seven", "7",
+                "eight", "8",
+                "nine", "9"     
+            );
+            
+            for (String word: table.keySet()){
+                result = result.replace(word, table.get(word));
+            }
+            return Integer.parseInt(result);
+        }
+    }
+    ```
+=== "Python"
+    ``` python 
+    import re
+    def solution(s):   
+        
+        fa = re.findall("zero|one|two|three|four|five|six|seven|eight|nine|[0-9]", s)
+        table = {"zero":"0", "one":"1", "two":"2", "three":"3", "four":"4", "five":"5", "six":"6", "seven":"7", "eight":"8", "nine":"9"}
+        
+        for idx, word in enumerate(fa):
+            if word in table:
+                fa[idx] = table[word]
+                
+        return int(''.join(fa))
     ```
