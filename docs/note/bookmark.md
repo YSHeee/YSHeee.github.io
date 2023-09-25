@@ -25,6 +25,7 @@
 - Diagram Language
     - [Compare](https://text-to-diagram.com/) - Compare language for text to dia.
     - [D2](https://d2lang.com/tour/intro) / [D2-Icons](https://icons.terrastruct.com/)
+    - [wikidocs-linux](https://wikidocs.net/211933)
 
 - [Mojo](https://www.modular.com/mojo) - a new programming language for all Al developers
 

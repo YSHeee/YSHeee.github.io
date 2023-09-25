@@ -40,7 +40,7 @@ graph TB
 	``` java 
 	@WebServlet({ "/FirstServlet", "/first" })
 	public class FirstServlet extends HttpServlet {
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L; // HttpServlet이 serializable을 추가상속하므로 해당 코드 제시
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//		response.getWriter().append("Served at: ").append(request.getContextPath());
 			System.out.println("FirstServlet 실행 .....");
@@ -111,7 +111,7 @@ setContentType(String mimeType), setContentLength(int length)
 
 ### Servlet Request
 - GET
-	- 하이퍼링크 텍스트(<A>태그)를 클릭하여 요청
+	- 하이퍼링크 텍스트(`<A>`태그)를 클릭하여 요청
 	- URL 을 주소필드에 입력하여 직접 요청
 	- `<IMG>`태그로 요청
 	- `<IFRAME>` 태그로 요청
@@ -150,6 +150,89 @@ setContentType(String mimeType), setContentLength(int length)
 
 - HTTP referer : 
 
+
+---
+9.25
+
+### 요청 재지정 
+: 클라이언트에서 요청한 페이지 대신 다른 페이지를 클라이언트가 보게 되는 기능
+
+- forward : RequestDispatcher의 `forward()`. contextPath 공유
+``` java
+// 여기서는, contextPath인 /edu 생략 (공유하기 때문)
+RequestDispatcher rd = request.getRequestDispatcher("/clientexam/output.html");
+rd.forward(request,  response);
+```
+- redirect : HttpServletResponse의 `sendRedirect()` 
+``` java
+response.sendRedirect("/edu/clientexam/output.html"); // 
+```
+
+![Dispatcher](./images/dispatcher.PNG)
+
+
+#### RequestDispatcher
+
+- forward() : 요청 페이지 대신 다른 페이지가 대신 응답
+- include() : 요청 페이지 안에 다른 페이지의 처리 내용이 포함되어 같이 응답
+
+---
+
+### 상태정보 유지 기술
+: 웹 브라우저에서 웹 서버에 정보를 요청할 때, 이전 접속시의 결과물(상태정보)을 일정시간 동안 유지하는 것
+<br> 클라이언트(브라우저)에 저장하거나, 웹 서버에 저장하거나 
+
+- Cookie를 이용하는 방법 : 클라이언트 보관
+- HttpSession 객체 이용 : 서버 보관
+- URL 문자열 뒤에 추가
+- `<form>` 태그의 hidden 타입 사용
+
+#### HttpSession 객체를 이용한 상태정보 유지
+
+- 객체로 만들어서 서버에 보관
+- 상태 정보가 유지되는 최대 시간은 요청을 보내온 브라우저가 기동되어 있는 동안임
+- 구현 방법
+	- HttpSession 객체를 생성하거나 추출
+	- HttpSession 객체에 상태정보를 보관할 객체 등록 (한 번이면 됨)
+	- HttpSession 객체에 등록되어 있는 상태정보 객체의 참조값을 얻어 사용 (읽기, 변경)
+	- HttpSession 객체에 등록되어 있는 객체가 더이상 필요 없으면 삭제
+``` java
+// 객체 생성
+//request.getSession(false) : HttpSession 객체를 추출하여 리턴하는데, 없으면 null 반환
+HttpSession session = request.getSession(); // request.getSession(true);와 동일
+
+// 정보를 객체로 만들어 HttpSession객체에 저장
+session.setAttribute(“xxx”, new Data()); // xxx라는 이름으로 객체 참조값 보관
+
+Data ref = (Data)session.getAttribute(“xxx”); // xxx라는 이름으로 보관된 객체 참조값 삭제
+ 
+session.removeAttribute(“xxx”); // 객체 강제 삭제
+```
+
+!!! note
+	서버상에 생성되는 HttpSession 객체는 웹 클라이언트별로 하나씩 생성된다.
+	<br> HttpSession 객체 당 세션ID가 하나 부여되며, 해당 ID는 클라이언트의 브라우저에 쿠키 기술로 저장된다. (브라우저가 기동되어 있는 동안 쿠키 유지)
+	<br> 브라우저가 재기동 되어 세션ID가 분실되거나 클라이언트로부터 일정시간 동안 요청이 없는 경우 (Inactive Interval Time) HttpSession 객체는 사용불가 상태가 된다
+
+#### HttpSession 주요 메서드
+
+- `public Enumeration getAttributeNames()` : 세션에 등록된 객체들의 이름을 열거
+- `public long getCreationTime()` : 1970. 1.1 GMT 부터 세션이 만들어졌을 때까지의 시간을 밀리초의 단위로 리턴
+- `public String getId()` : 세션에 지정된 세션 ID를 리턴
+- `public long getLastAccessedTime()` : 클라이언트 요청이 마지막으로 시도된 시간을 밀리초로 리턴
+- `public int getMaxInactiveInterval()` : 클라이언트의 요구가 없을 때 서버가 현재의 세션을 언제까지 유지할지를 초시간 단위로 리턴 (default 세션 마감 시간: 30m)
+- `public boolean isNew()` : 서버측에서 새로운 세션을 생성한 경우에는 true를 리턴하고 기존의 세션이 유지되고 있는 경우라면 false를 리턴
+- `public void setMaxInactiveInterval(int seconds)` : 세션 유지 시간 설정. 이 시간이 지나면 세션은 자동 종료(HttpSession객체 삭제)된다. 
+
+``` java
+HttpSession session = request.getSession();	
+long time = session.getCreationTime(); //
+session.isNew(); // 이번에 새로 만들어진 session이면 true, 아니면 false 리턴
+String id = session.getId(); //id 추출
+session.invalidate(); //삭제
+```
+
+
 ---
 #### MIME 타입 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
 : 전달된 메시지(content)의 타입
@@ -165,6 +248,15 @@ setContentType(String mimeType), setContentLength(int length)
 
 - `.../xxx.cgi`
 - `.../cgi-bin/xxx`
+
+#### Error handle
+query를 입력하지 않고 api를 호출했을 때, getParameter 값에는 null이 들어간다
+이때 equals 메서드가 있다면, NullException 에러가 발생함
+
+``` java
+String command = request.getParameter("comm"); // null
+if(command.equals("view")) //Cannot invoke "String.equals(Object)" because "command" is null
+```
 
 ---
 !!! quote
