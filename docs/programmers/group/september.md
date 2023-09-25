@@ -461,3 +461,26 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
                 
         return int(''.join(fa))
     ```
+
+---
+### [23.09.25 Level0] 다음에 올 숫자
+등차수열 혹은 등비수열 common이 매개변수로 주어질 때, 마지막 원소 다음으로 올 숫자를 return 하도록 solution 함수를 완성해보세요.
+
+=== "Java"
+    ``` java
+    class Solution {
+        public int solution(int[] common) {
+            int d1 = common[1] - common[0];
+            int d2 = common[2] - common[1];
+            int leng = common.length;
+            return d1==d2 ? common[leng-1]+d1 : common[leng-1]*(d2/d1);
+        }
+    }
+    ```
+=== "Python"
+    ``` python
+    def solution(common):
+        d1 = common[1] - common[0]
+        d2 = common[2] - common[1]
+        return common[-1] + d1 if d1 == d2 else common[-1] * (d2/d1)
+    ```

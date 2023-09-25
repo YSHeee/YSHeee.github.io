@@ -167,6 +167,52 @@
 
 ---
 ## 반응형 웹
+: 하나의 웹 페이지로 데스크톱, 태블릿, 스마트폰 등 다양한 기기의 화면에서 콘텐츠가 제대로 보이게 하는 기술
+<br> 스마트 폰 전용 모바일 사이트를 별도로 제작할 필요 없이, 하나의 웹사이트로 다양한 기기의 화면에 제대로 된 페이지 표시 가능
+
+- 뷰포트(Viewport) : 브라우저 화면 크기 (메뉴바, 탭 영역 제외)
+- Ethan Marcotte가 처음 도입
+- `<meta>` 태그를 이용하여 모바일 기기의 뷰포트 설정
+
+``` html
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- `width=device-width` : 웹페이지의 너비를 모바일 기기의 뷰포트로 설정 -->
+```
+
+### 뷰포트의 속성
+
+|    속성   |     설명    |
+| :-------: | :---------: |
+|   width   | 픽셀 단위로 뷰포트의 너비 설정 (default: device-width) |
+|   height  | 픽셀 단위로 뷰포트의 높이 설정 (default: device-height)|
+| initial-scale | 초기 배율 (1.0: 기본값, 0.5: 두배 축소, 2.0: 두배 확대) |
+| user-scalable | yes: 사용자가 화면 확대/축소 가능, no: 불가 <br>(default: no) |
+| minimum-scale | 사용자가 축소할 수 있는 최소값 (default: 0.25) |
+| maximum-scale | 사용자가 확대할 수 있는 최대값 (default: 0.5) |
+
+---
+## 그리드 뷰
+: 웹페이지를 제작할 때 Column을 기반으로 하는 것
+
+### 가변그리드 (Fluid Grid) 
+: 열의 너비가 웹페이지를 접속하는 다양한 기기의 해상도에 맞추어 가변적으로 변화
+
+- px 단위 대신 **%** 사용
+- `calc()` : px과 % 함께 사용
+
+``` css
+...
+header {
+    width: 25%; /* 뷰포트 전체 너비(100%)의 25% 차지 */
+    float: left;
+}
+#a {width: 300px;} /* a는 300px로 고정 */
+#b {
+    width: calc(100% - 300px); /* 뷰포트 전체 너비(100%)에서 300px을 뺀 결과 값 */
+    height: 150px;
+}
+```
+
+
 
 ---
 !!! quote
