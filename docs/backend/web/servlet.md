@@ -199,6 +199,7 @@ response.sendRedirect("/edu/clientexam/output.html"); //
 ### 상태정보 유지 기술
 : 웹 브라우저에서 웹 서버에 정보를 요청할 때, 이전 접속시의 결과물(상태정보)을 일정시간 동안 유지하는 것
 <br> 클라이언트(브라우저)에 저장하거나, 웹 서버에 저장하거나 
+<br> 객체 유지는 하되(멤버 변수 장점) 개별적으로 운영(지역 변수 장점)하고 싶을 때 사용 
 
 - Cookie를 이용하는 방법 : 클라이언트 보관
 - HttpSession 객체 이용 : 서버 보관
@@ -233,6 +234,45 @@ session.removeAttribute(“xxx”); // 객체 강제 삭제
 	<br> HttpSession 객체 당 세션ID가 하나 부여되며, 해당 ID는 클라이언트의 브라우저에 쿠키 기술로 저장된다. (브라우저가 기동되어 있는 동안 쿠키 유지)
 	<br> 브라우저가 재기동 되어 세션ID가 분실되거나 클라이언트로부터 일정시간 동안 요청이 없는 경우 (Inactive Interval Time) HttpSession 객체는 사용불가 상태가 된다
 
+---
+### FileUpload 구현
+
+1. 웹사용자가 전송하려는 파일을 선택할 수 있게 `<form>` 안에 `<input type="file">` 구현
+2. 요청 방식은 POST, `enctype="form-data"` 설정을 통해 전송하려는 파일의 내용이 인코딩되지 않은 상태로 전송되도록 구현
+	- `enctype="form-data"`은 입력폼에 사용자가 입력한 내용이 name=value&name=value형식으로 인코딩되어 전달되는 것이 아니고, 여러 파티션(multipart)로 나뉘어서 서버에 전송됨
+	- `<form>` 태그를 구성하는 각각의 `<input>` 태그별로, 업로드되는 파일별로, 하나의 파트를 이루며 각각의 파티션은 `"------boundaryID"`로 구분된다
+	- 이렇게 구성하는 Content-Type을 **multipart/form-data**라 함
+
+``` java title="Example"
+@WebServlet("/part")
+// 저장할 경로(없으면 생성), 파일의 최대 사이즈, 한 request 당파일 최대 사이즈 * 개수
+@MultipartConfig (location = "c:/uploadtest", maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5) 
+public class PartTestServlet extends HttpServlet {   
+	private static final long serialVersionUID = 1L;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	  throws ServletException, IOException {    	
+        
+		Collection<Part> parts = request.getParts(); // 여러 파일 수용 가능
+
+        for(Part part : parts) {        	
+            System.out.println(part.getName());  // html 요소 name   
+			if (part.getContentType() != null) // null이라면, upload 파일이 아닌 사용자가 입력한 데이터임을 의미
+				String fileName = part.getSubmittedFileName(); //upload 파일의 이름 추출
+				part.write("file-path"); // file 생성       
+
+			//헤더 정보
+            for(String headerName : part.getHeaderNames()) {
+                System.out.print(headerName + " : "); // content-disposition, content-type
+                System.out.println(part.getHeader(headerName)); // form-data; name=""; filename=""
+            }													// image/jpeg			
+            
+			System.out.println(part.getSize()); // binary size ?
+        }        
+    }
+}
+```
+
+---
 #### HttpSession 주요 메서드
 
 |               Method             |         설명        |
@@ -252,6 +292,19 @@ session.isNew(); // 이번에 새로 만들어진 session이면 true, 아니면 
 String id = session.getId(); //id 추출
 session.invalidate(); //삭제
 ```
+
+---
+#### Servlet method
+
+getServletContext() : 현재 실행중인 servlet의 ServletContext
+
+|     Method     |      설명       |
+| :------------: | :-------------: |
+| getServletContext().getServerInfo() |servlet container의 이름 및 버전 반환 <br> (ex. Apache Tomact/9.0.80)  |
+| getServletContext().getContextPath() |일반적으로 Project name |
+| getServletContext().getRealPath("/") |지정된 virtual path에 해당하는 경로 |
+| getServletContext().getMajorVersion() |servlet의 major 버전 |
+| getServletContext().getMinorVersion() |servlet의 minor 버전 |  
 
 
 ---

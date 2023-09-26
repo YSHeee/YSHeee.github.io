@@ -224,6 +224,7 @@
 | 날짜 선택 | `<input type="date">` <br> `<input type="datetime-local">` <br>`<input type="month">` <br> `<input type="week">` <br> `<input type="time">` | 달력에서 날짜 선택하거나 스핀 박스에서 시간 선택 
 | 색상 선택 | `<input type="color">` | 색상 선택 상자 표시
 | 전화번호 입력 | `<input type="tel">` | 정규표현식으로 패턴 설정 가능<br>(pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}")
+| 서버로 전달할 name=value 쌍 데이터 정의 | `input type="hidden"` |
 
  
 ### 텍스트 입력
