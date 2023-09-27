@@ -107,7 +107,7 @@ str.innerHTML = "이 문장으로 바뀌었습니다!";
 - Document node : HTML 문서 전체를 나타내는 노드
 - Element node : 모든 HTML 요소, 속성 노드를 가질 수 있는 유일한 노드
 - Attribute node : 모든 HTML 요소의 속성, 해당 Element 노드의 자식노드에는 포함되지 않음
-- Text node : HTML 문서의 모든 텍스트
+- Text node : HTML 문서의 모든 텍스트 (enter:`\n`도 Test dom 객체 생성)
 - Comment node : HTML 문서의 모든 주석
 
 
