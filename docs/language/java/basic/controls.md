@@ -1,0 +1,120 @@
+# Control flow statements 제어문
+
+## Conditionals 조건문
+
+### if문
+``` java
+// if
+if (조건식){
+    실행문;
+    실행문;
+}
+
+// if : 실행문이 하나라면, {} 생략 가능
+if (조건식)
+    실행문;
+
+// else if : 조건문이 여러개일 때 사용
+if (조건식){
+    실행문;  
+} else if (조건식2){
+    실행문;
+} else if (조건식3){
+    실행문;
+} else {
+    실행문;
+}
+```
+
+### switch문
+- 만약 case에 break가 없다면, 값과는 상관없이 다음 case가 연달아 실행된다
+``` java
+int score = 0;
+switch(변수){
+    case 값1:
+        변수값이 1일 경우 실행문;
+        score = 100;
+        break;
+    case 값2:
+        변수값이 2일 경우 실행문;
+        score = 200;
+        break;
+    case 값3:
+        변수값이 3일 경우 실행문;
+        int result = 100;
+        score = result;
+        break;
+    default:
+        변수가 위 값이 모두 아닐 경우 실행문;
+        score = 0;
+}
+```
+- Java 12 이후부터 사용가능한 Expressions
+``` java
+int score = switch(변수){
+    case 'A', 'a' -> 100;
+    case 'B', 'b' -> 200;
+    case 'C', 'c' -> {
+        int result = 100;
+        System.out.println("result입니다");
+        yield result; // Java 13부터 가능
+    }
+    default -> 0;
+}
+```
+
+---
+
+## Loop 반복문
+
+### for
+``` java title="100번 반복"
+for (int i=0; i<100; i++){
+    System.out.print(i);
+}
+```
+
+### while
+``` java title="100번 반복"
+int i = 0;
+while (i<100){
+   System.out.print(i);
+   i++;
+}
+```
+
+### do-while
+: 실행문을 처음에 우선 실행한 후, 그 다음부터 조건식 검사
+
+``` java
+do {
+    실행문;
+} while (조건식);
+```
+
+---
+
+### break
+: 반복문을 실행 중지하거나 조건문인 switch문을 종료할 때 사용
+
+``` java title="Label Example"
+label: for(int i=0; i<100; i++){
+    for(int j=0; j<5; j++){
+        if (j==5){
+            break label; // 라벨을 통해 바깥쪽 중첩문까지 빠져나옴
+        }
+    }
+}
+```
+
+### continue
+: 그 이후의 문장을 실행하지 않고 다음 반복문으로 넘어감
+
+
+---
+## Exception 예외처리
+
+
+---
+!!! quote
+    - 이것이 자바다 (저자: 신용권, 임경균 | 출판사: 한빛미디어)

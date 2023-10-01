@@ -202,18 +202,15 @@ nav:
         - JVM : language/java/basic/jvm.md
         - Syntax : language/java/basic/syntax.md
         - Variable : language/java/basic/variable.md
-        - Data Types : language/java/basic/data-types.md
+        - Primitive Types : language/java/basic/primitive-type.md
+        - Reference Types : language/java/basic/reference-type.md
         - Operator : language/java/basic/operator.md
-        - Conditionals : language/java/basic/conditionals.md
-        - Loop : language/java/basic/loop.md
-        - Array : language/java/basic/array.md
-        - Method : language/java/basic/method.md
-        - Modifier : language/java/basic/modifier.md
-        - Class : language/java/basic/class.md
-        - Inheritance : language/java/basic/inheritance.md
-        - Polymorphism : language/java/basic/polymorphism.md
-        - Exception : language/java/basic/exception.md
-        - JAVA API : language/java/basic/java-api.md
+        - Controls : language/java/basic/controls.md
+        - OOP :
+          - Class : language/java/basic/class.md
+          - Inheritance : language/java/basic/inheritance.md
+          - Interface : language/java/basic/interface.md
+        - Java API : language/java/basic/java-api.md
       - Advanced:
         - Generic : language/java/advanced/generic.md
         - Collection : language/java/advanced/collection.md
