@@ -484,3 +484,39 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
         d2 = common[2] - common[1]
         return common[-1] + d1 if d1 == d2 else common[-1] * (d2/d1)
     ```
+
+---
+### [23.09.26 Level0] 
+
+
+
+
+
+---
+### [23.09.27 Level0] 
+
+
+
+---
+### [9월 4주차 Level1] 개인정보 수집 유효기간
+A라는 약관의 유효기간이 12 달이고, 2021년 1월 5일에 수집된 개인정보가 A약관으로 수집되었다면 해당 개인정보는 2022년 1월 4일까지 보관 가능하며 2022년 1월 5일부터 파기해야 할 개인정보입니다.
+당신은 오늘 날짜로 파기해야 할 개인정보 번호들을 구하려 합니다.
+
+모든 달은 28일까지 있다고 가정합니다.
+
+=== "Python"
+    ``` python
+    def solution(today, terms, privacies):
+        table = {term.split()[0] : int(term.split()[1])*28 for term in terms}
+        today_y, today_m, today_d = map(int, today.split("."))
+        result = []
+        
+        for idx, privacy in enumerate(privacies):
+            date_term = privacy.split()
+            y, m, d = map(int, date_term[0].split("."))
+            diffrence = ((today_y - y) * 12 * 28) + ((today_m - m) * 28) + (today_d - d)
+            if diffrence >= table[date_term[1]]:
+                result.append(idx+1)
+                
+        return result
+    ```
