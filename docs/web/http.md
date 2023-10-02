@@ -23,6 +23,14 @@
 3. 서버가 클라이언트에게 HTTL Response 전송 <br> 이때의 response 정보는 Response Header에, 데이터는 Response Body에 포함
 
 
+## SOP (Same Origin Policy)
+: 브라우저에서 보안상의 이슈로 **동일 사이트의 자원(resource)만 접근**해야 한다는 제약
+
+## CORS (Cross Origin Resource Sharing)
+: Origin이 아닌 다른 사이트의 자원을 접근하여 사용한다는 의미 
+
+- AJAX : `response.addHeader("Access-Control-Allow-Origin", "*");`
+
 
 ---
 !!! quote

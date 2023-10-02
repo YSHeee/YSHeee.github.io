@@ -119,12 +119,14 @@ nav:
   - Home: index.md
   - Web:
     - Basic : web/basic.md
+    - HTTP : web/http.md
     - HTTP Status Code: web/status-code.md 
     - HTML & CSS:
       - HTML: web/design/html.md
       - CSS: web/design/css.md
       - Layout: web/design/layout.md
       - CSS-SS: web/design/style-sheet.md
+    - AJAX: web/ajax.md
   - Linux: 
     - Directory Structure: linux/directory-structure.md
     - Command: linux/command.md
@@ -169,6 +171,7 @@ nav:
       - FastAPI : backend/fastapi.md
       - Servlet : backend/web/servlet.md
       - JSP : backend/web/jsp.md
+      - Spring : backend/web/spring.md
   - Language:
     - Python:
       - Python : language/python/python.md

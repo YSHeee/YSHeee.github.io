@@ -18,8 +18,10 @@
 5. XMLHttpRequest 객체에 의해 등록된 콜백함수를 호출하여 응답 결과를 현재 웹 페이지에 반영한다.
 
 
-## XMLHttpRequest 객체 생성
+## XMLHttpRequest 객체
+: 서버측과의 비동기 통신 제어
 
+- new XMLHttpRequest()
 === "Example"
     ``` html
     <script>
@@ -90,6 +92,67 @@
         }								
         </script>
     ```
+=== "Example-Image"
+    ``` html
+        <script>
+        let imgname = 1;
+        function getImage() {
+            imgname = imgname == 10 ? 1 : imgname+1; 
+            const xhr = new XMLHttpRequest();	
+            xhr.responseType = 'blob'; <!-- blob : binary file -->
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    const blob = e.target.response
+                    const img = document.createElement('img');
+                    img.width=100;
+                    img.height=100;
+                    img.src = URL.createObjectURL(blob); <!-- 가상 url 생성 -->
+                    document.body.appendChild(img);    
+                }
+            };
+            xhr.open('GET', `/edu/images/${imgname}.jpg`, true);
+            xhr.send();
+        }							
+        </script>
+    ```
+
+|  분류  |  멤버  |  개요  |
+| property | `onreadystatechange`| 통신 상태가 변화된 타이밍에 호출되는 이벤트 핸들러 |
+| | `readyState` | HTTP 통신 상태 취득 |
+| | `status` | HTTP Status 코드 취득 |
+| | `responseType` | 응답받으려는 컨텐트 타입 <br> "arraybuffer", "blob", "
+document", "json"/"text" |
+| | `responseText` | 응답 본체를 plaintext로 취득 |
+| | `responseXML` | 응답 본체를 XML(XMLDocument)로 취득 |
+| | `response` | 지정된 응답 타입에 따른 응답 객체 <br> binary 형식(이미지 등)|
+| | `upload` | XMLHttpRequestUpload 객체 제공 |
+| method | `abort()` | 현재의 비동기 통신 중단 |
+| | `getAllResponseHeaders()` | 수신한 모든 HTTP 응답 헤더 취득 |
+| | `getResponseHeader(header)` | 지정한 HTTP 응답 헤더 취득 |
+| | `open( ... )` | HTTP 요청 초기화 |
+| | `setRequestHeader(header, value)` | 요청 시에 송신하는 헤더 추가 |
+| | `send([body])` | HTTP 요청 송신(인수 body는요청본체) |
+| 이벤트 관련 속성 | | |
+| | `onloadstart` | |
+| | `onprogress` | |
+| | `onabort` | |
+| | `onerror` | |
+| | `onload` | |
+| | `ontimeout` | |
+| | `onloadend` | |
+| | `onreadystatechange` | |
+
+- readyState
+    - 0 : 미초기화 (open 메서드가 호출되지 않음)
+    - 1 : 로드중 (open 메서드는 호출됐지만, send 메서드는 호출되지 않음)
+    - 2 : 로드 완료 (send 메서드는 호출됐지만, response status/header는 미취득)
+    - 3 : 일부 응답 취득 (응답 스테이터스/헤더만 취득, 본체는 미취득)
+    - 4 : 모든 응답데이터 취득 완료
+- open(HTTP Method, url, [비동기 모드 통신 여부])
+    - url : AJAX로 요청하려는 서버의 대상 페이지
+    - 비동기 모드 통신 여부 : true(비동기), false(동기)
+- send([요청 파라미터])
+    - ArrayBufferView, Blob, Document, DOMString, FormData, null, Query 문자열 등
 
 ## fetch() 함수 이용
 : ECMA6~
@@ -98,3 +161,9 @@
 
 ---
 ## XML vs JSON
+
+
+
+---
+!!! quote
+    - 김정현 강사님
