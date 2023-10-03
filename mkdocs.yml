@@ -125,6 +125,7 @@ nav:
       - HTML: web/design/html.md
       - CSS: web/design/css.md
       - Layout: web/design/layout.md
+      - HTML API : web/design/html-api.md
       - CSS-SS: web/design/style-sheet.md
     - AJAX: web/ajax.md
   - Linux: 
@@ -171,6 +172,7 @@ nav:
       - FastAPI : backend/fastapi.md
       - Servlet : backend/web/servlet.md
       - JSP : backend/web/jsp.md
+      - MVC : backend/web/mvc.md
       - Spring : backend/web/spring.md
   - Language:
     - Python:
@@ -255,6 +257,7 @@ nav:
     - MKdocs: note/mkdocs/mkdocs.md
     - VMware: note/vmware/VMware.md
     - PM2: note/pm2.md
+    - MAC: note/mac.md
   - Programmers: 
     - Python:
       - Level 0: programmers/python/level0.md

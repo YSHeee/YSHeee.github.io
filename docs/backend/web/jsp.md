@@ -98,7 +98,7 @@
 <br> Servlet 컨테이너에 의해 객체 생성되어 실행되므로 실행 흐름과 특성은 Servlet 과 동일
 <br> JSP 가 Servlet 소스 코드로 변환되는 것은 JSP 가 작성 또는 수정된 후 최초 요청 시에만 처리됨
 
-![JSP-1](./images/jsp.PNG)
+![JSP-1](./images/jsp1.PNG)
 
 
 ## JSP 태그

@@ -2,7 +2,8 @@
 
 - 함수형 프로그래밍 : 함수를 정의하고 이 함수를 데이터 처리부로 보내 데이터를 처리하는 기법
 - 람다식 : 메서드 정의를 하나의 식으로 표현한 것
-<br> 자바에서 함수적 프로그래밍 지원 기법으로서는 **익명 클래스 객체**가 있다
+<br> - 자바는 람다식을 **익명 클래스 객체**로 변환한다
+<br> - 인터페이스는 단 **하나**의 추상 메서드만 가져야 한다
 
 === "Base Example"
     ``` java
@@ -35,20 +36,20 @@
     ```
 === "lambda"
     ``` java
-        // 1
-        MyTest.pr((int n) -> {
-            return n + 100;
-        });
-        // 2
-        MyTest.pr((n) -> {
-            return n + 100;
-        });
-        // 3
-        MyTest.pr(n -> {
-            return n + 100;
-        });
-        // 4
-        MyTest.pr(n -> n + 100);
+    // 1
+    MyTest.pr((int n) -> {
+        return n + 100;
+    });
+    // 2
+    MyTest.pr((n) -> {
+        return n + 100;
+    });
+    // 3
+    MyTest.pr(n -> {
+        return n + 100;
+    });
+    // 4
+    MyTest.pr(n -> n + 100);
     ```
 === "Example2"
     ``` java
@@ -88,9 +89,7 @@
     - 인터페이스가 함수형 인터페이스임을 보장
     - 컴파일 과정에서 추상 메서드가 하나인지 검사함으로써 정확한 함수형 인터페이스를 작성할 수 있도록 도와주는 역할
 
-![lambda-1](../images/lambda.PNG)
-
-
+---
 ## 매개변수가 없는 람다식
 : 함수형 인터페이스의 추상 메서드에 매개변수가 없는 경우
 <br> 실행문이 두 개 이상일 경우에는 중괄호를 생략할 수 없고, 하나일 경우에만 생략할 수 있다
@@ -126,8 +125,7 @@
 
 ## 매개변수가 있는 람다식
 : 함수형 인터페이스의 추상 메서드에 매개변수가 있는 경우
-<br> 매개변수를 선언할 때 타입은 생략할 수 있다
-<br> 매개변수가 하나인 경우, 괄호 생략 가능
+<br> 타입은 생략 가능하며, 매개변수가 하나라면 괄호도  생략할 수 있다
 
 === "구조"
     ``` java
@@ -174,8 +172,8 @@
 
 ## 리턴값이 있는 람다식
 : 함수형 인터페이스의 추상 메서드에 리턴값이 있는 경우
-<br> return 문 하나만 있을 경우에는 중괄호와 함께 return 키워드를 생략 가능
-<br> 리턴값은 연산식 또는 리턴값이 있는 메소드의 호출식으로도 대체 가능
+<br> - return문이 하나인 경우, 중괄호와 함께 return 키워드 생략 가능
+<br> - return =  값/연산식/리턴값이 있는 메서드의 호출식
 
 === "구조"
     ``` java
@@ -200,19 +198,19 @@
         }
     };
 
-    // 2
+    // 2 : 리턴문 하나 (연산식)
     MyNumber max2 = (int x, int y) -> {
         return (x >= y) ? x : y;
     };
 
-    // 3
-    MyNumber max3 = (x, y) -> (x >= y) ? x : y;
+    // 3 : 리턴문 하나 (메서드)
+    MyNumber max3 = (x, y) -> sum(x,y);
     System.out.println(max3.getMax(100, 300));		
     ```
 
 
 ## 메서드 참조
-: 메서드를 참조하여 매개변수의 정보 및 리턴 타입을 알아냄으로써 람다식에서 불필요한 매개변수 제거
+: 메서드를 참조하여 매개변수의 정보/리턴 타입을 알아냄으로써 람다식에서 불필요한 매개변수 제거
 
 ``` java
 (left, right) -> Math.max(left, right);
@@ -224,10 +222,10 @@ interface MyFunctionalInterface3 {
 }
 
 // 1
-MyFunctionalInterface3 fi = (x, y) -> Math.addExact(x, y); // = Math::addExact
+MyFunctionalInterface3 fi = (x, y) -> Math.addExact(x, y); 
 
 // 2
-MyFunctionalInterface3 fi = LambdaTest7::sum;
+MyFunctionalInterface3 fi = (x, y) -> Math::addExact;
 System.out.println(fi.method3(7, 1));
 ```
 
@@ -236,7 +234,7 @@ System.out.println(fi.method3(7, 1));
 
 
 ## 매개변수의 메서드 참조
-: 람다식에서 제공되는 a 매개변수의 메소드를 호출할 때 b 매개변수를 매개 값으로 사용
+: 람다식에서 제공되는 a 매개변수의 메서드를 호출해서 b 매개변수를 매개값으로 사용
 
 - 클래스 :: instanceMethod
 ``` java
@@ -245,13 +243,15 @@ System.out.println(fi.method3(7, 1));
 
 ## 생성자 참조
 : 객체를 생성하는 것
-<br> 람다식이 단순히 객체를 생성하고 리턴하도록 구성되면 람다식을 생성자 참조로 대치 가능
-<br> 생성자가 오버로딩 되어 여러 개 있을 경우, 컴파일러는 함수형 인터페이스의 추상 메소드와 동일한 매개변수 타입과 개수를 가지고 있는 생성자를 찾아 호출한다 (해당 생성자가 존재하지 않으면 컴파일 오류 발생)
 
+- 단순히 객체를 생성하고 리턴하는 구성이라면, 람다식을 생성자 참조로 대치할 수 있다
+    - `(a,b) -> {return new 클래스(a,b);}`
+- 생성자가 오버로딩 되어 여러 개 있는 경우 
+    - 컴파일러는 함수형 인터페이스의 추상 메서드와 동일한 매개변수 타입과 개수를 가진 생성자를 찾아 호출
+    - 해당 생성자가 존재하지 않으면 컴파일 오류 발생
 - 클래스 :: new
-``` java
-(a,b) -> {return new 클래스(a,b);}
 
+``` java
 // Example
 @FunctionalInterface
 interface MyFunctionalInterface4 {
