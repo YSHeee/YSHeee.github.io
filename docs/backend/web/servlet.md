@@ -308,6 +308,33 @@ getServletContext() : 현재 실행중인 servlet의 ServletContext
 
 
 ---
+### Filter
+: 웹 클라이언트에서 요청한 웹자원들(servlet/JSP)이 수행되기 전후에 수행되는 객체
+
+- request/response에 영향을 주거나 특정 처리 가능
+- 웹 자원이 하나 이상의 Filter들의 chain 에 의해 순서대로 필터링 되도록 설정 가능 
+- 인증, 로깅, 이미지 변환, 데이터 압축, 암호화, 스트림 토큰화, XML 변환 등 
+- `javax.servlet.Filter`라는 인터페이스를 상속하여 `init()`, `doFilter()`, `destroy()` 오버라이딩
+
+![Filter](./images/filter.PNG)
+
+
+``` java title="Example"
+// @WebFilter : 같은 프로젝트 내에서만 해당 Filter 사용 가능
+@WebFilter(dispatcherTypes = {DispatcherType.REQUEST }, urlPatterns = { "/*" })
+public class HangulFilter implements Filter {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    	HttpServletRequest req = (HttpServletRequest)request;
+    	if (req.getMethod().equals("POST"))
+    		request.setCharacterEncoding("utf-8");
+		
+		chain.doFilter(request, response);
+		// 웹 자원의 수행 후에 처리할 기능
+	}
+}
+```
+
+---
 #### MIME 타입 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
 : 전달된 메시지(content)의 타입
 - major type/minor type 
