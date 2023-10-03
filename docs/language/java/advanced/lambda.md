@@ -5,26 +5,26 @@
 <br> 자바에서 함수적 프로그래밍 지원 기법으로서는 **익명 클래스 객체**가 있다
 
 === "Base Example"
-``` java
-interface Sample {
-	int calc(int n);
-}
-
-class MyTest {
-	static void pr(Sample p) {
-		System.out.println(p.calc(10));
-	}
-}
-
-class SampleImpl implements Sample {
-    public int calc(int n) {
-        return n + 1;
+    ``` java
+    interface Sample {
+        int calc(int n);
     }
-}
 
-Sample obj = new SampleImpl();
-MyTest.pr(obj);
-```
+    class MyTest {
+        static void pr(Sample p) {
+            System.out.println(p.calc(10));
+        }
+    }
+
+    class SampleImpl implements Sample {
+        public int calc(int n) {
+            return n + 1;
+        }
+    }
+
+    Sample obj = new SampleImpl();
+    MyTest.pr(obj);
+    ```
 === "original"
     ``` java
     MyTest.pr(new Sample() {
@@ -34,51 +34,51 @@ MyTest.pr(obj);
     });
     ```
 === "lambda"
-``` java
-    // 1
-    MyTest.pr((int n) -> {
-        return n + 100;
-    });
-    // 2
-    MyTest.pr((n) -> {
-        return n + 100;
-    });
-    // 3
-    MyTest.pr(n -> {
-        return n + 100;
-    });
-    // 4
-    MyTest.pr(n -> n + 100);
-```
+    ``` java
+        // 1
+        MyTest.pr((int n) -> {
+            return n + 100;
+        });
+        // 2
+        MyTest.pr((n) -> {
+            return n + 100;
+        });
+        // 3
+        MyTest.pr(n -> {
+            return n + 100;
+        });
+        // 4
+        MyTest.pr(n -> n + 100);
+    ```
 === "Example2"
-``` java
-interface Calculation {
-	public int add(int a, int b);
-}
+    ``` java
+    interface Calculation {
+        public int add(int a, int b);
+    }
 
-public class LambdaTest2 {
-	public static void exec(Calculation com) {
-		int k = 10;
-		int m = 20;
-		int value = com.add(k, m);
-		System.out.println("덧셈 결과 : " + value);
-	}
+    public class LambdaTest2 {
+        public static void exec(Calculation com) {
+            int k = 10;
+            int m = 20;
+            int value = com.add(k, m);
+            System.out.println("덧셈 결과 : " + value);
+        }
 
-	public static void main(String[] args) {
-		exec(new Calculation() {
-			public int add(int a, int b) {
-				return a + b;
-			}
-		});
+        public static void main(String[] args) {
+            exec(new Calculation() {
+                public int add(int a, int b) {
+                    return a + b;
+                }
+            });
 
-		exec((int a, int b) -> {
-			return a + b;
-		});
-		
-		exec((a, b) -> a*a + b*b);
-	}
-}
-```
+            exec((int a, int b) -> {
+                return a + b;
+            });
+            
+            exec((a, b) -> a*a + b*b);
+        }
+    }
+    ```
 
 ## 함수형 인터페이스
 : 인터페이스가 단 하나의 추상 메서드를 가지는 것
@@ -95,7 +95,7 @@ public class LambdaTest2 {
 : 함수형 인터페이스의 추상 메서드에 매개변수가 없는 경우
 <br> 실행문이 두 개 이상일 경우에는 중괄호를 생략할 수 없고, 하나일 경우에만 생략할 수 있다
 
-=== "structure"
+=== "구조"
     ``` java
     // 실행문 2개 이상
     () -> {
@@ -106,23 +106,23 @@ public class LambdaTest2 {
     // 실행문 하나
     () -> 실행문
     ```
-=== "example"
-``` java
-@FunctionalInterface
-interface MyFunctionalInterface1 {
-	public void method1();
-}
+=== "예제"
+    ``` java
+    @FunctionalInterface
+    interface MyFunctionalInterface1 {
+        public void method1();
+    }
 
-// 실행문 2개 이상
-MyFunctionalInterface1 fi = () -> {
-    String str = "method call1";
-    System.out.println(str);
-};
+    // 실행문 2개 이상
+    MyFunctionalInterface1 fi = () -> {
+        String str = "method call1";
+        System.out.println(str);
+    };
 
-// 실행문 하나
-MyFunctionalInterface1 fi = () -> System.out.println("method call2");	
-fi.method1();
-```
+    // 실행문 하나
+    MyFunctionalInterface1 fi = () -> System.out.println("method call2");	
+    fi.method1();
+    ```
 
 ## 매개변수가 있는 람다식
 : 함수형 인터페이스의 추상 메서드에 매개변수가 있는 경우
@@ -153,24 +153,24 @@ fi.method1();
     매개변수 -> 실행문
     ```
 === "예제"
-``` java
-@FunctionalInterface
-interface MyFunctionalInterface2 {
-	public void method2(int x);
-}
+    ``` java
+    @FunctionalInterface
+    interface MyFunctionalInterface2 {
+        public void method2(int x);
+    }
 
-// 1
-MyFunctionalInterface2 fi = (x) -> {
-    System.out.println(x);
-};
+    // 1
+    MyFunctionalInterface2 fi = (x) -> {
+        System.out.println(x);
+    };
 
-// 2
-MyFunctionalInterface2 fi = x -> System.out.println(x);
+    // 2
+    MyFunctionalInterface2 fi = x -> System.out.println(x);
 
-// 3
-MyFunctionalInterface2 fi = System.out::println;
-fi.method2(2);
-```
+    // 3
+    MyFunctionalInterface2 fi = System.out::println;
+    fi.method2(2);
+    ```
 
 ## 리턴값이 있는 람다식
 : 함수형 인터페이스의 추상 메서드에 리턴값이 있는 경우
@@ -187,28 +187,28 @@ fi.method2(2);
     (매개변수, ...) -> 값 ⭐
     ```
 === "예제"
-``` java
-@FunctionalInterface // 함수형 인터페이스 체크 어노테이션
-interface MyNumber {
-	int getMax(int num1, int num2);
-}
-
-// 1
-MyNumber max1 = new MyNumber() {
-    public int getMax(int x, int y) {
-        return (x >= y) ? x : y;
+    ``` java
+    @FunctionalInterface // 함수형 인터페이스 체크 어노테이션
+    interface MyNumber {
+        int getMax(int num1, int num2);
     }
-};
 
-// 2
-MyNumber max2 = (int x, int y) -> {
-    return (x >= y) ? x : y;
-};
+    // 1
+    MyNumber max1 = new MyNumber() {
+        public int getMax(int x, int y) {
+            return (x >= y) ? x : y;
+        }
+    };
 
-// 3
-MyNumber max3 = (x, y) -> (x >= y) ? x : y;
-System.out.println(max3.getMax(100, 300));		
-```
+    // 2
+    MyNumber max2 = (int x, int y) -> {
+        return (x >= y) ? x : y;
+    };
+
+    // 3
+    MyNumber max3 = (x, y) -> (x >= y) ? x : y;
+    System.out.println(max3.getMax(100, 300));		
+    ```
 
 
 ## 메서드 참조
@@ -271,9 +271,73 @@ MyFunctionalInterface4 fi =  Date::new;
 System.out.println(fi.method4());
 ```
 
+---
+## Sort 활용
+``` java
+List<String> list = Arrays.asList("abc", "aaa", "bbb", "ccc");
 
+// 오름차순 1
+Collections.sort(list, new Comparator<String>() {
+    public int compare(String s1, String s2) {
+        return s2.compareTo(s1);
+    }
+});
 
+// 2
+Collections.sort(list, String::compareTo);
 
+// 두 번째 아규먼트를 기준으로 비교하는 내림차순
+Collections.sort(list, (String s1, String s2) -> {
+    return s1.compareTo(s2);
+});
+```
+
+---
+## Generics 활용
+``` java
+interface ActionExpression {
+	void exec(Object... param);
+}
+
+interface FuncExpression<T> { // type 반환
+	T exec(Object... param);
+}
+
+public class LambdaTest12 {
+	// Test1
+	public static void Test1(ActionExpression action) {
+		action.exec("hello world");
+	}
+	// Test2
+	public static void Test2(FuncExpression<String> func) {
+		String ret = func.exec("hello world");
+		System.out.println(ret);
+	}
+    // main
+	public static void main(String[] args) throws Exception {
+		
+		Test1(new ActionExpression() {
+			public void exec(Object... data) {
+				System.out.println("Test1 - " + data[0]);
+			}
+		});
+		
+		Test2(new FuncExpression<String>() {
+			public String exec(Object... data) {
+				System.out.println(data[0]);
+				return "OK1";
+			}
+		});
+
+		Test1((Object... data) -> System.out.println("Test2 - " + data[0]));
+
+		Test2((Object... data) -> {
+			System.out.println(data[0]);
+			return "OK2";
+		});
+	}
+}
+```
 
 
 
