@@ -1,54 +1,30 @@
-# Install PM2
+# Install PM2 (MAC)
 
-## Install nvm
+## Install nvm & Node.js
 
-=== "Linux"
-    ``` bash
-    ## Recommended path to install NVM:
-    # Set and export `NVM_DIR` environment variable. For example:
-    mkdir -vp ~/workspaces/runtimes/.nvm
-    export NVM_DIR="${HOME}/workspaces/runtimes/.nvm"
-
-    # Install NVM:
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-    ## For bash:
-    # Load .bashrc file to init NVM into current bash session:
-    source ~/.bashrc
-
-    # Check installed NVM version:
-    nvm --version
-    ```
-=== "Mac"
-    ``` bash
-    brew install nvm
-
-    mkdir ~/.nvm
-
-    vi ~/.zshrc 에 다음 내용 넣기
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-    nvm -v
-
-    # Install Node.js, update NPM to latest, and set default Node.js:
-    nvm install --latest-npm --alias=default {version}
-    # Set to use default Node.js:
-    nvm use default
-
-    # Clean NVM caches:
-    nvm cache clear
-
-    # Check installed Node.js and NPM version:
-    node -v
-    npm -v
-    ```
-
-## Install Node.js + PM2
 ``` bash
-# Install Node.js, update NPM to latest, and set default Node.js:
-nvm install --latest-npm --alias=default {version}
+## Recommended path to install NVM:
+# Set and export `NVM_DIR` environment variable. For example:
+mkdir -vp ~/workspaces/runtimes/.nvm
+export NVM_DIR="${HOME}/workspaces/runtimes/.nvm"
+
+# Install NVM: (https://github.com/nvm-sh/nvm)
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+## For bash:
+# Load .bashrc file to init NVM into current bash session:
+source ~/.bashrc
+
+## For zsh:
+# Load .zshrc file to init NVM into current zsh session:
+source ~/.zshrc
+
+# Check installed NVM version:
+nvm --version
+
+# Install Node.js, update NPM to latest, and set default Node.js: (https://nodejs.org/en)
+nvm install --latest-npm --alias=default {node.js version}
+
 # Set to use default Node.js:
 nvm use default
 
@@ -58,7 +34,10 @@ nvm cache clear
 # Check installed Node.js and NPM version:
 node -v
 npm -v
+```
 
+## Install PM2
+``` bash
 # Install essential extra packages:
 npm install -g pm2 newman jshint
 pm2 install pm2-logrotate
