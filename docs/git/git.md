@@ -4,8 +4,8 @@
 
 - [x] Create Git folders
 - [ ] Write about Git
-    * [] git-flow
+    * [x] git-flow
     * [] git command
     * [] git basic
-    * [] commit-convention
+    * [x] commit-convention
 - [ ] ...etc

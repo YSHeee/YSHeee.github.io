@@ -70,7 +70,8 @@ extra_css:
   - stylesheets/extra.css
 plugins:
   - search
-
+  - blog:
+      post_date_format: long
 
 
 
@@ -281,4 +282,6 @@ nav:
       - CS: interview/tech-cs.md
       - Python: interview/tech-python.md
       - Deploy : interview/tech-deploy.md
+  - Blog:
+    - blog/index.md
   - Nice to meet you : visitor.md
