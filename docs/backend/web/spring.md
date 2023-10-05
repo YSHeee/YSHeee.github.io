@@ -217,16 +217,43 @@ graph LR
     IC --> Beans
 ```
 
-
 ---
+### Config
+: xml 없이 java 코드만으로 bean 생성
 
+- @Configuration
+- @ComponentScan
+- @Bean
 
-
-
-
-
-
-
+=== "sampleconfig/test.java"
+    ``` java
+    ApplicationContext factory = new AnnotationConfigApplicationContext(MyConfiguration.class);
+    String[] beanNames = factory.getBeanDefinitionNames();
+    MyFoodMgr ob=factory.getBean("myFood", MyFoodMgr.class);
+    ```
+=== "MyConfiguration"
+    ``` java
+    @Configuration
+    @ComponentScan("sampleconfig")
+    public class MyConfiguration {
+        @Bean
+        public Food favoriteFood(){
+            System.out.println("빵 객체 생성");
+            Food f = new Food();
+            f.setFoodName("Bread");
+            f.setFoodPrice(1500);
+            return f;
+        }
+        @Bean
+        public Food unFavoriteFood(){
+            System.out.println("누들 객체 생성");
+            Food f = new Food();
+            f.setFoodName("Noodle");
+            f.setFoodPrice(2500);
+            return f;
+        }
+    }
+    ```
 
 
 ---

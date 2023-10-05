@@ -169,12 +169,14 @@ nav:
   - Backend:
     - RestAPI:
       - backend/restapi.md
-    - Web Development Framework:
-      - FastAPI : backend/fastapi.md
+    - FastAPI : backend/fastapi.md
+    - Java-based Framework:
       - Servlet : backend/web/servlet.md
       - JSP : backend/web/jsp.md
       - MVC : backend/web/mvc.md
       - Spring : backend/web/spring.md
+      - Spring Boot : backend/web/spring-boot.md
+      - Thymeleaf : backend/web/thymeleaf.md
   - Language:
     - Python:
       - Python : language/python/python.md

@@ -1,0 +1,174 @@
+# Spring MVC
+
+## 처리 흐름
+: 프론트 컨트롤러 패턴 
+<br>-> 하나의 핸들러 객체를 통해서 요청을 할당하고, 일관된 처리를 작성할 수 있게 한다
+
+![Spring MVC-1](./images/sprint-mvc-1.png)
+
+![Spring MVC-1](./images/spring-mvc-2.png)
+
+1. DispatcherServlet 
+: =FrontController, 스프링 프레임워크의 중심이 되는 서블릿으로 클라이언트의 모든 요청을 받아 흐름을 제어한다.
+<br> 각 컨트롤러에 요청을 전달하고 컨트롤러가 반환한 결과값을 View에 전달해 응답
+
+2. HandlerMapping 
+: 클라이언트의 요청 URL을 처리할 컨트롤러를 결정해 DispatcherServlet에 반환
+<br> @Controller 어노테이션이 적용된 객체의 @RequestMapping 값을 이용해 요청을 처리할 컨트롤러 탐색
+
+3. HandlerAdapter 
+: DispatcherServlet의 처리 요청을 변환해서 컨트롤러에게 전달, 컨트롤러의 응답을 DispatcherServlet이 요구하는 형식으로 변환한다
+
+4. **Controller** 
+: 실제 클라이언트의 요청을 처리한 뒤, 처리 결과를 void, String, ModelAndView 형태로 반환. 
+<br>GET, POST 방식 등 전송 방식에 대한 처리를 어노테이션으로 처리
+
+5. ViewResolver : 컨트롤러의 처리 결과를 보여줄 View 결정
+
+---
+## 어노테이션
+
+### @Controller
+: Spring MVC의 Controller 클래스 선언 단순화 annotation, Bean 객체를 자동으로 생성한다
+
+- 스프링의 컨트롤러 클래스는 서블릿을 상속할 필요가 없다
+- Controller로 사용하고자 하는 클래스에 @Controller를 지정하면, component-scan 으로 자동 등록
+- `<context:component-scan base-package=“패키지명"/>`
+
+``` java 
+@Controller
+@RequestMapping(value="/requestmethod")
+public class RequestMethodController {
+	public RequestMethodController() {
+		System.out.println("RequestMethodController 객체 생성!!");
+	}
+	@GetMapping // @RequestMapping(value="/select") : Get, post 둘 다 지원
+	public String myGet() {
+		return  "getResult";
+	}	
+	@PostMapping
+	public String myPost() {
+		return  "postResult";
+	}
+}
+
+```
+
+@Controller 메서드의 파라미터 타입
+
+|  파라미터 타입  |    설명    |
+| :----------: | :------: |
+| HttpServletRequest<br>HttpServletResponse<br>HttpSession | Servlet API |
+| java.util.Locale | 현재 요청에 대한 Locale (클라이언트의 위치) |
+| InputStream, Reader | 요청 컨텐츠에 직접 접근할 때 사용 | 
+| OutputStream, Writer | 응답 컨텐츠를 생성할 때 사용 | 
+| **@PathVariable** <br>(어노테이션 적용 파라미터) | URI 템플릿 변수에 접근할 때 사용 |
+| **@RequestParam** <br>(어노테이션 적용 파라미터) | HTTP 요청 파라미터를 매핑 |
+| @RequestHeader <br>(어노테이션 적용 파라미터) | HTTP 요청 헤더를 매핑 |
+| @CookieValue  <br>(어노테이션 적용 파라미터) | HTTP 쿠키 매핑 |
+| @RequestBody <br>(어노테이션 적용 파라미터) |  HTTP 요청의 몸체 내용에 접근할 때 사용 <br>HttpMessageConverter를 이용하여 HTTP 요청 파라미터를 해당 타입으로 변환한다 |
+| Map, Model, ModelMap | 뷰에 전달할 모델 데이터를 설정할 때 사용 |
+| 커맨드 객체 | HTTP 요청 파라미터를 저장한 객체<br>클래스 이름을 모델명으로 사용하며 @ModelAttribute 어노테이션을 사용하여 <br>모델명을 설정할 수 있다 |
+| Errors, BindingResult | HTTP 요청 파라미터를 커맨드 객체에 저장한 결과 <br>커맨드 객체를 위한 파라미터 바로 다음에 위치한다 |
+| SessionStatus | 폼처리를 완료했음을 처리하기 위해 사용 <br>@SessionAttribute 어노테이션을 명시한 session 속성을 제거하도록 이벤트를 발생시킨다 |
+
+
+@Controller 메서드의 리턴 타입
+
+|  파라미터 타입  |    설명    |
+| :----------: | :------: |
+| ModelAndView | 뷰 정보 및 모델 정보를 담고 있는 ModelAndView 객체 |
+|  Model | 뷰에 전달할 객체 정보를 담고 있는 Model을 리턴, <br> 뷰 이름은 요청 URL로부터 결정되며 RequestToViewNameTranslator 통해 뷰 결정 |
+| void | 메서드가 ServletResponse나 HttpServletResponse 타입의 파라미터를 갖는 경우 메서드가 직접 응답을 처리한다고 가정 <br> 아니면 요청 URL로부터 결정된 뷰를 보여준 RequestToViewNameTranslator 통해 뷰 결정 |
+| Map, ModelMap | 뷰에 전달할 객체 정보를 담고 있는 Map 혹은 ModelMap을 리턴 <br>뷰이름은 요청 URL로부터 결정되며 RequestToViewNameTranslator 통해 뷰 결정 | 
+| String | 뷰 이름 리턴 |
+| View 객체 | View 객체를 직접 리턴, 해당 View 객체를 이용해서 뷰를 생성한다 | 
+| @ResponseBody <br>어노테이션 적용 | 메서드에서 @ResponseBody 어노테이션이 적용된 경우, 리턴 객체를 HTTP 응답으로 전송 <br>HttpMessageConverter를 이용해서 객체를 HTTP 응답 스트림으로 변환한다 | 
+
+ㅌㅈㅌㅈ
+
+
+---
+#### 웹 애플리케이션
+: 클라이언트와 서버 사이에 HTTP 프로토콜을 이용하여 데이터를 주고 받으면서 동작하는 소프트웨어 프로그램
+
+![Web Service Architecture](./images/service.png)
+
+구조
+
+- 티어 : 어플리케이션의 구조를 물리적으로 나눈 것
+- 레이어 : 어플리케이션의 구조를 논리적으로 나눈 것
+
+-> 최대한 레이어 간 의존 관계를 줄여야 유지보수성이 좋아진다
+
+``` mermaid
+graph LR
+    C(클라이언트 층<br>PC,스마트폰) --> M(중간 층<br>애플리케이션 서버)
+    M --> E(EIS층<br>DB,레거시 시스템)
+```
+
+- 중간층
+    - 프리젠테이션 레이어 : 컨트롤러, 뷰
+    - 비즈니스 로직 레이어 : 서비스, 도메인(DTO, VO, Entity)
+    - 데이터 액세스 레이어 : DAO 
+
+---
+## Spring Boot
+: 스프링으로 애플리케이션 생성할 때, 필요한 초기 설정을 간편하게 처리해주는 별도의 프레임워크
+
+![1](./images/boot-1.png)
+
+- Spring : Java 기반의 애플리케이션 개발을 위한 오픈소스 프레임워크
+- Spring MVC : 웹 애플리케이션 개발에 있어 MVC 패턴을 적용할 수 있도록 Spring에서 제공하는 프레임워크
+- Spring Boot : Spring 설정들을 자동화하는 Spring 기반의 프레임워크
+
+### 특징
+
+1. 의존성 관리
+    - 스프링 : 개발에 필요한 각 모듈의 의존성을 직접 설정
+    - 스프링 부트 : 'spring0boot- starter'를 통해 의존성 및 서로 호환되는 버전의 모듈 조합 제공
+2. 내장 WAS
+    - 스프링: 배포 시 별도의 외장 웹 서버를 설치하고, 프로젝트를 War 파일로 빌드하여 배포
+    - 스프링 부트 : 각 웹 애플리케이션에는 자체적인 WAS 내장되어있으며, 가장 기본 의존성인 'spring-boot-starter-web'의 경우 '톰캣'을 내장하고 있음
+3. 자동 설정 : 애플리케이션에 추가된 라이브러리를 실행하는 데 필요한 환경설정을 자동으로 설정함
+4. 모니터링 : 스프링 부트 actuator라는 자체 모니터링 도구를 통해 서비스 운영에서 필요한 요소들 모니터링 가능
+5. 빌드 : 
+    - 스프링 : 프로젝트를 War 파일로 빌드하여 배포
+    - 독립적으로 실행 가능한 Jar 파일로 프로젝트를 빌드할 수 있어, 클라우드/컨테이너 환경에 빠르게 배포 가능
+
+### 동작 방식
+: spring-boot-starter-web 모듈을 사용하면, 톰캣을 사용하는 스프링 MVC 구조로 동작한다
+
+![2](./images/boot-2.png)
+
+1. 서블릿 : 클라이언트의 요청을 처리하고 결과를 반환하는 웹 프로그래밍 기술. 서블릿 컨테이너에서 서블릿 인스턴스를 생성하고 관리하는 역할을 하며 **톰캣**은 WAS의 역할과 서블릿 컨테이너의 역할을 수행하는 대표적인 컨테이너이다
+    - 서블릿 객체를 생성, 초기화, 호출, 종료하는 생명주기 관리
+    - 서블릿 객체는 싱글톤 패턴으로 관리
+    - 멀티 스레딩 지원
+    - **스프링에서는 DispathcerServlet이 서블릿의 역할 수행** :star:
+2. 동작구조 
+    1. DispatcherServlet으로 요청이 들어오면, DispatcherServlet은 핸들러 매핑을 통해 요청 URI에 매핑된 컨트롤러를 탐색한다
+    2. 핸들러 어댑터로 컨트롤러를 호출하고, 컨트롤러의 응답이 돌아오면 ModelAndView로 응답을 가공해 반환한다
+    3. 뷰 형식으로 리턴하는 컨트롤러를 사용할 때는 View Resolver를 통해 View를 받아 리턴한다
+
+![3](./images/boot-3.png)
+- restcontroller : view를 거치지 않고 직접 전달
+
+### 스프링의 레이어드 아키텍처
+
+![4](./images/boot-4.png)
+
+- 프레젠테이션 계층 : UI 계층, 클라이언트로부터 데이터와 함께 요청을 받고 처리 결과를 응답으로 전달한다
+- 비즈니스 계층 : 서비스 계층, 핵심 비즈니스 로직을 구현하는 영역이자 트랜잭션 처리나 유효성 검사 등의 작업도 수행한다
+- 데이터접근계층 : 영속(Persistance)계층, 데이터베이스에 접근해야하는 작업을 수행하며 Spring Data JPA에서는 DAO의 역할을 Repository가 수행한다
+
+---
+
+Spring Initializr
+(https://start.spring.io)
+
+
+
+---
+!!! quote
+    - 김정현 강사님
