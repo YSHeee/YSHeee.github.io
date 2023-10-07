@@ -1,4 +1,6 @@
-# Thymeleaf
+# etc
+
+## Thymeleaf
 : View Template Engine, 컨트롤러에서 전달받은 데이터를 추출해 동적인 페이지를 생성한다
 
 - html 파일 내에서 태그의 속성으로 Thymeleaf 명령어 사용
@@ -9,7 +11,7 @@
 - suffix : `.html`
 
 
-``` html title="Example"
+``` html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"> <!-- Thymeleaf -->
 <head>
@@ -25,11 +27,45 @@
     <input type="text" name="userName" value="unico" th:value="${user.name}">
 
     <h2>전달된 데이터 : [[${ param.pageno }]]</h2>
-    <a th:href="${refinfo}">다시 요청 해보자</a>
 </body>
 </html>
 ```
 
+---
+## Lombok
+: 반복해서 구현하게 되는 메소드를 Annotation을 사용해서 자동으로 작성해주는 Java의 확장 라이브러리
+
+주요 어노테이션
+
+#### @NonNull 
+: null을 허용하지 않는 매개변수 정의
+
+#### @Getter, @Setter
+: getter, setter 생성
+
+#### @ToString
+: ToString 메서드 생성
+
+#### @EqualsAndHashCode
+: hashCode, equals 구현
+
+#### @NoArgsConstructor
+: 매개변수가 없는 생성자 구현
+
+#### @RequiredArgsConstructor
+: final, @NonNull이 있는 필드에 값을 초기화 하는 생성자 구현
+
+#### @AllArgsConstructor
+: 모든 필드에 값을 초기화 하는 생성자 구현
+
+#### @Data
+: 다음에 제시된 모든 Annotation 을 정의한 것과 동일
+
+- @ToString, 
+- @EqualsAndHashCode
+-  @Getter on all fields,
+-  @Setter on all non-final fields,
+-  @RequiredArgsConstructor
 
 ---
 !!! quote

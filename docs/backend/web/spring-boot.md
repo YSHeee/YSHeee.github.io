@@ -1,4 +1,4 @@
-# Spring MVC
+# Sprint Boot (+ Spring MVC)
 
 ## 처리 흐름
 : 프론트 컨트롤러 패턴 
@@ -85,7 +85,185 @@ public class RequestMethodController {
 | View 객체 | View 객체를 직접 리턴, 해당 View 객체를 이용해서 뷰를 생성한다 | 
 | @ResponseBody <br>어노테이션 적용 | 메서드에서 @ResponseBody 어노테이션이 적용된 경우, 리턴 객체를 HTTP 응답으로 전송 <br>HttpMessageConverter를 이용해서 객체를 HTTP 응답 스트림으로 변환한다 | 
 
-ㅌㅈㅌㅈ
+### @Service
+: @Service를 적용한 Class는 비즈니스 로직이 들어가는 Service로 등록 된다
+
+- Controller에 있는 @Autowired는 @Service("xxxService")에 등록된 xxxService와 변수명이 같아야 한다
+- Service에 있는 @Autowired는 @Repository("xxxDao")에 등록된 xxDao와 변수명이 같아야 한다
+
+``` java
+@Service("myHelloService")
+    public class HelloServiceImpl implements HelloService {
+    @Autowired
+    private HelloDao helloDao;
+        public void hello() { 
+            System.out.println("HelloServiceImpl :: hello()"); 
+            helloDao.selectHello();
+    } 
+}
+```
+
+### @RequestMapping
+: URL 문자열을 클래스 또는 메서드와 매핑시켜주는 역할
+<br>- 클래스 위에 @RequestMapping("/{url}")을 지정하며, GET 또는 POST 방식 등의 옵션 할당
+<br>- 해당되는 method 실행 후, return 페이지가 정의되어 있지 않으면 @RequestMapping("/{url}")에서 **설정된 url로 다시 돌아간다**
+
+- value : 매핑 URL 값(endpoint), value만 정의하는 경우 'value='은 생략 가능
+- method : `method=RequestMethod.GET` 형식으로 사용, 정의하지 않는 경우에는 모든 HTTP Request method에 대해 처리
+
+``` java
+@RequestMapping("/hello")
+public ModelAndView hello(String name){} // name으로 값을 받음
+
+@RequestMapping(value = "/", method = RequestMethod.GET) 
+public String home(Locale locale, Model model) { }
+```
+
+### @ModelAttribute
+: 도메인 오브젝트나 DTO 또는 VO의 프로퍼티에 요청 파라미터를 바인딩해서 한 번에 받을 때 사용
+<br>- 하나의 오브젝트에 클라이언트의 요청 정보를 담아서 한 번에 전달되는 것 이기 때문에 이를 커맨드 패턴에서 말하는 커맨드 오브젝트라고 부르기도 한다
+<br>- 모델을 가리키는 이름 변경 가능 
+
+``` java
+@RequestMapping(value="/user/add", method=RequestMethod.POST)
+public String add(@ModelAttribute User user){}
+
+// 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가
+// update() 컨트롤러가 DispatcherServlet에게 돌려주는 모델 맵에는 "currentUser" 라는 키로 User 오브젝트가 저장되어 있음
+@RequestMapping(value="/user/add", method=RequestMethod.POST)
+public String add(@ModelAttribute("currentUser") User user){}
+```
+
+### @RequestParam
+: 요청 파라미터(Query 문자열)를 메서드의 매개변수로 1:1 대응해서 받는 것
+
+- `@RequestParam("myname1") String name1` : myname1로 값을 받음, 디폴트로 required=true
+- `@RequestParam(value="myname2", required=false) String name2` : myname2로 값을 받으며 해당 쿼리는 필수가 아니다 (값이 없으면, null 값을 가짐)
+- `@RequestParam(defaultValue="10") int number1` : number1의 default 값을 설정함으로써 해당 쿼리가 들어오지 않았을 때 사용
+- `@RequestParam(value="NUM2", defaultValue="100")int number2)` : NUM2로 값을 받으며 number2의 default 값을 설정함으로써 해당 쿼리가 들어오지 않았을 때 사용
+``` java
+@RequestMapping("/querystring4")
+public ModelAndView proc(
+@RequestParam("myname1") String name1,
+@RequestParam(value="myname2", required=false) String name2,
+@RequestParam(defaultValue="10") int number1, /
+@RequestParam(value="NUM2", defaultValue="100")int number2){ 
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("spring", name1+":"+(number1 + number2) 
+            +":"+name2);
+    mav.setViewName("queryView1");
+    return mav;
+}
+```
+
+### @PathVariable
+: URL 문자열의 특정 부분을 변수화 하는 기능
+
+``` java
+@RestController
+public class HomeController{
+    @RequestMapping("/{name}")
+    public String home(@PathVariable String name){
+        return "Hello,"+name;
+    }
+}
+```
+
+### @RequestBody & @ResponseBody
+: 웹 시스템 간 JSON 형식의 데이터를 주고받는 경우, 스프링 MVC는 컨트롤러에서 DOM 객체나 자바 객체로 변환해서 수신하는 기능과 역으로 전송하는 기술을 제공한다
+
+- @RequestBody : HTTP request body를 전달 형식 또는 자바 객체로 변환하여 수신
+``` java
+String test2(@RequestBody String param)
+PersonVO test3(@RequestBody PersonVO vo)
+Map test4(@RequestBody Map<String, String> map)
+```
+
+- @ResponseBody : HTTP response body로 전송, view를 거치지 않고 **컨트롤러가 직접** 응답하므로 **응답 형식** 설정
+``` java
+@RequestMapping(value= "/body/json/{id}", produces = "application/json"; charset="utf-8")
+@RequestMapping(value= "body/xml/{id}", produces = "text/xml"; charset="utf-8")
+```
+
+### @RestController (스프링 4.0)
+: @Controller를 상속하여 **@Controller + @ResponseBody** 기능 지원
+<br> 도메인 객체의 웹서비스 노출이 가능해짐으로써 각각의 @RequestMapping method에 @ResponseBody를 할 필요 X
+
+---
+### + @ComponentScan
+
+- `___Application.java` : proejct 생성시 자동으로 생성되는 application 파일
+- @ComponentScan : 여러 패키지 관리
+``` java title="___Application.java"
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@ComponentScan(basePackages={"com.example.springedu", "thymeleaf.exam"})
+public class SpringeduApplication {
+	public static void main(String[] args) {
+
+		SpringApplication.run(SpringeduApplication.class, args);
+	}
+}
+```
+
+---
+### + 이전 페이지로 이동
+=== "HttpServletRequest" 
+    ``` java
+    // thymeleaf: <a th:href="${refinfo}">이전 페이지로 돌아가기</a>
+    @RequestMapping("/")
+    public ModelAndView proc(HttpServletRequest req) { 
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("refinfo", req.getHeader("referer"));
+        mav.setViewName("View");
+        return mav;
+    }
+    ```
+=== "@RequestHeader"
+    ``` java
+    @RequestMapping("/")
+    public ModelAndView proc(@RequestHeader String referer) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("refinfo", referer);
+        mav.setViewName("View");
+        return mav;
+    }
+    ```
+
+### + Model 객체
+=== "ModelAndView" 
+    ``` java
+    protected ModelAndView proc1(@RequestParam(value = "name") String name){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("refinfo", referer);
+        mav.setViewName("View");
+        return mav;
+    }
+    ```
+=== "Model"
+    ``` java
+    @RequestMapping("/")
+    public String proc2(@ModelAttribute("member") MemberDTO dto, HttpServletRequest req, Model model) {
+        model.addAttribute("refinfo", req.getHeader("referer"));
+        return "View";
+    }
+    ```
+
+### + End-point
+- 아래 코드의 경우, url은 `http://localhost:8088/step1/hithymeleaf`가 됨
+``` java
+@Controller
+@RequestMapping("/step1")
+public class ThymeleafController1 {
+	@GetMapping("/hithymeleaf")
+    public String hiThymeleaf(Model model) {
+        model.addAttribute("say", "안녕?");
+        return "basic/hithymeleaf";
+    }
+}
+```
+
+---
+## 파일 업로드
 
 
 ---

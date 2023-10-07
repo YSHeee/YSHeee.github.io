@@ -72,6 +72,7 @@ plugins:
   - search
   - blog:
       post_date_format: long
+  
 
 
 
@@ -253,6 +254,7 @@ nav:
       - Cheat Sheet: db/mysql/cheat-sheet.md
   - Git:
     - Git : git/git.md
+    - Git Command : git/git-command.md
     - Git Flow : git/git-flow.md
     - Commit Convention : git/commit-convention.md
   - Note:
