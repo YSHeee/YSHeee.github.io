@@ -116,31 +116,35 @@
         </script>
     ```
 
-|  분류  |  멤버  |  개요  |
-| property | `onreadystatechange`| 통신 상태가 변화된 타이밍에 호출되는 이벤트 핸들러 |
-| | `readyState` | HTTP 통신 상태 취득 |
-| | `status` | HTTP Status 코드 취득 |
-| | `responseType` | 응답받으려는 컨텐트 타입 <br> "arraybuffer", "blob", "
-document", "json"/"text" |
-| | `responseText` | 응답 본체를 plaintext로 취득 |
-| | `responseXML` | 응답 본체를 XML(XMLDocument)로 취득 |
-| | `response` | 지정된 응답 타입에 따른 응답 객체 <br> binary 형식(이미지 등)|
-| | `upload` | XMLHttpRequestUpload 객체 제공 |
-| method | `abort()` | 현재의 비동기 통신 중단 |
-| | `getAllResponseHeaders()` | 수신한 모든 HTTP 응답 헤더 취득 |
-| | `getResponseHeader(header)` | 지정한 HTTP 응답 헤더 취득 |
-| | `open( ... )` | HTTP 요청 초기화 |
-| | `setRequestHeader(header, value)` | 요청 시에 송신하는 헤더 추가 |
-| | `send([body])` | HTTP 요청 송신(인수 body는요청본체) |
-| 이벤트 관련 속성 | | |
-| | `onloadstart` | |
-| | `onprogress` | |
-| | `onabort` | |
-| | `onerror` | |
-| | `onload` | |
-| | `ontimeout` | |
-| | `onloadend` | |
-| | `onreadystatechange` | |
+|  멤버  |  개요  |
+| :---: | :----: | 
+| **property** | | 
+| `onreadystatechange`| 통신 상태가 변화된 타이밍에 호출되는 이벤트 핸들러 |
+| `readyState` | HTTP 통신 상태 취득 |
+| `status` | HTTP Status 코드 취득 |
+| `responseType` | 응답받으려는 컨텐트 타입 <br> "arraybuffer", "blob", "document", "json"/"text" |
+| `responseText` | 응답 본체를 plaintext로 취득 |
+| `responseXML` | 응답 본체를 XML(XMLDocument)로 취득 |
+| `response` | 지정된 응답 타입에 따른 응답 객체 <br> binary 형식(이미지 등)|
+| `upload` | XMLHttpRequestUpload 객체 제공 |
+| |
+| **method** | |
+| `abort()` | 현재의 비동기 통신 중단 |
+| `getAllResponseHeaders()` | 수신한 모든 HTTP 응답 헤더 취득 |
+| `getResponseHeader(header)` | 지정한 HTTP 응답 헤더 취득 |
+| `open( ... )` | HTTP 요청 초기화 |
+| `setRequestHeader(header, value)` | 요청 시에 송신하는 헤더 추가 |
+| `send([body])` | HTTP 요청 송신(인수 body는요청본체) |
+| |
+| **이벤트 관련 속성** | |
+| `onloadstart` | 브라우저가 서버로 요청을 보내기 시작할 때 호출 |
+| `onprogress` | 브라우저가 로딩 프로세스에 관한 데이터를 주기적으로 수신할 때 발생 <br> progress bar, download/upload progress, ...|
+| `onabort` | AJAX 요청이 중단되었을 때 호출되는 이벤트 핸들러 |
+| `onerror` | AJAX 요청이 실패했을 때 호출되는 이벤트 핸들러 |
+| `onload` | AJAX 요청이 성공적으로 완료되었을 때 호출되는 이벤트 핸들러 |
+| `ontimeout` | AJAX 요청이 시간 초과되었을 때 호출되는 이벤트 핸들러 |
+| `onloadend` | 성공/실패 상관없이 요청이 완료되면 호출 |
+| `onreadystatechange` | 서버로부터의 응답이 도착할 때마다 호출되며, 상태 변화에 따라 콜백 함수 실행 |
 
 - readyState
     - 0 : 미초기화 (open 메서드가 호출되지 않음)
@@ -167,3 +171,4 @@ document", "json"/"text" |
 ---
 !!! quote
     - 김정현 강사님
+    - openai

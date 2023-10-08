@@ -97,4 +97,5 @@ If 수시로 Release 되어야 할 필요가 있는 서비스(=단일 버전)를
         - [sihyung92 POST: git-flow vs github-flow](https://sihyung92.oopy.io/architecture/gitflow-vs-githubflow)
         - [gangnamunni](https://blog.gangnamunni.com/post/understanding_git_flow/)
         - [woowahan](https://techblog.woowahan.com/2553/)
+        - [Banksalad](https://github.com/banksalad/styleguide/blob/master/git/README.md)
    

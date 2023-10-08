@@ -1,11 +1,13 @@
 # Git command
 
-#### main command
+### main command
 |    Command    |    설명    |    특징    |
 | :-----------: | :-------: | :-------: |
 | git init | git 저장소 생성 | |
 | git help [커맨드 이름] | 도움말 출력 | |
 | git status | git이 인식하고 있는 상태 정보 출력 | |
+| git clone [원격 저장소 주소] | 원격 저장소 복제 | |
+| git clone [원격 저장소 주소] [디렉터리명] | 해당 디렉토리명으로 원격 저장소 복제 | |
 | | |
 | git add [파일명 또는 디렉토리명] | 수정사항이 있는 특정 파일 및 디렉토리를 Staging area로 올리기 | |
 | git add . | 수정사항이 있는 모든 파일 add | |
@@ -15,9 +17,17 @@
 | git commit -m "Message" | 인라인으로 메시지를 추가하여 commit | |
 | git commit -a <br> git commit -all | modified 상태인 파일을 Add 후 commit | add+commit |
 | git commit -am "Message" | add+commit을 인라인으로 메시지를 추가하여 처리 | |
+| | |
+| git remote add [원격저장소] [원격저장소주소] | 해당 이름으로 원격 저장소 등록 | |
+| git push -u [원격브랜치] [로컬브랜치] | Upstream 설정, 로컬 파일을 원격 저장소로 push | 
+| git push | upstream 설정 이후, push | |
+| git pull | 원격 저장소 내용 가져오기 | fetch + merge |
+| | |
+| etc | |
+| git count-objects -H | git 레포지토리 크기 | |
 
 ---
-#### config
+### config
 |    Command    |    설명    |    특징    |
 | :-----------: | :-------: | :-------: |
 | git config --global user.name | 사용자 설정 | --global: 현재 user의 모든 저장소<br> --local: 특정 저장소<br> --system: 해당 컴퓨터의 모든 저장소/사용자 |
@@ -29,7 +39,7 @@
 | git config <key> | 특정 Key에 대한 값 출력 |ex. `git config user.name`|
 
 ---
-#### status, log, show
+### status, log, show
 : 저장소 내 정보 확인
 
 ** commit ID : SHA1 알고리즘으로 만들어진 hash 값. 중복이 없는 임의의 문자열이자 암호화된 값
@@ -61,7 +71,7 @@
     - `git show e5b578b` = `git show HEAD^^` = `git show HEAD~2`
 
 ---
-#### diff
+### diff
 : 파일의 수정 내용 비교
 
 |    Command    |    설명    |    특징    |
@@ -73,7 +83,7 @@
 | git diff HEAD^ HEAD | 상대경로로 최근 commit과 직전 commit 간 비교 | |
 
 ----
-#### reset, reflog, amend
+### reset, reflog, amend
 
 - reset : `git add` | `git commit` 명령 취소
 - reflog : `reset --hard` 로 인해 삭제된 commit hash 찾기
@@ -92,8 +102,8 @@
 | git commit --amend | 최근commit 수정 | 덮어쓰기 개념으로 추가 파일 Staging |
 | git commit --amend -m "commit 메시지" | commit 메시지 인라인으로 수정 | |
 
-----
-#### checkout
+---
+### checkout
 : 과거 이력으로 복귀
 
 |    Command    |    설명    |    특징    |
@@ -103,8 +113,48 @@
 | git checkout master | HEAD가 master를 참조 | |
 | git checkout HEAD~n | HEAD를 기준으로 n단계 이전 commit으로 상태변경 | |
 
+---
+### Github
 
+|    Command    |    설명    |    특징    |
+| :-----------: | :-------: | :-------: |
+| git remote | 원격 저장소 관리 명령어, <br>원격 저장소 리스트 출력 | |
+| git remote add [원격저장소이름] [원격저장소주소] | 해당 이름으로 원격 저장소 등록 | ex. `git remote add origin https://github.com/{}/{}.git` |
+| git remote rm [원격저장소이름] | 해당 원격 저장소를 등록 리스트에서 삭제 | |
+| git remote -v | 저장소의 url까지 표시 | --vervose |
+| git push -u [원격브랜치이름] [로컬브랜치이름] | Upstream 설정, 로컬 파일을 원격 저장소로 push | --set-upstream-to <br> git remote는 원격 저장소의 이름만 등록하므로 상호 추적을 위한 upstream 설정 필요 |
+| | |
+| git tag [tag] [commit hash] | tag명 기록 | Lightweight tag |
+| git tag -a [tag] -m “tag message” [commit ID] | 메시지를 추가하여 tag 생성 | Annotated tag |
+| git tag <br> git tag -1 | 로컬 저장소의 모든 tag 조회 | |
+| git -l "*.n" | .n으로 종료되는 tag 출력 | |
+| git show [tag명] | 해당 tag 상세 정보 출력 | Annotated tag에 한함 |
+| git tag -d [삭제할 tag명] | 생성한 tag 삭제 | |
+| git checkout [tag명] | 특정 tag가 부여된 commit으로 checkout | |
+| git push --tags | 로컬 저장소의 전체 tag 정보를 원격저장소에 반영 | ex. `git push origin --tags` |
+| git push [tag명] | 해당 tag push | ex.`git push origin "tag명"`
+| | |
+| git revert | commit 되돌리기 | |
+| git revert [최근 commit hash] | |
+| git revert --no-edit [commit hash] | revert commit message 수정하지 않고 default 사용 | |
+| git revert [commit hash1]..[commit hash2] | revert한 commit 수만큼 commit이 새로 생성됨 | commit hash1은 revert 대상에 포함되지 않음 |
 
+---
+### Branch
+
+|    Command    |    설명    |    특징    |
+| :-----------: | :-------: | :-------: |
+| git branch | 생성한 브랜치 확인 | * : 현재 작업 중인 브랜치 |
+| git branch [브랜치명] | 브랜치 생성 | |
+| git branch -M | 브랜치 이동 | |
+| git branch -m [기존브랜치명] [변경브랜치명] | 브랜치 이름 변경 | 또는 `--move` |
+| git branch -d [브랜치명] | 브랜치 삭제 | |
+| git branch -D [브랜치명] | merge 되지 않은 브랜치 삭제 | |
+| | |
+| git checkout [브랜치명] | 해당 브랜치로 작업 공간 전환 <br> (HEAD가 참조하는 값을 변경한다) | |
+| git checkout -b [브랜치명] | 브랜치 생성과 동시에 전환 | |
+| | |
+| git merge [브랜치명] | 현재 브랜치에 해당 브랜치의 내용 병합 | 새로운 commit이 생기는 것이 아니라 브랜치의 commit으로 옮겨진다 |
 
 --- 
 !!! quote
