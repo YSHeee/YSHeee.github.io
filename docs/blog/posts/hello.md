@@ -13,12 +13,9 @@ It's my Blog!
 ---
 <!-- more -->
 
-
-- [x] Create Git folders
-- [ ] Write about Git
-    * [x] git-flow
-    * [] git command
-    * [] git basic
-    * [x] commit-convention
-- [ ] ...etc
+- [] Tailwind CSS Study
+- [] Make PPT
+- [] Thymeleaf?
+- [] This is Java
+- [x] Make a plan
 ...

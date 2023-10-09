@@ -130,6 +130,7 @@ nav:
       - HTML API : web/design/html-api.md
       - CSS-SS: web/design/style-sheet.md
     - Tailwind CSS : web/tailwindcss.md
+    - Tailwind Reference : web/tailwindcss-reference.md
     - AJAX: web/ajax.md
   - Linux: 
     - Directory Structure: linux/directory-structure.md
