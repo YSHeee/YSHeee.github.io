@@ -299,10 +299,26 @@ Step to Step ([Docs-Play CDN](https://tailwindcss.com/docs/installation/play-cdn
 | xl | 1280px |
 | 2xl | 1536px |
 
-``` html
-<!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->
-<img class="w-16 md:w-32 lg:w-48" src="...">
+``` html title="Example"
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+  <div class="md:flex">
+    <div class="md:shrink-0">
+      <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/building.jpg" alt="Modern building architecture">
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
+      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible accommodation for your team</a>
+      <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
+    </div>
+  </div>
+</div>
 ```
+
+1. 기본적으로 바깥쪽의 div는 'display:block'으로 표시되기 때문에, `md:flex`를 추가하여 중간 화면(=md)부터는 'display:flex'로 표시합니다.
+2. 부모 컨테이너가 flex인 경우 이미지가 축소되지 않기를 원하기 때문에, 중간 화면(=md)이상에서 축소되지 않도록 `md:shrink-0`을 추가했습니다.
+<br> (비록 작은 화면에서는 아무것도 할 수 없으므로 `shrink-0`을 사용해도 무방하지만, md 화면에서만 문제가 되므로 명시하는 게 좋습니다)
+3. Small screen에서는 이미지의 크기가 전체 너비로 자동 설정됩니다.
+4. medium screen에서는 `md:h-full md:w-48`을 이용하여 너비를 고정된 크기로 제한하고, 이미지가 전체 높이가 되도록 설정했습니다.
 
 ---
 ### [스타일 재사용](https://tailwindcss.com/docs/reusing-styles) Loops

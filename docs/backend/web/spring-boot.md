@@ -123,16 +123,141 @@ public String home(Locale locale, Model model) { }
 : 도메인 오브젝트나 DTO 또는 VO의 프로퍼티에 요청 파라미터를 바인딩해서 한 번에 받을 때 사용
 <br>- 하나의 오브젝트에 클라이언트의 요청 정보를 담아서 한 번에 전달되는 것 이기 때문에 이를 커맨드 패턴에서 말하는 커맨드 오브젝트라고 부르기도 한다
 <br>- 모델을 가리키는 이름 변경 가능 
+=== "Example 1"
+    ``` java
+    @Controller
+    public class TestModelController2 {
+        @ModelAttribute("data1")
+        public int createModel1() {	
+            System.out.println("createModel1() 호출");
+            return 100;
+        }
+        @ModelAttribute("data2")
+        public int createModel2() {	
+            System.out.println("createModel2() 호출");
+            return 200;
+        }
+        @RequestMapping(value="/modeltest2")
+        public String handle(@ModelAttribute("data1") int vo1, 
+                    @ModelAttribute("data2") int vo2) {		
+            System.out.println("handle 에서 출력 : "+vo1 + " - " + vo2);
+            System.out.println("=============================");
+            return "modelResult2";
+        }	
+    }
+    ```
+=== "Example 2"
+    ``` java
+    @Controller
+    public class TestModelController1 {
+        @ModelAttribute("v1")
+        public String createString() {
+            System.out.println("객체 생성 자동호출1");
+            return "테스트!!";
+        }
+        @ModelAttribute("v2")
+        public int[] createArray() {
+            System.out.println("객체 생성 자동호출2");
+            return new int[]{10, 20, 30, 40, 50};
+        }
+        @ModelAttribute("v3")
+        public MyVO createVO() {
+            System.out.println("객체 생성 자동호출3");
+            MyVO vo = new MyVO( 23, "yellow");
+            return vo;
+        }	
+        @ModelAttribute("v4")
+        public Date createDate() {
+            System.out.println("객체 생성 자동호출4");		
+            return new Date();
+        }	
+        @ModelAttribute("v5")
+        public List<MyVO> createList() {
+            System.out.println("객체 생성 자동호출5");
+            List<MyVO> list = new ArrayList<MyVO>();
+            MyVO vo = new MyVO(7, "red");
+            list.add(vo);
+            vo = new MyVO(11, "pink");
+            list.add(vo);
+            return list;
+        }	
+        @RequestMapping("/modeltest1")
+        public String handle() {
+            System.out.println("handle() 메서드 호출");		
+            return "modelResult1";
+        }
+    }
+    ```
 
-``` java
-@RequestMapping(value="/user/add", method=RequestMethod.POST)
-public String add(@ModelAttribute User user){}
+### @SessionAttributes
+: 세션 객체 생성
 
-// 컨트롤러가 리턴하는 모델에 파라미터로 전달한 오브젝트를 자동으로 추가
-// update() 컨트롤러가 DispatcherServlet에게 돌려주는 모델 맵에는 "currentUser" 라는 키로 User 오브젝트가 저장되어 있음
-@RequestMapping(value="/user/add", method=RequestMethod.POST)
-public String add(@ModelAttribute("currentUser") User user){}
-```
+- SessionStatus : @SessionAttribute 어노테이션을 명시한 session 속성을 제거하도록 이벤트 발생 
+<br> 부분 삭제가 불가능하므로, 이를 위해서는 직접 세션 프로그래밍 진행 
+
+=== "@SessionAttributes"
+    ``` java
+    @Controller
+    @SessionAttributes("data1") 
+    public class TestModelController3 {
+        @ModelAttribute("data1")
+        public StringBuffer createModel1() { // data1은 SessionAttributes, 함수 실행 후에는 세션이 초기화되어야 다시 실행된다
+            System.out.println("createModel1() 호출");
+            return new StringBuffer();
+        }
+        @ModelAttribute("data2")
+        public StringBuffer createModel2() {	
+            System.out.println("createModel2() 호출");
+            return new StringBuffer();
+        }
+        @RequestMapping(value="/modeltest3")
+        public String handle(@ModelAttribute("data1") StringBuffer vo1, 
+                @ModelAttribute("data2") StringBuffer vo2, String str) {
+            vo1.append(str+"#");
+            vo2.append(str+"@");
+            System.out.println("handle 에서 출력 : "+vo1 + " - " + vo2);
+            System.out.println("=============================");
+            return "modelResult2";
+        }	
+
+        @RequestMapping(value="/countdel")
+        public void handle(SessionStatus s) {
+            s.setComplete(); // Session 객체 초기화
+        }	
+    }
+    ```
+=== "세션 프로그래밍"
+    ``` java
+    @Controller
+    public class CountController2 {	
+        @RequestMapping(value="/count2")
+        public void handle(int num1, int num2, HttpSession s) { // 세션 프로그래밍을 위해 HttpSession 선언
+            System.out.println(s.getId());
+            if(s.getAttribute("count3") == null )
+                s.setAttribute("count3", new CountDTO());
+            if(s.getAttribute("count4") == null )
+                s.setAttribute("count4", new CountDTO());
+            
+            CountDTO vo3 = (CountDTO)s.getAttribute("count3");
+            CountDTO vo4 = (CountDTO)s.getAttribute("count4");
+            
+            vo3.setCountNum(num1);
+            vo4.setCountNum(num2);
+            System.out.println("handle() : "+ 
+                    vo3.getCountNum() + " : " + vo4.getCountNum());
+            
+            System.out.println("=============================");
+        }
+        @RequestMapping(value="/countdel2")
+        public void handle(HttpSession s, String who) { //who : 삭제할 세션 객체명(count3 or count4)
+            if(who != null) {
+                s.removeAttribute(who);
+                System.out.println(who + " deleted!");		
+            }		
+            System.out.println("=============================");
+        }
+    }
+    ```
 
 ### @RequestParam
 : 요청 파라미터(Query 문자열)를 메서드의 매개변수로 1:1 대응해서 받는 것
@@ -259,6 +384,25 @@ public class ThymeleafController1 {
         model.addAttribute("say", "안녕?");
         return "basic/hithymeleaf";
     }
+}
+```
+
+### + Static Controller
+: 보통의 view는 /templates(thymeleaf)에서 찾지만 /static(html)에서 찾고싶을 때는 다음과 같은 방법 사용
+<br>(스프링에서 권장하지 않는 방식)
+
+``` java
+@Controller
+public class StaticController {	
+	public StaticController() {
+		System.out.println("HelloController Create object");
+	}
+	@RequestMapping("/static")
+	public ModelAndView xxx(){
+		InternalResourceView view = new InternalResourceView("/staticview.html");
+		ModelAndView viewModel = new ModelAndView(view);
+		return viewModel;
+	}	
 }
 ```
 
