@@ -306,13 +306,61 @@ Map test4(@RequestBody Map<String, String> map)
 
 - @ResponseBody : HTTP response body로 전송, view를 거치지 않고 **컨트롤러가 직접** 응답하므로 **응답 형식** 설정
 ``` java
-@RequestMapping(value= "/body/json/{id}", produces = "application/json"; charset="utf-8")
-@RequestMapping(value= "body/xml/{id}", produces = "text/xml"; charset="utf-8")
+@Controller
+public class ResponseBodyController {
+    @RequestMapping(value = "/body/text/{id}", produces="text/plain; charset=utf-8")
+	@ResponseBody
+	public String getByIdInTEXT(@PathVariable String id) {
+		return "<h1>컨트롤러에서 바로 문자열을 리턴해요 : "+id+"</h1>";
+	}
+	@RequestMapping(value = "/body/htmltext/{id}", 	produces="text/html; charset=utf-8")
+	@ResponseBody
+	public String getByIdInHTMLTEXT(@PathVariable String id) {
+		return "<h1>컨트롤러에서 바로 HTML 문자열을 리턴해요 : " + id +"</h1>";
+	}
+	@RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8")  // text/json
+	@ResponseBody
+	public MyModel getByIdInJSON(@PathVariable String id) {
+		MyModel my = new MyModel();
+		my.setFlowerName("장미");
+		my.setNum(5);
+		my.setId(id);
+		System.out.println(my);
+		return my;
+	}
+}
 ```
 
 ### @RestController (스프링 4.0)
 : @Controller를 상속하여 **@Controller + @ResponseBody** 기능 지원
-<br> 도메인 객체의 웹서비스 노출이 가능해짐으로써 각각의 @RequestMapping method에 @ResponseBody를 할 필요 X
+<br> 도메인 객체의 웹서비스 노출이 가능해짐으로써 **각각의 @RequestMapping method에 @ResponseBody를 할 필요가 없다**
+
+``` java title="JSON"
+@RestController
+public class JsonResponseController {
+	@RequestMapping(value = "/getJSON1", produces = "application/json; charset=utf-8")
+	public String test1(String id) {
+		String s = "{ \"name\":\"둘리\",\"id\":\"" + id +"\"}";
+		return s;
+	}
+
+	@RequestMapping(value = "/getJSON2", produces = "application/json; charset=utf-8")
+	public HashMap<String, String> test2(String id) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("name", "유니코");
+		map.put("id", id);
+		return map;
+	}
+	
+	@RequestMapping(value = "/getJSON3", produces = "application/json; charset=utf-8")
+	public TestVO test3(String id) {
+		TestVO vo = new TestVO();
+		vo.setName("올라프");
+		vo.setId(id);
+		return vo;
+	}
+}
+```
 
 ---
 ### + @ComponentScan
@@ -405,6 +453,7 @@ public class StaticController {
 	}	
 }
 ```
+
 
 ---
 ## 파일 업로드

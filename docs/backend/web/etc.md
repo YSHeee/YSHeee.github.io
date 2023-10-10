@@ -289,6 +289,15 @@ th:href="@{/hello(param1=${param1}, param2=${param2})}">쿼리 파라미터 포�
     </script>
     ```
 
+### 타임리프 + html
+
+- utext
+- [()]
+
+``` html
+<h2 style="color:red;" th:utext="${lottoDTO.result}"></h2>
+<h2 style="color:red;">[(${lottoDTO.result})]</h2>
+```
 
 
 ---
