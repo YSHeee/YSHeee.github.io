@@ -298,38 +298,71 @@ public class HomeController{
 : 웹 시스템 간 JSON 형식의 데이터를 주고받는 경우, 스프링 MVC는 컨트롤러에서 DOM 객체나 자바 객체로 변환해서 수신하는 기능과 역으로 전송하는 기술을 제공한다
 
 - @RequestBody : HTTP request body를 전달 형식 또는 자바 객체로 변환하여 수신
-``` java
-String test2(@RequestBody String param)
-PersonVO test3(@RequestBody PersonVO vo)
-Map test4(@RequestBody Map<String, String> map)
-```
-
 - @ResponseBody : HTTP response body로 전송, view를 거치지 않고 **컨트롤러가 직접** 응답하므로 **응답 형식** 설정
-``` java
-@Controller
-public class ResponseBodyController {
-    @RequestMapping(value = "/body/text/{id}", produces="text/plain; charset=utf-8")
-	@ResponseBody
-	public String getByIdInTEXT(@PathVariable String id) {
-		return "<h1>컨트롤러에서 바로 문자열을 리턴해요 : "+id+"</h1>";
-	}
-	@RequestMapping(value = "/body/htmltext/{id}", 	produces="text/html; charset=utf-8")
-	@ResponseBody
-	public String getByIdInHTMLTEXT(@PathVariable String id) {
-		return "<h1>컨트롤러에서 바로 HTML 문자열을 리턴해요 : " + id +"</h1>";
-	}
-	@RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8")  // text/json
-	@ResponseBody
-	public MyModel getByIdInJSON(@PathVariable String id) {
-		MyModel my = new MyModel();
-		my.setFlowerName("장미");
-		my.setNum(5);
-		my.setId(id);
-		System.out.println(my);
-		return my;
-	}
-}
-```
+
+=== "@RequestBody"
+    ``` java
+    @Controller
+    public class RequestBodyController {
+        @GetMapping("/bodystart")
+        public String test0() {
+            System.out.println("요청 성공");
+            return "resultold";
+        }
+        @PostMapping("/rb1")
+        public ModelAndView test1(String name, int age) {
+            System.out.println(">>> " + name+":"+age);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("msg", "폼태그로 전달된 파라미터 : "+name+":"+age);
+            mav.setViewName("resultold");
+            return mav;
+        }
+        @PostMapping(value = "/rb2", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public String test2(@RequestBody String param) {
+            System.out.println(">>> " + param);
+            return param;
+        }
+        @PostMapping(value = "/rb3", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public PersonVO test3(@RequestBody PersonVO vo) {
+            System.out.println(">>> " + vo.getName()+":"+vo.getAge());
+            return vo;
+        }
+        @PostMapping(value = "/rb4", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public Map test4(@RequestBody Map<String,String> map) {
+            System.out.println(">>> " + map);
+            return map;
+        }
+    }
+    ```
+=== "@ResponseBody"
+    ``` java
+    @Controller
+    public class ResponseBodyController {
+        @RequestMapping(value = "/body/text/{id}", produces="text/plain; charset=utf-8")
+        @ResponseBody
+        public String getByIdInTEXT(@PathVariable String id) {
+            return "<h1>컨트롤러에서 바로 문자열을 리턴해요 : "+id+"</h1>";
+        }
+        @RequestMapping(value = "/body/htmltext/{id}", 	produces="text/html; charset=utf-8")
+        @ResponseBody
+        public String getByIdInHTMLTEXT(@PathVariable String id) {
+            return "<h1>컨트롤러에서 바로 HTML 문자열을 리턴해요 : " + id +"</h1>";
+        }
+        @RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8")  // text/json
+        @ResponseBody
+        public MyModel getByIdInJSON(@PathVariable String id) {
+            MyModel my = new MyModel();
+            my.setFlowerName("장미");
+            my.setNum(5);
+            my.setId(id);
+            System.out.println(my);
+            return my;
+        }
+    }
+    ```
 
 ### @RestController (스프링 4.0)
 : @Controller를 상속하여 **@Controller + @ResponseBody** 기능 지원
@@ -454,10 +487,230 @@ public class StaticController {
 }
 ```
 
+---
+## Log
+
+- error : 
+- warn : 
+- info : 
+- debug : 
+- trace : 
+
+``` java
+@Controller
+public class HomeController {
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@GetMapping("/home")
+	public String home(Locale locale, Model model) {
+		logger.error("클라이언트의 로케일 - {}.", locale);
+		logger.warn("클라이언트의 로케일 - {}.", locale);
+		logger.info("클라이언트의 로케일 - {}.", locale);
+		logger.debug("클라이언트의 로케일 - {}.", locale);
+		logger.trace("클라이언트의 로케일 - {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+		model.addAttribute("serverTime", formattedDate );
+		return "home";
+	}
+}
+```
 
 ---
 ## 파일 업로드
 
+`multipart/form-data` : 클라이언트에서 업로드 되는 파일은 여러 개의 파트로 구성되어 전달된다
+
+- multipart를 argument로 받기 위해서는 Controller의 매개변수 타입을 아래처럼 지정한다
+    1. `xxx(MultipartFile mfile)`
+    2. `xxx(MultipartFile 타입을 멤버변수로 정의한 VO클래스 vo)`
+    3. `xxx(MultipartFile[] 타입을 멤버변수로 정의한 VO클래스 vo)` -> 다중 파일
+    4. `xxx(MultipartRequest mreq)` -> 다중 파일
+
+Multipart의 주요 메서드
+
+|   Method  |  설명  | 
+| :-------: | :---: |
+| String getName() | 파라미터의 이름 리턴 |
+| String getOriginalFilename() | 업로드 한 파일의 실제 이름 리턴 |
+| boolean isEmpty() | 업로드 한 파일이 존재하지 않으면 true 리턴 |
+| long getSize() | 업로드 한 파일의 크기 리턴 |
+| byte[] getBytes() throws IOException | 업로드 한 파일의 데이터를 byte 배열로 리턴 |
+| InputStream getInputStream() | InputStrem 객체 리턴 |
+| void transferTo(File dest) | 업로드 한 파일 데이터를 지정한 파일에 저장 |
+
+=== "File Upload"
+    ``` java
+    @Getter
+    @AllArgsConstructor
+    public class FileVO1 {
+        private MultipartFile uploadFile;
+    }
+    -----------------------------------------
+    @Controller
+    public class UploadController1 {
+        @RequestMapping("/uploadForm1")
+        public void formFile() {	   
+        }
+        @RequestMapping("/upload1")
+        public ModelAndView saveFile(FileVO1 vo) {
+            String fileName =  vo.getUploadFile().getOriginalFilename();
+
+            byte[] content = null;
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("uploadForm1");
+            try {
+
+                content =  vo.getUploadFile().getBytes();
+                File f = new File("c:/uploadtest/"+fileName);
+                if ( f.exists() ) {
+                    mav.addObject("msg", fileName + " : 파일이 이미 존재해요!!");
+                } else {
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(content);
+                    fos.close();
+                    mav.addObject("msg", fileName + ": 파일이 저장되었어요!!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                mav.addObject("msg", "오류가 발생했어요!!");
+            }	    
+            return mav;
+        }
+    }
+    ```
+=== "Files Upload"
+    ``` java
+    @Getter
+    @AllArgsConstructor
+    public class FileVO2 {
+        private MultipartFile[] uploadFiles;
+    }
+    -----------------------------------------
+    @Controller
+    public class UploadController2 {
+        ...
+        @RequestMapping("/upload2")
+        public ModelAndView saveFile(FileVO2 vo) {
+            System.out.println(vo.getUploadFiles().length+"개가 업로드 됨");
+            String resultStr = "";
+            String path = "c:/uploadtest/multi";
+            File isDir = new File(path);
+            if (!isDir.isDirectory()) {
+                isDir.mkdirs();
+            }
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("uploadForm2");
+            
+            for (MultipartFile mfile : vo.getUploadFiles()) {
+                    String fileName = mfile.getOriginalFilename();
+                    try {
+                        File f = new File("c:/uploadtest/multi/" + fileName);
+                        if (f.exists()) {
+                            resultStr += fileName + " : 파일이 이미 존재해요!!<br>";
+                        } else {
+                            mfile.transferTo(f);
+                            resultStr += fileName + " : 파일이 저장되었어요!!<br>";
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        resultStr += fileName + " : 오류가 발생했어요!!";				
+                    }
+            }	   
+            mav.addObject("msg", resultStr);	
+            return mav;
+        }
+    }
+    ```
+=== "MultipartRequest"
+    ``` java
+    // <form  th:unless="${ msg }" action="/upload3"  enctype="multipart/form-data" method="post">
+    // <input type="file" name="mfile" multiple/>
+
+    @Controller
+    public class UploadController3 {
+        @Autowired
+        ServletContext context; 
+        @RequestMapping("/uploadForm3")
+        public void formFile() {
+        }
+
+        @RequestMapping("/upload3")
+        public ModelAndView saveFile(MultipartRequest mreq) {
+            ModelAndView mav = new ModelAndView();
+            List<MultipartFile> list = mreq.getFiles("mfile");
+            System.out.println(list.size()+"개가 업로드 됨");
+            String resultStr = "";
+            String path = "c:/uploadtest/multi";
+            File isDir = new File(path);
+            if (!isDir.isDirectory()) {
+                isDir.mkdirs();
+            }
+            mav.setViewName("uploadForm3");
+            for (MultipartFile mfile : list) {
+                String fileName = mfile.getOriginalFilename();
+                try {
+                    File f = new File("c:/uploadtest/multi/" + fileName);
+                    //String fileInfo = context.getRealPath("/") + "images/"+fileName;
+                    //System.out.println(fileInfo);
+                    //File f = new File(fileInfo);
+                    if (f.exists()) {
+                        resultStr += fileName + " : 파일이 이미 존재해요!!<br>";
+                    } else {
+                        mfile.transferTo(f);
+                        resultStr += fileName + " : 파일이 저장되었어요!!<br>";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    resultStr += fileName + " : 오류가 발생했어요!!<br>";				
+                }
+            }
+            mav.addObject("msg", resultStr);	
+            return mav;
+        }
+    }
+    ```
+=== "Canvas"
+    ``` java
+    @RestController
+    public class UploadController4 {
+        @RequestMapping(value="/canvasupload",
+                produces="text/plain; charset=utf-8")	
+        public String saveFile(MultipartFile mfile) {	    
+            String fileName =  mfile.getOriginalFilename();	  
+            byte[] content = null;
+            String result="OK";
+            try {
+                content =  mfile.getBytes();
+                File f = new File("c:/uploadtest/"+fileName);
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(content);
+                fos.close();	   		 
+            } catch (IOException e) {
+                e.printStackTrace();
+                result="FAIL";
+            }	    
+            return result;
+        }
+        @RequestMapping(value="/canvasdownload",
+                produces="text/plain; charset=utf-8")	
+        public String downloadFile() {	    
+            String path = "C:/uploadtest/";
+            char[] buffer =  null;		
+            try {
+                FileReader reader = new FileReader(path+"test.png");
+                buffer = new 
+                        char[(int)(new File(path+"test.png").length())];
+                reader.read(buffer);
+                reader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }		
+            return new String(buffer);
+        }
+    }
+    ```
 
 ---
 #### 웹 애플리케이션

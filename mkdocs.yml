@@ -179,6 +179,7 @@ nav:
       - MVC : backend/web/mvc.md
       - Spring : backend/web/spring.md
       - Spring Boot : backend/web/spring-boot.md
+      - Mybatis: backend/web/mybatis.md
       - ETC : backend/web/etc.md
   - Language:
     - Python:
