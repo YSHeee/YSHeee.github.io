@@ -6,7 +6,6 @@ site_url: https://ysheee.github.io/
 #repo_name: YSHeee/YSHeee.github.io
 #repo_url: https://github.com/YSHeee/YSHeee.github.io
 
-
 ## Configuration
 theme:
   name: material
@@ -49,7 +48,6 @@ theme:
     - content.code.copy
     - content.tabs.link
 
-
 ## Customization
 extra:
   social:
@@ -61,7 +59,7 @@ extra:
     property: G-K6PD1RZ6VF
   consent:
     title: Cookie consent
-    description: >- 
+    description: >-
       We use cookies to recognize your repeated visits and preferences, as well
       as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
@@ -72,9 +70,6 @@ plugins:
   - search
   - blog:
       post_date_format: long
-  
-
-
 
 ## Extension
 markdown_extensions:
@@ -114,178 +109,177 @@ markdown_extensions:
   - toc:
       permalink: true
 
-
-
 ## Page tree
 nav:
   - Home: index.md
   - Web:
-    - Basic : web/basic.md
-    - HTTP : web/http.md
-    - HTTP Status Code: web/status-code.md 
-    - HTML & CSS:
-      - HTML: web/design/html.md
-      - CSS: web/design/css.md
-      - Layout: web/design/layout.md
-      - HTML API : web/design/html-api.md
-      - CSS-SS: web/design/style-sheet.md
-    - Tailwind CSS : web/tailwindcss.md
-    - Tailwind Reference : web/tailwindcss-reference.md
-    - AJAX: web/ajax.md
-  - Linux: 
-    - Directory Structure: linux/directory-structure.md
-    - Command: linux/command.md
-    - SSH: linux/ssh.md
-    - Note:
-      - vim: linux/note/vim.md
-      - Nvidia-command: linux/note/nvidia.md
-      - tmux: linux/note/tmux.md
+      - Basic: web/basic.md
+      - HTTP: web/http.md
+      - HTTP Status Code: web/status-code.md
+      - HTML & CSS:
+          - HTML: web/design/html.md
+          - CSS: web/design/css.md
+          - Layout: web/design/layout.md
+          - HTML API: web/design/html-api.md
+          - CSS-SS: web/design/style-sheet.md
+      - Tailwind CSS: web/tailwindcss.md
+      - Tailwind Reference: web/tailwindcss-reference.md
+      - AJAX: web/ajax.md
+  - Linux:
+      - Directory Structure: linux/directory-structure.md
+      - Command: linux/command.md
+      - SSH: linux/ssh.md
+      - Note:
+          - vim: linux/note/vim.md
+          - Nvidia-command: linux/note/nvidia.md
+          - tmux: linux/note/tmux.md
   - Docker:
-    - Basic: docker/basic.md
-    - Command:
-      - Base Command: docker/command/command.md
-      - Compose Command: docker/command/compose.md
-      - Dockerfile: docker/command/dfile.md
-      - Compose-yml: docker/command/docker-compose-yml.md
-      - Buildx: docker/command/buildx.md
-    - Note:
-      - Install: docker/note/installation.md
-      - Registry: docker/note/registry.md
-      - Portainer: docker/note/portainer.md
-      - Multi-stage:
-        - Multi Stage Builds: docker/note/multiS.md
-        - Practice: docker/note/multiS2.md
-      - Multi-architecture: docker/note/multiA.md
-      - Buildkit: docker/note/buildkit.md
-      - BuildX: docker/note/buildx.md
-      - Best-practice: docker/note/best-practice.md
-    - System Run:
-      - Monitoring: docker/running/monitoring.md
-      - ELK: docker/running/elk.md
-      - Others:
-        - docker/running/sorry.md
-        - wordpress-maria-admin: docker/running/wmp.md
-        - django-postgre-admin: docker/running/dpp.md
-        - nginx-flask-mysql-admin: docker/running/nfmp.md
-        - react-express-mongo-me: docker/running/remm.md
-        - etc: docker/running/etc.md
+      - Basic: docker/basic.md
+      - Command:
+          - Base Command: docker/command/command.md
+          - Compose Command: docker/command/compose.md
+          - Dockerfile: docker/command/dfile.md
+          - Compose-yml: docker/command/docker-compose-yml.md
+          - Buildx: docker/command/buildx.md
+      - Note:
+          - Install: docker/note/installation.md
+          - Registry: docker/note/registry.md
+          - Portainer: docker/note/portainer.md
+          - Multi-stage:
+              - Multi Stage Builds: docker/note/multiS.md
+              - Practice: docker/note/multiS2.md
+          - Multi-architecture: docker/note/multiA.md
+          - Buildkit: docker/note/buildkit.md
+          - BuildX: docker/note/buildx.md
+          - Best-practice: docker/note/best-practice.md
+      - System Run:
+          - Monitoring: docker/running/monitoring.md
+          - ELK: docker/running/elk.md
+          - Others:
+              - docker/running/sorry.md
+              - wordpress-maria-admin: docker/running/wmp.md
+              - django-postgre-admin: docker/running/dpp.md
+              - nginx-flask-mysql-admin: docker/running/nfmp.md
+              - react-express-mongo-me: docker/running/remm.md
+              - etc: docker/running/etc.md
   - Backend:
-    - RestAPI:
-      - backend/restapi.md
-    - FastAPI : backend/fastapi.md
-    - Java-based Framework:
-      - Servlet : backend/web/servlet.md
-      - JSP : backend/web/jsp.md
-      - MVC : backend/web/mvc.md
-      - Spring : backend/web/spring.md
-      - Spring Boot : backend/web/spring-boot.md
-      - Mybatis: backend/web/mybatis.md
-      - ETC : backend/web/etc.md
+      - RestAPI:
+          - backend/restapi.md
+      - FastAPI: backend/fastapi.md
+      - Java-based Framework:
+          - Servlet: backend/web/servlet.md
+          - JSP: backend/web/jsp.md
+          - MVC: backend/web/mvc.md
+          - Spring: backend/web/spring.md
+          - Spring Boot Basic: backend/web/spring-boot.md
+          - Spring Boot Advanced: backend/web/spring-boot-ad.md
+          - Mybatis: backend/web/mybatis.md
+          - ETC: backend/web/etc.md
   - Language:
-    - Python:
-      - Python : language/python/python.md
-      - Style Guide: language/python/style-guide.md
-      - Basic:
-        - Variable: language/python/basic/variable.md
-        - Operator: language/python/basic/operator.md
-        - String: language/python/basic/string.md
-        - List: language/python/basic/list.md
-        - Dictionary: language/python/basic/dictionary.md
-        - Set: language/python/basic/set.md
-        - Tuple : language/python/basic/tuple.md
-        - Exception : language/python/basic/exception.md
-        - Function : language/python/basic/function.md
-        - File : language/python/basic/file.md
-      - Advanced:
-        - Class : language/python/advanced/class.md
-        - Closure : language/python/advanced/closure.md
-        - Coroutine : language/python/advanced/coroutine.md
-        - Modules : language/python/advanced/modules.md
-        - Package : language/python/advanced/package.md
-        - rator*3 : language/python/advanced/rator.md
-        - Regular Expressions : language/python/advanced/re.md
-        - Type Hints : language/python/advanced/type-hints.md
-        - Concurrency: language/python/advanced/concurrency.md
-      - Note : 
-        - 1 : language/python/note/1.md
-    - Java:
-      - Java : language/java/java.md
-      - Basic :
-        - JVM : language/java/basic/jvm.md
-        - Syntax : language/java/basic/syntax.md
-        - Variable : language/java/basic/variable.md
-        - Primitive Types : language/java/basic/primitive-type.md
-        - Reference Types : language/java/basic/reference-type.md
-        - Operator : language/java/basic/operator.md
-        - Controls : language/java/basic/controls.md
-        - OOP :
-          - Class : language/java/basic/class.md
-          - Inheritance : language/java/basic/inheritance.md
-          - Interface : language/java/basic/interface.md
-        - Java API : language/java/basic/java-api.md
-      - Advanced:
-        - Generic : language/java/advanced/generic.md
-        - Collection : language/java/advanced/collection.md
-        - IO : language/java/advanced/io.md
-        - Thread : language/java/advanced/thread.md
-        - Lambda : language/java/advanced/lambda.md
-        - Stream : language/java/advanced/stream.md
-      - Style-Guide : language/java/style-guide.md
-      - JDBC : language/java/jdbc.md
-      - Note : 
-        - 1 : language/java/note/1.md
-    - Javascript:
-      - JS: language/javascript/js.md
-      - Basic: 
-        - Syntax : language/javascript/syntax.md
-        - Data Types+: language/javascript/data-types.md
-        - Array: language/javascript/array.md
-        - Function: language/javascript/function.md
-        - Object: language/javascript/object.md
-        - Standard Object: language/javascript/standard-object.md
-        - DOM: language/javascript/dom.md
-        - BOM: language/javascript/bom.md
-        - Event: language/javascript/event.md
-        - RegExp: language/javascript/regexp.md
-      - Note: language/javascript/note.md
-  - DB: 
-    - Basic: db/basic.md
-    - Mysql: 
-      - Syntax: db/mysql/syntax.md
-      - DML: db/mysql/dml.md 
-      - Cheat Sheet: db/mysql/cheat-sheet.md
+      - Python:
+          - Python: language/python/python.md
+          - Style Guide: language/python/style-guide.md
+          - Basic:
+              - Variable: language/python/basic/variable.md
+              - Operator: language/python/basic/operator.md
+              - String: language/python/basic/string.md
+              - List: language/python/basic/list.md
+              - Dictionary: language/python/basic/dictionary.md
+              - Set: language/python/basic/set.md
+              - Tuple: language/python/basic/tuple.md
+              - Exception: language/python/basic/exception.md
+              - Function: language/python/basic/function.md
+              - File: language/python/basic/file.md
+          - Advanced:
+              - Class: language/python/advanced/class.md
+              - Closure: language/python/advanced/closure.md
+              - Coroutine: language/python/advanced/coroutine.md
+              - Modules: language/python/advanced/modules.md
+              - Package: language/python/advanced/package.md
+              - rator*3: language/python/advanced/rator.md
+              - Regular Expressions: language/python/advanced/re.md
+              - Type Hints: language/python/advanced/type-hints.md
+              - Concurrency: language/python/advanced/concurrency.md
+          - Note:
+              - 1: language/python/note/1.md
+      - Java:
+          - Java: language/java/java.md
+          - Basic:
+              - JVM: language/java/basic/jvm.md
+              - Syntax: language/java/basic/syntax.md
+              - Variable: language/java/basic/variable.md
+              - Primitive Types: language/java/basic/primitive-type.md
+              - Reference Types: language/java/basic/reference-type.md
+              - Operator: language/java/basic/operator.md
+              - Controls: language/java/basic/controls.md
+              - OOP:
+                  - Class: language/java/basic/class.md
+                  - Inheritance: language/java/basic/inheritance.md
+                  - Interface: language/java/basic/interface.md
+              - Java API: language/java/basic/java-api.md
+          - Advanced:
+              - Generic: language/java/advanced/generic.md
+              - Collection: language/java/advanced/collection.md
+              - IO: language/java/advanced/io.md
+              - Thread: language/java/advanced/thread.md
+              - Lambda: language/java/advanced/lambda.md
+              - Stream: language/java/advanced/stream.md
+          - Style-Guide: language/java/style-guide.md
+          - JDBC: language/java/jdbc.md
+          - Note:
+              - 1: language/java/note/1.md
+      - Javascript:
+          - JS: language/javascript/js.md
+          - Basic:
+              - Syntax: language/javascript/syntax.md
+              - Data Types+: language/javascript/data-types.md
+              - Array: language/javascript/array.md
+              - Function: language/javascript/function.md
+              - Object: language/javascript/object.md
+              - Standard Object: language/javascript/standard-object.md
+              - DOM: language/javascript/dom.md
+              - BOM: language/javascript/bom.md
+              - Event: language/javascript/event.md
+              - RegExp: language/javascript/regexp.md
+          - Note: language/javascript/note.md
+  - DB:
+      - Basic: db/basic.md
+      - Mysql:
+          - Syntax: db/mysql/syntax.md
+          - DML: db/mysql/dml.md
+          - Cheat Sheet: db/mysql/cheat-sheet.md
   - Git:
-    - Git : git/git.md
-    - Git Command : git/git-command.md
-    - Git Flow : git/git-flow.md
-    - Commit Convention : git/commit-convention.md
+      - Git: git/git.md
+      - Git Command: git/git-command.md
+      - Git Flow: git/git-flow.md
+      - Commit Convention: git/commit-convention.md
   - Note:
-    - Bookmark: note/bookmark.md
-    - Setting: note/setting.md
-    - MKdocs: note/mkdocs/mkdocs.md
-    - VMware: note/vmware/VMware.md
-    - PM2: note/pm2.md
-    - MAC: note/mac.md
-  - Programmers: 
-    - Python:
-      - Level 0: programmers/python/level0.md
-      - Level 1: programmers/python/level1.md
-    - Java:
-      - Level 0: programmers/java/level0.md
-      - Level 1: programmers/java/level1.md
-    - Mysql:
-      - Level 1: programmers/mysql/level1.md
-    - MSA Group:
-      - 9월 : programmers/group/september.md
-      - 10월 : programmers/group/october.md
+      - Bookmark: note/bookmark.md
+      - Setting: note/setting.md
+      - MKdocs: note/mkdocs/mkdocs.md
+      - VMware: note/vmware/VMware.md
+      - PM2: note/pm2.md
+      - MAC: note/mac.md
+  - Programmers:
+      - Python:
+          - Level 0: programmers/python/level0.md
+          - Level 1: programmers/python/level1.md
+      - Java:
+          - Level 0: programmers/java/level0.md
+          - Level 1: programmers/java/level1.md
+      - Mysql:
+          - Level 1: programmers/mysql/level1.md
+      - MSA Group:
+          - 9월: programmers/group/september.md
+          - 10월: programmers/group/october.md
   - Interview:
-    - Link: interview/link.md
-    - SelfPR: interview/pr.md
-    - Tech: 
-      - Experience: interview/tech-experience.md
-      - CS: interview/tech-cs.md
-      - Python: interview/tech-python.md
-      - Deploy : interview/tech-deploy.md
+      - Link: interview/link.md
+      - SelfPR: interview/pr.md
+      - Tech:
+          - Experience: interview/tech-experience.md
+          - CS: interview/tech-cs.md
+          - Python: interview/tech-python.md
+          - Deploy: interview/tech-deploy.md
   - Blog:
-    - blog/index.md
-  - Nice to meet you : visitor.md
+      - blog/index.md
+  - Nice to meet you: visitor.md
