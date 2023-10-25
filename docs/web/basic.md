@@ -28,19 +28,32 @@ graph TB
 
 ---
 ## 웹소켓 WebSocket
-: HTML5 표준 기술, HTTP 환경에서 클라이언트와 서버 사이에 하나의 TCP 연결을 통해 실시간으로 전이중 통신을 가능케 하는 프로토콜
+: HTML5 표준 기술, HTTP 환경에서 클라이언트와 서버 사이에 하나의 TCP 연결을 통해 **전이중 실시간 양방향 통신**을 가능케 하는 프로토콜
+<br> - 실시간 채팅 등 실시간이라는 키워드가 들어가는 기능들을 위해서는 대부분 웹소켓 기술이 필요하다
 
-- 실시간 채팅 등 실시간이라는 키워드가 들어가는 기능들을 위해서는 대부분 웹소켓 기술이 필요하다
-- 전이중 통신 : 단방향 통신과 달리 양방향으로 송신과 수신이 가능한 것
+- 서버에서 일방적으로 클라이언트로 요청을 보낼 수 잇다
+- Connection을 유지하고 있는 동안 request-response 방식이 아닌 양방향의 실시간 데이터 통신 가능
+- (전이중 통신 : 단방향 통신과 달리 양방향으로 송신과 수신이 가능한 것)
 
 ![socket-1](./images/websocket.png)
+
+!!! note 
+    * polling : 클라이언트에서 특정 주기를 가지고 서버에 계속 Request, 서버 부담 :material-arrow-up:
+    * long polling : Request를 보내고 계속 기다리다가 서버에서 해당 클라이언트로 전달할 이벤트가 있다면 그 순간 response 메세지를 전달하고 연결 종료, 다시 Request를 보내는 과정을 반복하는 방식
+    * HTTP Streaming : Long polling처럼 서버에 Request를 보내고, 기다리다가 서버에서 클라이언트로 이벤트를 전달할 때, 해당 요청을 끊지 않고 필요한 메세지만 보내기를 반복하는 방식
 
 ### 통신 방식
 
 - 전이중 통신이므로, 연속적인 데이터 전송의 신뢰성을 보장하기 위해 Handshake 과정 수행
 - 기존의 다른 TCP 기반의 프로토콜은 TCP layer에서의 Handshake를 통해 연결을 수립하는 반면, 웹 소켓은 **HTTP 요청 기반으로 Handshake** 과정을 거쳐 연결을 수립
 
+![socket-2](./images/websocket-2.png)
+
+
+
+
 ---
 !!! quote
     - HTML/CSS 입문 예제 중심 (지은이: 황재호 | 출판사: 인포앤북(주))
     - 김정현 강사님
+    - [hahan Post](https://velog.io/@hahan/Polling-Long-Polling-Streaming)

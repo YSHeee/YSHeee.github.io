@@ -791,6 +791,9 @@ graph LR
 Spring Initializr
 (https://start.spring.io)
 
+### 
+![structure](./images/mvc-structure.png)
+
 
 
 ---

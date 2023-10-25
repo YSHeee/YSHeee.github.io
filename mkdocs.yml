@@ -248,6 +248,8 @@ nav:
           - Syntax: db/mysql/syntax.md
           - DML: db/mysql/dml.md
           - Cheat Sheet: db/mysql/cheat-sheet.md
+  - CS:
+      - Design Pattern: cs/design-pattern.md
   - Git:
       - Git: git/git.md
       - Git Command: git/git-command.md
