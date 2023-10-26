@@ -1,4 +1,6 @@
-# Mybatis
+# Spring + DB
+
+## Mybatis
 : DB 연동 구현시 사용되는 Java Persistence Framework, SQL Mapper 기능 지원
 <br> SQL 파일을 별도로 분리하여 관리할 수 있고, 객체-SQL 사이의 파라미터를 자동으로 매핑해준다
 
@@ -10,7 +12,7 @@
 - 이식성 : 어떤 프로그래밍 언어로도 구현가능 (자바,C#,.NET,RUBY)
 - 오픈소스 & 무료
 
-## Install (Spring Boot)
+### Install (Spring Boot)
 
 1. 프로젝트 생성 시 https://start.spring.io에서 Mybatis Framework 선택하거나 <br>또는 build.gradle에 dependencies 항목 추가
 ``` bash
@@ -36,7 +38,7 @@ public class SpringeduApplication {
 ```
 
 --- 
-## Example
+### Example
 
 === "SQL Mapper Interface" 
     ``` java
@@ -119,4 +121,22 @@ public class SpringeduApplication {
     }
     ```
 
+---
+## JPA 
+: Java Persistence API, RDBMS와 OOP 객체 사이의 불일치에서 오는 패러다임을 해결하기 위해서 만들어진 ORM 기술
+<br> 자바 ORM에 대한 API 표준 명세이자 인터페이스의 모음이므로 구현체가 없다. 따라서 ORM 프레임워크를 사용해야 하는데, 가장 대중적인 것은 **하이버네이트**이다
+
+특징
+
+- 생산성 : JPA에게 저장할 객체를 전달하기만 하면 되므로 코드 작성 필요 X, DDL문도 자동으로 생성해주기 때문에 데이터베이스 설계 중심을 객체 설계 중심으로 변경할 수 있다
+- 유지보수 : 유지보수해야 하는 코드 :material-arrow-down:
+- 패러다임의 불일치 해결 : JPA는 연관된 객체를 사용하는 시점에 SQL을 전달할 수 있고, 같은 트랜잭션 내에서 조회할 때 동 일성도 보장하기 때문에 다양한 패러다임의 불일치를 해결한다
+
+!!! note
+    **ORM**
+
+    - Object Relational Mapping
+    - 객체-관계 매핑의 줄임말로써 OOP의 객체 구현 클래스와 RDBMS에서 사용하는 테이블을 자동으로 매핑하는 것을 의미
+    - SQL문을 구현할 필요 없이 객체를 통해 간접적으로 데이터베이스 조작 가능
+    - 클래스와 테이블 매핑 시, 둘은 호환 가능성을 두고 만들어진 것이 아니므로 불일치가 발생하는데, ORM을 통해 객체 간의 관계를 바탕으로 SQL문을 자동 생성함으로써 해결한다
 

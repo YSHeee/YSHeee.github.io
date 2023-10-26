@@ -173,7 +173,7 @@ nav:
           - Spring: backend/web/spring.md
           - Spring Boot Basic: backend/web/spring-boot.md
           - Spring Boot Advanced: backend/web/spring-boot-ad.md
-          - Mybatis: backend/web/mybatis.md
+          - Spring DB: backend/web/spring-db.md
           - ETC: backend/web/etc.md
   - Language:
       - Python:
