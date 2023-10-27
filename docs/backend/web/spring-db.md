@@ -131,8 +131,10 @@ public class SpringeduApplication {
 - 생산성 : JPA에게 저장할 객체를 전달하기만 하면 되므로 코드 작성 필요 X, DDL문도 자동으로 생성해주기 때문에 데이터베이스 설계 중심을 객체 설계 중심으로 변경할 수 있다
 - 유지보수 : 유지보수해야 하는 코드 :material-arrow-down:
 - 패러다임의 불일치 해결 : JPA는 연관된 객체를 사용하는 시점에 SQL을 전달할 수 있고, 같은 트랜잭션 내에서 조회할 때 동 일성도 보장하기 때문에 다양한 패러다임의 불일치를 해결한다
+- 성능 : 애플리케이션과 데이터베이스 사이에서 성능 최적화 기회 제공, 같은 트랜잭션안에서는 같은 엔티티를 반환하기 때문에 데이터 베이스와의 통신 횟수를 줄일 수 있으며 트랜잭션을 commit하기 전까지 메모리에 쌓고 한 번에 SQL을 전송한다
+- 데이터 접근 추상화와 벤더 독립성 : RDB는 같은 기능이라도 벤더마다 사용법이 다르기 때문에 처음 선택한 데이터베이스에 종속되고 변경이 어렵다. 그러나 **JPA는 애플리케이션과 데이터베이스 사이에서 추상화된 데이터 접근을 제공**하여 종속되지 않으므로 간단하게 변경 가능하다.
 
-!!! note
+??? note
     **ORM**
 
     - Object Relational Mapping
@@ -140,3 +142,408 @@ public class SpringeduApplication {
     - SQL문을 구현할 필요 없이 객체를 통해 간접적으로 데이터베이스 조작 가능
     - 클래스와 테이블 매핑 시, 둘은 호환 가능성을 두고 만들어진 것이 아니므로 불일치가 발생하는데, ORM을 통해 객체 간의 관계를 바탕으로 SQL문을 자동 생성함으로써 해결한다
 
+    **ORM :octicons-arrow-both-16: SQL Mapper**
+
+    - SQL Mapper
+        - SQL <-> SQL Mapper <-> Object 필드
+        - 직접 작성한 SQL 문장으로 데이터베이스 데이터 제어
+        - Mybatis, JdbcTemplates(Spring)
+    - ORM
+        - Database data <-> ORM <-> Object 필드
+        - 객체를 통해서 간접적으로 데이터베이스의 데이터 제어
+        - 객체와 관계형 데이터베이스의 데이터를 자동으로 mapping
+        - JPA, Hibernate
+
+동작 과정
+: JPA는 애플리케이션과 JDBC 사이에서 동작, JPA 내부에서 JDBC API를 사용하여 SQL을 호출하여 DB와 통신한다
+<br> 개발자가 ORM 프레임워크에 저장하면, 적절한 INSERT SQL을 생성해 데이터베이스에 저장해주고, 검색을 하면 적절한 SELECT SQL을 생성해 결과를 객체에 매핑하고 전달한다
+
+![JPA-1](./images/jpa-1.png)
+
+### 프로그래밍
+
+1. persistence.xml 파일을 통해 JPA 설정
+2. EntityManagerFactory 생성
+3. EntityManager를 생성하여 Entity를 **영속성 컨텍스트(Persistence Context)**를 통해 관리
+``` bash
+EntityManagerFactory factory = Persistence.createEntityManagerFactory("emptest");
+EntityManager em = factory.createEntityManager();
+```
+
+``` mermaid
+graph TB
+    P(Persistence) -- 1.설정 정보 조회 --> M(META-INF/persistence.xml)
+    P(Persistence) -- 2.생성 --> EF(EntityManagerFactory)
+    EF -- 3.생성 --> E(EntityManager)
+```
+
+**EntityManagerFactory**
+
+- 데이터베이스와 상호 작용을 위한 EntityManager 객체를 생성하기 위해 사용되는 객체
+- 애플리케이션에서 한 번만 생성하고 공유해서 사용
+- *Thread-Safe* 하므로 여러 스레드에서 동시에 접근해도 안전
+- EntityManagerFactory 객체를 통해 생성되는 모든 EntityManager 객체는 동일한 데이터베이스에 접속한다
+
+**EntityManager**
+
+- Entity를 관리하는 객체
+- 데이터베이스에 대한 CRUD 작업은 모두 영속성 컨텍스트를 사용하는 EntityManager 객체를 통해 이루어진다
+- **동시성의 문제가 발생할 수 있으니 스레드 간에 공유하지 않는다**
+- **모든 데이터 변경은 {++트랜잭션++} 안에서 이루어져야 한다**
+
+|  Method  |  기능  | 
+| :------: | :---: |
+| flush() | Persistence Context의 변경 내용을 DB에 반영 <br> 일반적으로는 flush() 메서드를 직접 사용하지는 않고, 자바 애플리케이션에서 커밋 명령이 들어왔을 때 자동으로 실행된다 |
+| detach() | 특정 Entity를 준영속 상태(영속 컨텍스트의 관리를 받지않음)로 변경 |
+| clear() | Persistence Context 초기화 |
+| close() | Persistence Context 종료 |
+| merge() | 준영속 상태의 엔티티를 이용해서 새로운 영속 상태의 엔티티를 반환 |
+| **find()** | 식별자 값을 통해 Entity 탐색 (DB 테이블 또는 데이터 또는 행) |
+| **persist()** | 생성된 Entity 객체를 Persistence Context에 저장 |
+| **remove()** | 식별자 값을 통해 영속성 Persistence Context에서 Entity 객체 삭제 |
+
+
+### 엔티티
+: DB 테이블에 대응하는 **@Entity** 어노테이션이 붙은 클래스, 엔티티 객체는 DB 테이블의 데이터(하나의 행)을 뜻함
+
+``` java title="Example"
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name="entitytesttbl")
+public class EntityTest {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private int age;
+	private LocalDateTime birthday;
+}
+```
+
+|  Entity Annotation  |  설명  |  에제  |
+| :-----------------: | :---: | :---: |
+| @Entity | 클래스 레벨에 적용, 해당 클래스를 테이블과 매핑한다고 JPA에게 알려주는 역할 | |
+| @Table | 클래스 레벨, 엔티티 클래스에 매핑할 테이블 이름을 JPA에게 알려주는 역할 <br> (default는 클래스 이름에서 모든 글자를 소문자로 변경하고 각 워드마다 _ 를 붙인 명칭의 테이블 이름으로 매핑) | `@Table(name = "테이블이름")` |
+| @Id | 필드 레벨, 엔티티 클래스의 필드를 테이블의 기본 키 (Primary Key)에 매핑 | `@Id`, `@GeneratedValue(strategy = GenerationType.IDENTITY)` |
+| @Column | 필드 레벨, 해당 필드를 컬럼에 매핑 <br>(default는 필드명으로 컬럼명 매핑) <br> nullable, unique, length 등도 설정 가능 | `@Column(name = "매핑할 컬럼명")` |
+
+**생명주기**
+
+1. 비영속(new/transient) : 영속성 컨텍스트와 전혀 관계가 없는 상태
+2. 영속(managed) : 영속성 컨텍스트에 저장된 상태
+3. 준영속(detached) : 영속성 컨텍스트에 저장되었다가 분리된 상태
+4. 삭제(removed) : 삭제된 상태
+
+![Entity-Life](./images/entity-life.png)
+
+**생성과 저장**
+
+1. 자바 어플리케이션에서 어떤 엔티티 객체를 생성하여 JPA에게 데이터베이스 저장을 요구하면
+2. 만들어진 엔티티는 1차적으로 영속성 컨텍스트에 저장된다 (1차 캐시)
+<br> 그리고 저장한 엔티티를 데이터베이스에 저장하기 위한 쿼리문을 생성시켜 쓰기 지연 SQL 저장소에 저장한다
+3. 자바 어플리케이션에서 커밋 명령이 내려지면 영속 컨텍스트에는 자동으로 flush()가 호출되고, 
+4. 영속성 컨텍스트의 변경내용을 데이터베이스와 동기(flush)화 한다
+5. 마지막으로 DB에게 commit 쿼리문을 명령한다
+
+``` java hl_lines="3 5"
+EntityManager em = factory.createEntityManager(); 
+try {
+    em.getTransaction().begin();
+    em.persist(vo);
+    em.getTransaction().commit();
+} catch (Exception e) { 
+    result = false;
+}
+```
+![Entity-save](./images/entity-save.png)
+
+**조회**
+
+1. 자바 어플리케이션에서 JPA에게 데이터베이스 조회를 부탁하면, 1차적으로 영속성 컨텍스트에서 엔티티 탐색
+2. 있으면 자바 어플리케이션에 엔티티를 넘긴다
+3. 영속성 컨텍스트에 없는 엔티티 조회를 요구하면, 쿼리문을 사용해 데이터베이스에서 찾아와 영속성 컨텍스트에 엔티티로 저장하고 자바 애플리케이션에 그 엔티티를 넘긴다
+
+![Entity-check](./images/entity-check.png)
+
+**변경**
+: JPA는 엔티티를 영속성 컨텍스트에 보관할 때, 최초의 상태를 복사해서 저장해 두는데 이를 스냅샷이라 한다
+<br> 엔티티의 변경사항을 데이터베이스에 자동으로 반영하는 기능을 변경감지(Dirty Checking)라 한다
+
+1. 자바 어플리케이션에서 커밋 명령이 들어오면, 영속 컨텍스트에는 자동으로 flush()가 호출되고,
+2. 엔티티와 스냅샷을 비교해서 변경된 엔티티를 찾는다
+3. 변경된 엔티티가 있으면 데이터베이스에 변경사항을 저장하기 위해 쿼리를 생성하고,
+4. 영속성 컨텍스트의 변경내용을 데이터베이스와 동기(flush)화 한다 (SQL 저장소의 쿼리를 실행시킨다)
+5. 마지막으로 데이터베이스에게 commit 쿼리문을 명령한다
+
+![Entity-change](./images/entity-change.png)
+
+``` java hl_lines="3 8"
+EntityManager em = factory.createEntityManager(); 
+try {
+    em.getTransaction().begin();
+    Visitor oldVo = em.find(Visitor.class, vo.getId()); 
+    System.out.println(oldVo.getName()); 
+    oldVo.setName(vo.getName()); 
+    oldVo.setMemo(vo.getMemo()); 
+    em.getTransaction().commit();
+} catch (Exception e) { 
+    result = false;
+}
+```
+
+**삭제**
+
+1. 자바 어플리케이션에서 엔티티 삭제 명령이 들어오면, 엔티티를 찾고, 쓰기 지연 SQL 저장소에 delete 쿼리를 생성한다
+2. 자바 어플리케이션에서 커밋 명령이 들어오면, 자동으로 flush()가 호출되고, 영속성 컨텍스트의 변경내용을 데이터베이스와 동기(flush)화 한다 (SQL 저장소의 쿼리를 실행시킨다)
+3. 데이터베이스에게 commit 쿼리문을 명령한다
+
+``` java hl_lines="4 12"
+EntityManagerFactory factory = Persistence.createEntityManagerFactory("entitytest");
+EntityManager em = factory.createEntityManager();
+EntityTest et;
+em.getTransaction().begin();
+for(int i=1; i < 6; i++) {
+    et = new EntityTest();
+    et.setName("둘리"+i);
+    et.setAge(10+i);
+    et.setBirthday(LocalDateTime.now());
+    em.persist(et);
+}
+em.getTransaction().commit();       
+em.close();
+factory.close();
+```
+
+
+### Persistence context
+: 어플리케이션과 데이터베이스 사이에 존재하는 논리적인 개념으로 엔티티를 저장하는 영역
+
+- EntityManager 객체를 통해서만 접근 가능
+- javax.persistence : JPA 애너테이션의 패키지
+- 영속성 컨텍스트에 존재하는 엔티티는 플러시 호출 시 데이터베이스에 반영됨
+    - entityManger.flush() 로 플러시 직접 호출
+    - 트랜젝션 커밋(commit) 시 플러시 자동 호출
+    - JPQL 쿼리 실행 시 플러시 자동 호출
+
+### JPQL
+: Java Persistence Query Language, SQL을 추상화한 객체 지향 쿼리 언어
+<br> SQL과 문법이 유사하며 **엔티티 객체를 대상**으로 쿼리를 수행한다
+<br> 특정 DB에 의존하지 않고, 실행 시 SQL로 변환된다
+
+``` java
+List<Member> result = em.createQuery("select m from Member m where m.username like '%kim%'", Member.class).getResultList();
+```
+
+!!! note
+    **객체지향 쿼리 언어**
+    : JPQL, JPA Criterial, QueryDSL, 네이티브 SQL, JDBC API 직접 사용, MyBatis, SpringJdbcTemplate와 함께 사용
+
+    - JPA Criterial :  JPA 공식 기능이자 JPQL 빌더 역할, 자바코드로 쿼리문을 작성하며 복잡하고 실용성이 떨어짐
+    - QueryDSL : JPQL 빌더 역할, 문자열이 아닌 자바코드로 JPQL로 작성 가능하며 Criteria 처럼 동적 쿼리를 작성하기 편하다
+    - 네이티브 SQL : JPA가 제공하는 SQL을 직접 사용하는 기능, 특정 DB에 의존적이다
+    - JDBC 직접 사용, SpringJdbcTemplate 등 : JPA로 JDBC 커넥션을 직접 사용하거나 SpringJdbcTemplate, MyBatis 등을 함께 사용 가능하지만 적절한 시점에 영속성 컨텍스트에 대한 강제 flush가 필요하다
+
+기본 문법
+``` java
+select_문 :: = select_절 from_절 [where_절] [groupby_절] [having_절] [orderby_절]
+```
+
+1. Query문
+``` mysql
+select m from Member as m where m.username = 'Hello'
+```
+    - 대소문자 구분
+    - **엔티티와 속성은 대소문자 구분**, JPQL 키워드는 대소문자를 구분하지 않음
+    - Member는 테이블명, 클래스명이 아니라 **엔티티명**
+    - 엔티티 명은 `@Entity(name = "")`로 지정할 수도 있다
+    - **별칭 필수** : `Member as m` (as는 생략 가능)
+
+2. 집합
+``` mysql
+select t.name from Member m LEFT JOIN m.team t GROUP BY t.name Having AVG(m.age) >= 10
+```
+
+3. 정렬
+``` mysql
+select m from Member m order by m.age DESC, m.username ASC
+```
+
+4. 서브 쿼리 : WHERE, HAVING 절에서만 사용 가능
+``` mysql
+select m from Member m where m.age > (select avg(m2.age) from Member m2)
+```
+    - [NOT] EXISTS : 서브 쿼리에 결과가 존재하면 참
+    ``` mysql
+    select m from Member m where exists (select t from m.team t where t.name = 'teamA')
+    ```
+    - {ALL | ANY | SOME} 
+    ``` mysql
+    select o from Order o where o.orderAmount > ALL(select p.stockAmount from Product p)
+    ```
+    - [NOT] IN : 서브 쿼리 결과 중 하나라도 같으면 참, 서브쿼리가 아닌 곳에서도 사용 가능
+    ``` mysql
+    select t from Team t where t IN (select t2 from Team t2 join t2.members m2 where m2.age >= 20)
+    ```
+
+쿼리 객체 : 작성한 JPQL을 실행
+
+**Type Query**
+: 반환할 타입을 명확하게 지정할 수 있을 때 사용
+
+``` java
+TypedQuery<Member> query = em.createQuery("select m from Member as m", Member.class);
+List<Member> members = query.getResultList();
+
+TypedQuery<String> query = em.createQuery("select m.username from Member as m", String.class);
+List<String> names = query.getResultList();
+
+TypedQuery<Long> query = em.createQuery("select count(m.username) from Member as m", Long.class);
+Long su = query.getSingleResult();
+```
+
+**Query**
+: 반환할 타입을 명확하게 지정할 수 없을 때 사용
+
+1. 조회 타입이 String 타입의 username과 Integer 타입의 age
+``` java
+Query query = em.createQuery("select m.username, m.age from Member m");
+```
+2. 조회 대상이 둘 이상이면 Object[] 반환
+``` java
+List<Object[]> resultList = query.getResultList();
+for (Object[] objects : resultList) {
+    String userName = (String) objects[0]; Integer age = (Integer) objects[1];}
+```
+3. 조회 대상이 하나면 Object 반환
+``` java
+List resultList = query.getResultList();
+for (Object o : resultList) {
+    Object[] objects = (Object[]) o;
+    String userName = (String) objects[0]; Integer age = (Integer) objects[1];}
+```
+4. Example
+``` java
+Query query = em.createQuery("select count(m.username) from Member m");
+Object su = query.getSingleResult();
+
+Query query = em.createQuery("select m.username from Member m");
+List<Object> resultList = query.getResultList();
+```
+
+**결과 조회 API**
+
+- `query.getResultList()`
+: 결과가 하나 이상이거나 몇 개 일지 예측할 수 없을 때 사용, 결과가 없으면 빈 리스트 반환
+``` java
+TypedQuery<Member> query = em.createQuery("select m from Member as m", Member.class);
+List<Member> resultList = query.getResultList();
+```
+- `query.getSingleResult()`
+: 결과가 정확히 하나일 때 사용, 단일 객체 반환
+``` java
+TypedQuery<Member> query = em.createQuery("select m from Member as m where m.id = 1L", Member.class);
+Member result = query.getSingleResult();
+```
+    - 만약, 결과가 없으면 `javax.persistence.NoResultException`
+    - 만약, 결과가 둘 이상이면 `javax.persistence.NonUniqueResultException`
+
+**파라미터 바인딩**
+
+- 이름 기준
+: 파라미터를 이름으로 구분, 앞에 `:` 사용
+``` java
+Member result = em.createQuery(
+    "select m from Member as m where m.username= :username", Member.class)
+    .setParameter("username", "member1")
+    .getSingleResult();
+```
+
+- 위치 기준
+: 파라미터를 위치로 구분, `?` 다음에 위치 값 선언 (1부터 시작)
+``` java
+TypedQuery<EmpDTO> q = em.createQuery("SELECT t FROM EmpDTO t WHERE t.ename = ?1 and t.job = ?2", EmpDTO.class);
+q.setParameter(1, ename); 
+q.setParameter(2, job); 
+EmpDTO result = q.getSingleResult();
+```
+
+**프로젝션 Projection**
+: SELECT 절에 조회할 대상 지정
+
+- 엔티티 프로젝션
+: 원하는 객체 조회, 조회한 엔티티는 Persistence Context에서 관리
+``` java
+select m from Member m
+select m.team from Member m
+```
+
+- 스칼라 타입 프로젝션
+: 숫자, 문자, 날짜와 같은 기본 데이터 타입
+``` java
+//전체 회원의 이름 조회
+List<String> result = em.createQuery("select m.username from Member m", String.class).getResultList(); 
+```
+
+- 여러 값 조회
+: 원하는 데이터들만 선택해서 조회
+``` java
+List<Object[]> resultList = em.createQuery("select m.username, m.age from Member as m").getResultList();
+for (Object[] result : resultList) {
+    String username = (String) result[0]; Integer age = (Integer) result[1];}
+```
+
+
+### META_INF/persistence.xml
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+			 version="3.0">
+<persistence-unit name="emptest">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>jpamvcexam.model.dto.EmpDTO</class>
+		<class>jpamvcexam.model.dto.EmpFreqDTO</class>
+		<class>jpamvcexam.model.dto.Visitor</class>
+		<class>jpamvcexam.model.dto.Meeting</class>
+	    <class>jpamvcexam.model.dto.Reply</class>
+		<class>jpamvcexam.model.dto.Book</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="user" />
+			<property name="javax.persistence.jdbc.password" value="password" />
+			<property name="javax.persistence.jdbc.url" value=" jdbc:mysql://localhost:3306/mysql?characterEncoding=UTF-8" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="entitytest">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>jpamvcexam.model.entity.EntityTest</class>
+		<class>jpamvcexam.model.entity.Member</class>
+		<class>jpamvcexam.model.entity.Team</class>
+		<class>jpamvcexam.model.entity.Locker</class>
+		<class>jpamvcexam.model.entity.AAA</class>
+		<class>jpamvcexam.model.entity.BBB</class>
+		<class>jpamvcexam.model.dto.EmpDTO</class>
+		<class>jpamvcexam.model.entity.MyMyTest</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="user" />
+			<property name="javax.persistence.jdbc.password" value="password" />
+			<property name="javax.persistence.jdbc.url" value=" jdbc:mysql://localhost:3306/mysql?characterEncoding=UTF-8" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.physical_naming_strategy" value="jpamvcexam.util.CustomPhysicalNamingStrategy"/>
+		</properties>
+	</persistence-unit>
+</persistence>
+
+```
