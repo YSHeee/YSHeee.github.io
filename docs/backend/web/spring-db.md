@@ -741,3 +741,183 @@ graph LR
 
 ![Spring Data 1](./images/spring-data-1.png)
 
+JpaRepository에서 자주 쓰이는 메서드
+
+|  Method  |  설명  |
+| :------: | :----: |
+| `<S extends T> S save(S)` | 새로운 엔티티는 저장, 이미 있는 엔티티는 병합 |
+| `delete(T)` | 엔티티 하나 삭제 |
+| `Optional<T> findById(ID)` | ID로 엔티티 하나 조회 |
+| `List<T> findAll(...)` | 모든 엔티티 조회, 정렬이나 페이징 조건 가능 |
+
+Repository를 Custom 하기 위한 **쿼리 메서드** 기능
+
+1. 메서드 이름으로 쿼리 생성 (간단한 쿼리 처리 시 좋음)
+
+|  Query  |  규칙  |
+| :-----: | :---: |
+| 조회 | `find..By`, `read...By`, `query...By`, `get...By` |
+| COUNT | `count...By` 반환타입 long |
+| EXISTS | `exists...By` 반환타입 boolean |
+| 삭제 | `delete...By`, `remove...By` |
+| DISTINCT | `findDistinct`, `findMemberDistinctBy` |
+| LIMIT | `findFirst3`, `findFirst`, `findTop`, `findTop3` |
+
+2. @Query 안에 JPQL 정의 (복잡한 쿼리 처리 시 좋음)
+3. 메서드 이름으로 JPA NamedQuery 호출 (사용도 낮음)
+
+=== "Example" 
+    ``` java
+    public interface EmpRepository extends JpaRepository<Emp, Integer>{ 
+
+        public List<Emp> findByName(String name);
+        public List<Emp> findByMemoContains(String keyword);
+        public List<Emp> findByJobOrDeptno(String job, int dno); 
+        public List<Emp> findByJobAndDeptno(String job, int dno);
+        public List<Emp> findDistinctByJob(String job);
+
+        public List<Emp> findBySalGreaterThanEqual(int inputsal);
+        public List<Emp> findBySalLessThanEqual(int inputsal);
+        public List<Emp> findBySalBetween(int minsal, int maxsal);
+
+        public List<Emp> findByCommIsNull();
+        public List<Emp> findByComm(Is)NotNull();
+        public List<Emp> findByNameLike(String word);
+        public List<Emp> findByNameNotLike(String word);
+
+        public List<Emp> findByHiredateAfter(java.sql.Date d);
+        public List<Emp> findByHiredateBefore(java.sql.Date d);
+
+        public List<Emp> findByEnameStartsWith(String partname);
+        public List<Emp> findByEnameStartingWith(String partname);
+
+        public List<Emp> findTop3ByDeptnoOrderBySalDesc(int dno);
+
+        public List<Emp> findByEnameIgnoreCase(String name);
+        
+        @Query("select m from Emp m join m.team t where t.teamname = :tn")
+        public List<Emp> aaa(@Param("tn") String tname);
+    }
+
+    ```
+=== "Springedu2Application.java"
+    ``` java 
+    @SpringBootApplication
+    @ComponentScan(basePackages = {"com.example.springedu2", "springjpa.exam", "springrest.exam"})
+    @EnableJpaRepositories(basePackages = {"springjpa.exam.repository"})
+    @EntityScan(basePackages = {"springjpa.exam.entity"})
+    public class Springedu2Application {
+        public static void main(String[] args) {
+            SpringApplication.run(Springedu2Application.class, args);
+        }
+    }
+    ```
+
+[JpaRepository DOCS](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
+
+[JPA Cheat Sheet](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#appendix.query.method.predicate)
+
+---
+## Spring Boot TEST
+: 스프링 부트는 Servlet 기반의 웹 개발을 위한 spring-boot-starter-web, 유효성 검증을 위한 spring-boot-starter-validation 등 spring-boot-starter 의존성을 제공한다
+
+테스트를 위한 **spring-boot-starter-test** 라이브러리는 :
+
+- JUnit5 : 자바 애플리케이션의 단위 테스트를 위한 사실상 표준 테스트 도구
+- Spring Test & Spring Boot Test : 스프링 부트 애플리케이션에 대한 유틸리티 및 통합 테스트 지원
+- AssertJ : 유연한 검증 라이브러리
+- Hamcrest : 객체 Matcher를 위한 라이브러리
+- Mockito : 자바 모킹 프레임워크
+- JSONassert : JSON 검증을 위한 도구
+- JsonPath : JSON용 XPath
+
+사용가능한 Annotation 
+
+- `@SpringBootTest` : 통합 테스트
+- `@WebMvcTest` : Controller와 연관된 테스트
+- `@DataJpaTest` : JPA 레포지토리 테스트
+- `@RestCliendTest`, `JsonTest`, `JdbcTest`
+
+### @DataJpaTest
+: 기본적으로 @Entity가 있는 엔티티 클래스들을 스캔하며, 테스트를 위한 TestEntityManager를 사용해 JPA 레포지토리들을 설정한다
+
+**트랜잭션 롤백**
+: 스프링은 테스트에 @Transactional이 있으면, 자동으로 테스트가 끝난 후 트랜잭션을 롤백한다. 
+<br> 만약 롤백을 원하지 않는다면 `@Rollback(false)`를 추가한다
+``` java
+@DataJpaTest
+@Rollback(false)
+class ...
+```
+
+**내장 데이터베이스 설정**
+: 기본적으로 spring-boot-test에 내장된 데이터베이스인 H2로 설정되므로 원하지 않는다면, `AutoConfigureTestDatabase`의 replace 속성을 NONE으로 준다
+``` java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+class ...
+```
+
+**Example**
+
+``` java title="JPA_EmpRepositoryTest.java"
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DataJpaTest
+public class JPA_EmpRepositoryTest {
+    @Autowired
+    private EmpRepository empR;
+
+    @BeforeEach()
+    void pr() {
+        System.out.println("=".repeat(80));
+    }
+
+    @Test
+    void list1() {
+    	List<Emp> list = empR.findAll();
+    	list.stream().forEach(System.out::println);
+    }
+    @Test
+    void list2() {
+        List<Emp> list = empR.findAll(Sort.by("sal").descending());
+        list.stream().forEach(System.out::println);
+    }
+    @Test
+    void list3() {
+        List<Emp> list = empR.findAll(Sort.by("sal").ascending());
+        list.stream().forEach(System.out::println);
+    }
+    @Test
+    void list4() {
+        Page<Emp> list = empR.findAll(PageRequest.of(0, 2));
+        list.stream().forEach(System.out::println);
+    }
+    @Test
+    void list7() {
+        Page<Emp> list = empR.findAll(PageRequest.of(0, 3, Sort.by("ename")));
+        list.stream().forEach(System.out::println);
+    }
+
+    @Test
+    @Order(1)
+    //@Rollback(false) // DML 문 수행한 후에 rollback 하고싶지 않다면  
+    @Transactional
+    void save() {
+    	Emp entity = new Emp();
+    	entity.setEmpno(1234);
+    	entity.setEname("테스트");
+    	entity.setHiredate(new java.sql.Date(System.currentTimeMillis()));
+        entity.set...
+    	empR.save(entity);
+    	List<Emp> list = empR.findAll();
+    	list.stream().forEach(System.out::println);
+    }
+
+    @Test
+    void byId() {
+    	Emp entity = empR.findById(7788).get(); //Optional 객체에서 바로 get (해당 Id값이 없으면 오류 발생)
+    	System.out.println(entity);
+    }
+}
+```
