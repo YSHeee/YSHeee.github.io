@@ -494,9 +494,178 @@ for (Object[] result : resultList) {
     String username = (String) result[0]; Integer age = (Integer) result[1];}
 ```
 
+---
+### 페이징 API
 
-### META_INF/persistence.xml
-``` xml
+- `setFirstResult(int startPosition)` : 조회 시작 위치 (0부터 시작)
+- `setMaxResult(int maxResult)` : 조회할 데이터 수
+``` java
+// 시작 index 1부터 총 10개의 데이터 조회
+List<Member> result = em.createQuery(
+    "select m from Member m order by m.age desc", Member.class) 
+    .setFirstResult(1)
+    .setMaxResults(10)
+    .getResultList();
+```
+
+---
+### JPA 기본키 매핑
+
+- 직접 할당 : `@Id` annotation만 사용해서 직접 할당
+- 자동 생성 : `@Id`와 `@GeneratiedValue`를 추가하고 원하는 키 생성 전략 선택
+    - **IDENTITY** : 기본키 생성을 DB에 위임
+    - **SEQUENCE** : DB 시퀀스를 사용해서 기본키 할당
+    - TABLE : 키 생성 테이블 사용
+    - AUTO : 선택한 DB에 따라 IDENTITY, SEQUENCE, TABLE 중 하나를 자동으로 선택
+
+**IDENTITY**
+: 기본키 생성을 DB에 위임하는 전략 (MySQL, PostgreSQL, SQL Server, DB2)
+<br> 이 전략은 DB에 먼저 INSERT SQL을 실행해야 기본키를 알 수 있으므로, em.persist() 시점에 즉시 INSERT SQL을 실행하고 DB에서 식별자를 조회함
+
+``` java
+@Entity
+public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+}
+```
+
+**SEQUENCE**
+: 유일한 값을 순서대로 생성하는 특별한 데이터베이스 오브젝트 (Oracle, PostgreSQL, DB2, H2 Database)
+<br> 시퀀스 전략은 em.persist()를 호출할 때 먼저 DB 시퀀스를 사용해서 식별자를 조회하고, 조회한 식별자를 엔티티에 할당한 후에 엔티티를 영속성 컨텍스트에 저장한다. 이후 트랜잭션을 커밋해서 플러시가 일어나면 엔티티를 DB에 저장하게 된다.
+
+``` java
+@Entity 
+@SequenceGenerator(
+    name = "ET1_SEQ_GENERATOR", // 식별자 생성기 이름
+    sequenceName = "test1_seq", initialValue = 1,
+    allocationSize = 1
+)
+public class EntityTest {
+    // 데이터베이스에 등록되어 있는 시퀀스 이름 // 처음 시작하는 수를 지정
+    // 시퀀스 한 번 호출에 증가하는 수
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ET1_SEQ_GENERATOR")
+}
+```
+
+---
+### JPA 연관관계 매핑
+: 객체의 참조와 테이블의 외래키를 매핑하는 것
+
+- 객체의 연관관계 방식 : **참조(주소)**를 사용해서 관계 생성
+- 테이블의 연관관계 방식 : **외래키**를 사용해서 관계 생성
+
+**방향**
+
+테이블 : 외래키 하나로 조인을 사용해서 양방향으로 쿼리가 가능하므로, 사실상 방향이라는 개념이 없다
+<br>객체 : 참조용 필드를 가지고 있는 연관된 객체를 조회할 수 있다
+
+- 단방향 : 한 쪽만 참조하는 것 (회원 -> 팀, 팀 -> 회원)
+- 양방향 : 양 쪽이 서로 참조하는 것 (회원 <-> 팀)
+
+**다중성**
+: 다대일, 일대일, 일대다, 다대다
+
+- 다대일 예시 : 여러 회원이 한 팀에 속한다. 그러므로, 회원과 팀은 다대일 관계이다
+- 일대다 예시 : 한 팀에 여러 회원이 속한다. 그러므로, 팀과 회원은 일대다 관계이다
+
+==연관관계의 주인==
+: JPA는 두 객체 연관관계에서 하나 객체를 정해서 DB 외래키를 관리하는데, 이때 이 객체를 연관관계의 주인이라고 한다
+<br> '외래키를 가진 테이블과 매핑되는 엔티티', 즉 해당 엔티티의 외래키 필드가 연관관계의 주인이다
+
+{++다대일의 단방향 연관관계++}
+: 1:N 관계에서 외래키는 항상 N쪽이다. 객체 양방향 관계에서 연관관계의 주인은 항상 N이다.
+
+![1:N](./images/1-n.png)
+<br> 객체간의 연관관계에서는 단방향 관계이므로 `member.team` 조회는 가능하지만 반대는 알 수 없다.
+=== "Member" 
+    ``` java hl_lines="13 16"
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @Entity
+    @Table(name="membertbl")
+    public class Member {
+        @Id
+        @Column(name = "MEMBER_ID")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
+        private String username;
+        @ManyToOne
+        @JoinColumn(name = "TEAM_ID")
+        private Team team;
+        @OneToOne
+        @JoinColumn(name = "LOCKER_ID")
+        private Locker locker;
+
+        public Member(String username, Team team, Locker locker) {
+            super();
+            this.username = username;
+            this.team = team;
+            this.locker = locker;
+        }
+    }
+    ```
+=== "Team"
+    ``` java hl_lines="8 9 10"
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Entity
+    public class Team {
+        @Id
+        @Column(name = "TEAM_ID")	
+        private String id;
+        private String name;
+    }
+    ```
+
+**@ManyToOne**
+
+|  속성  |  기능  |  기본값  |
+| :---: | :---: | :----: |
+| optional | false로 설정하면, 연관된 엔티티가 항상 있어야 함 | `TRUE` |
+| fetch | 글로벌 fetch 전략 설정 | `@ManyToOne=FetchType.EAGER` <br> `@OneToMany=FetchType.LAZY`|
+| cascade | 영속성 전이 기능 사용 | |
+| targetEntity | 연관된 엔티티 타입 정보 설정 | | 
+
+
+**@JoinColumn**
+: 외래키 매핑 시 사용, name 속성에는 매핑할 외래키 이름을 지정을 지정한다
+<br> name 속성을 생략한다면, 외래키를 찾을 때 기본 전략을 사용한다
+<br> (기본전략 : `필드명` + `_` + `참조하는 테이블의 컬럼명`)
+
+|  속성  |  기능  |  기본값  |
+| :---: | :---: | :----: |
+| 값name | 매핑할 외래키 이름 | `필드명` + `_` + `참조하는 테이블의 컬럼명` |
+| referemcedCp;i,mMa,e | 외래키가 참조하는 대상 테이블의 커럼명 | 참조하는 테이블의 기본키 컬럼명 |
+| foreignKey(DDL) | 외래키 제약조건 직접 지정 (테이블 생성 시) | |
+| unique, nullable, insertable, updatable, columnDefinition, table | @Column 속성과 같음 | | 
+
+``` java title="JOIN Example"
+String jpql = "select m from Member m join m.team t where t.name = :tn";
+// 또는, String jpql = "select m from Member m where m.team.name=:tn";
+
+TypedQuery<Member> q = em.createQuery(jpql, Member.class);
+q.setParameter("tn", inputName);
+List<Member> list = q.getResultList();
+```
+
+
+{++일대일의 연관관계++}
+: 양쪽이 서로 하나의 관계를 가짐
+![1-1](./images/1-1.png)
+<br> 회원은 하나의 사물함만 사용하고, 사물함도 하나의 회원에 의해서만 사용된다
+<br> 주테이블만 확인해도 대상 테이블과 연관관계가 있는지 알 수 있다
+
+---
+### persistence.xml
+: 설정 정보 관리, `/src/main/resource/META-INF` 경로에 위치한다
+``` xml hl_lines="42"
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -506,8 +675,6 @@ for (Object[] result : resultList) {
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>jpamvcexam.model.dto.EmpDTO</class>
 		<class>jpamvcexam.model.dto.EmpFreqDTO</class>
-		<class>jpamvcexam.model.dto.Visitor</class>
-		<class>jpamvcexam.model.dto.Meeting</class>
 	    <class>jpamvcexam.model.dto.Reply</class>
 		<class>jpamvcexam.model.dto.Book</class>
 		<properties>
@@ -545,5 +712,32 @@ for (Object[] result : resultList) {
 		</properties>
 	</persistence-unit>
 </persistence>
-
 ```
+
+**`<property name="hibernate.hbm2ddl.auto" value="update"/>`**
+
+- create : 기존 테이블 삭제 후 다시 생성 (DROP+CREATE)
+- create-drop : create와 같지만, 종료시점에 테이블 DROP
+- **update** : 변경분만 반영되어 추가만 가능
+- validate : 엔티티와 테이블이 정상 매핑 되는지만 확인
+- **none** : DDL 명령은 사용하지 않음 (Default)
+
+---
+## Spring Data JPA
+: Spring Framework에서 JPA를 편리하게 사용할 수 있도록 지원하는 프로젝트로서 CRUD 처리를 위한 공통 인터페이스 제공
+
+- Repository 개발 시 인터페이스만 작성해도, 실행 시점에 Spring Data JPA가 구현 객체를 동적으로 생성해서 주입시키므로
+- 데이터 접근 계층을 개발할 때 구현 클래스 없이 인터페이스만 작성해도 개발을 완료할 수 있도록 지원함
+- 보통 `JpaRepository<T, ID>` 인터페이스를 상속한 Repository 인터페이스를 정의하여 사용
+    - `T` : Class의 type
+    - `ID` : PK의 type
+
+``` mermaid
+graph LR
+    J(JpaRepository) --상속--> P(PagingAndSortingRepository)
+    P --상속--> C(CrudRepository)
+    C --상속--> R(Repository)
+```
+
+![Spring Data 1](./images/spring-data-1.png)
+
