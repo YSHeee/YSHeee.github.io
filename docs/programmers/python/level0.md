@@ -236,23 +236,3 @@ def solution(n):
     answer.append(n)
     return answer
 ```
-
-## 2023.09.22
-
-### 배열 만들기 2
-정수 l과 r이 주어졌을 때, l 이상 r이하의 정수 중에서 숫자 "0"과 "5"로만 이루어진 모든 정수를 오름차순으로 저장한 배열을 return 하는 solution 함수를 완성해 주세요.
-
-만약 그러한 정수가 없다면, -1이 담긴 배열을 return 합니다.
-
-``` python
-def solution(l, r):
-    result = []
-    
-    for i in range(1, 64): # 2진수 1~111111
-        num = 5 * int(bin(i)[2:])
-        if num > r:
-            break
-        if num >= l and num <= r:
-            result.append(num)
-    return result if result else [-1]
-```
