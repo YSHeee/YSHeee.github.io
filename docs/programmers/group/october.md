@@ -77,7 +77,6 @@ comments: true
     ```
 === "java int[]"
     ``` java
-    import java.util.ArrayList;
     class Solution {
         public int[] solution(int l, int r) {
             ArrayList<Integer> answer = new ArrayList<>();
