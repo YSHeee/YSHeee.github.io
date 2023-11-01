@@ -75,6 +75,11 @@ Examples :
 - `GET/shops/2/products/31` 2번 shop의 31번 상품 조회
 - `PUT /shops/2/products/31` 2번 shop의 31번 상품 업데이트
 - `POST/shops` 새로운 shop을 생성하고, 생성된 shop의 세부 정보 반환
+- `/classes/2/students/15` : 2반의 15번 학생
+- `/classes/2/students?sex=male` : 2반의 남학생들
+- `/classes/2/students?page=2&count=10`
+- 관계명이 복잡하다면 이를 서브 리소스에 명시적으로 표현하는 방법도 있다
+    - 사용자가 '좋아하는' 디바이스 목록 : `/users/{userid}/likes/devices`
 
 ## 6. Use Filtering, Sorting, and Pagination to Retrieve the Data Requested
 - 가끔 API의 데이터베이스가 너무나 클 때, 데이터를 받아오는 게 많이 느려질 수 있다
@@ -201,6 +206,13 @@ API 디자인에 확신이 서지 않는 경우, 올바른 결정에 도움을 �
 - 문자열 > 숫자
 - 일관성 > 사용자 정의 
 
+## 23. 파일 확장자는 URI에 포함하지 않는다
+대신 Accept 헤더를 사용한다
+
+:material-checkbox-marked-circle-outline: Good `GET /members/soccer/345/photo HTTP/1.1 Host: restapi.example.com Accept: image/jpg`   
+:material-dots-horizontal-circle-outline: Bad `http://restapi.example.com/members/soccer/345/photo.jpg `  
+
+---
 !!! quote
     - [Naming Case](https://www.freecodecamp.org/news/snake-case-vs-camel-case-vs-pascal-case-vs-kebab-case-whats-the-difference/)
     - [freecodecamp](https://www.freecodecamp.org/news/rest-api-best-practices-rest-endpoint-design-examples/) --
@@ -208,4 +220,5 @@ API 디자인에 확신이 서지 않는 경우, 올바른 결정에 도움을 �
     - [22-Best-Practice](https://zzang9ha.tistory.com/388)
     - Image<div>
     • [1: madooei](https://madooei.github.io/cs421_sp20_homepage/client-server-app/)
+    - 김정현 강사님
 

@@ -294,107 +294,6 @@ public class HomeController{
 }
 ```
 
-### @RequestBody & @ResponseBody
-: 웹 시스템 간 JSON 형식의 데이터를 주고받는 경우, 스프링 MVC는 컨트롤러에서 DOM 객체나 자바 객체로 변환해서 수신하는 기능과 역으로 전송하는 기술을 제공한다
-
-- @RequestBody : HTTP request body를 전달 형식 또는 자바 객체로 변환하여 수신
-- @ResponseBody : HTTP response body로 전송, view를 거치지 않고 **컨트롤러가 직접** 응답하므로 **응답 형식** 설정
-
-=== "@RequestBody"
-    ``` java
-    @Controller
-    public class RequestBodyController {
-        @GetMapping("/bodystart")
-        public String test0() {
-            System.out.println("요청 성공");
-            return "resultold";
-        }
-        @PostMapping("/rb1")
-        public ModelAndView test1(String name, int age) {
-            System.out.println(">>> " + name+":"+age);
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("msg", "폼태그로 전달된 파라미터 : "+name+":"+age);
-            mav.setViewName("resultold");
-            return mav;
-        }
-        @PostMapping(value = "/rb2", produces = "application/json; charset=utf-8")
-        @ResponseBody
-        public String test2(@RequestBody String param) {
-            System.out.println(">>> " + param);
-            return param;
-        }
-        @PostMapping(value = "/rb3", produces = "application/json; charset=utf-8")
-        @ResponseBody
-        public PersonVO test3(@RequestBody PersonVO vo) {
-            System.out.println(">>> " + vo.getName()+":"+vo.getAge());
-            return vo;
-        }
-        @PostMapping(value = "/rb4", produces = "application/json; charset=utf-8")
-        @ResponseBody
-        public Map test4(@RequestBody Map<String,String> map) {
-            System.out.println(">>> " + map);
-            return map;
-        }
-    }
-    ```
-=== "@ResponseBody"
-    ``` java
-    @Controller
-    public class ResponseBodyController {
-        @RequestMapping(value = "/body/text/{id}", produces="text/plain; charset=utf-8")
-        @ResponseBody
-        public String getByIdInTEXT(@PathVariable String id) {
-            return "<h1>컨트롤러에서 바로 문자열을 리턴해요 : "+id+"</h1>";
-        }
-        @RequestMapping(value = "/body/htmltext/{id}", 	produces="text/html; charset=utf-8")
-        @ResponseBody
-        public String getByIdInHTMLTEXT(@PathVariable String id) {
-            return "<h1>컨트롤러에서 바로 HTML 문자열을 리턴해요 : " + id +"</h1>";
-        }
-        @RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8")  // text/json
-        @ResponseBody
-        public MyModel getByIdInJSON(@PathVariable String id) {
-            MyModel my = new MyModel();
-            my.setFlowerName("장미");
-            my.setNum(5);
-            my.setId(id);
-            System.out.println(my);
-            return my;
-        }
-    }
-    ```
-
-### @RestController (스프링 4.0)
-: @Controller를 상속하여 **@Controller + @ResponseBody** 기능 지원
-<br> 도메인 객체의 웹서비스 노출이 가능해짐으로써 **각각의 @RequestMapping method에 @ResponseBody를 할 필요가 없다**
-
-``` java title="JSON"
-@RestController
-public class JsonResponseController {
-	@RequestMapping(value = "/getJSON1", produces = "application/json; charset=utf-8")
-	public String test1(String id) {
-		String s = "{ \"name\":\"둘리\",\"id\":\"" + id +"\"}";
-		return s;
-	}
-
-	@RequestMapping(value = "/getJSON2", produces = "application/json; charset=utf-8")
-	public HashMap<String, String> test2(String id) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("name", "유니코");
-		map.put("id", id);
-		return map;
-	}
-	
-	@RequestMapping(value = "/getJSON3", produces = "application/json; charset=utf-8")
-	public TestVO test3(String id) {
-		TestVO vo = new TestVO();
-		vo.setName("올라프");
-		vo.setId(id);
-		return vo;
-	}
-}
-```
-
 ---
 ### + @ComponentScan
 
@@ -794,7 +693,238 @@ Spring Initializr
 ### 
 ![structure](./images/mvc-structure.png)
 
+---
+## Spring REST API
 
+### REST
+
+REpresentational State Transferm
+<br> 하나의 URI는 하나의 고유한 리소스(Resource)를 대표하도록 설계된다는 개념
+<br> 자원을 이름으로 구분하여 해당 자원의 상태(정보)를 주고받는 모든 것을 의미한다
+
+REST는 월드 와이드 웹과 같은 분산 하이퍼미디어 시스템을 위 한 소프트웨어 아키텍처의 한 형식으로써 2000년 **Roy Fielding**의 박사학위 논문에서 소개되었다.
+
+네트워크 아키텍처 원리의 모음으로서 자원을 정의하고 자원에 대한 주소를 지정하는 방법 전반을 일컬으며 REST 원리를 따르는 시스템은 RESTful이란 용어로 지칭된다
+
+- HTTP URI를 통해 자원(Resource) 명명
+- HTTP Method(POST, GET, PUT, DELETE)를 통해 해당 자원에 대한 CRUD 작업 적용
+
+**필요성**
+
+- 애플리케이션 분리 및 통합
+- Web을 기반으로 하는 비즈니스 환경의 다양한 프로그램 개발
+- 다양한 클라이언트의 등장
+- 서버와 클라이언트의 독립적 진화 가능 -> 서버의 기능이 변경되어도 클라이언트는 업데이트 필요 X
+
+**특징**
+
+1. Server-Client(서버-클라이언트 구조) : 자원이 있는 쪽이 Server, 자원을 요청하는 쪽이 Client
+    - REST Server: API를 제공하고 비즈니스 로직 처리 및 저장을 책임진다
+    - Client: 사용자 인증이나 Context(세션, 로그인 정보) 등을 직접 관리하고 책임진다
+2. Stateless(무상태) : HTTP 프로토콜은 Stateless Protocol이므로 REST 역시 무상태성을 갖는다
+    - Client의 Context를 Server에 저장하지 않는다
+    - 각 API 서버는 해당 Client의 요청만을 단순 처리한다
+3. Cacheable(캐시 처리 가능) : 웹 표준 HTTP 프로토콜을 사용하므로 웹에서 사용하는 인프라를 그대로 활용할 수 있다
+    - HTTP가 가진 가장 강력한 특징 중 하나인 캐싱 기능을 적용할 수 있다 (Last-Modified 태그, E-Tag 등)
+    - 캐시 사용을 통해 응답시간이 빨라지고 REST Server 트랜잭션이 발생하지 않기 때문에 전체 응 답시간, 성능, 서버의 자원 이용률을 향상시킬 수 있다
+4. Layered System(계층화) : REST Server는 다중 계층으로 구성될 수 있다
+    - API Server는 순수 비즈니스 로직을 수행하고 그 앞단에 보안, 로드밸런싱, 암호화, 사용자 인증 등을 추가하여 구조상의 유연성을 줄 수 있다
+    - 로드밸런싱, 공유 캐시 등을 통해 확장성과 보안성을 향상시킬 수 있다
+    - Client는 REST API Server만 호출한다
+5. Uniform Interface(인터페이스 일관성) 
+    - URI로 지정한 Resource에 대한 조작을 통일되고 규격화된 인터페이스로 수행한다
+    - HTTP 표준 프로토콜에 따르는 모든 플랫폼에서 사용 가능
+    - 특정 언어나 기술에 종속되지 않는다
+
+!!! note
+    1. 리소스가 URI로 식별되게 한다
+    2. 리소스를 만들거나 업데이트 하거나 삭제하거나 할 때 REST Message에 표현을 담아 전송하고 처리한다
+    3. Self-descriptive message : 메시지의 내용만으로 해석이 가능해야 한다
+    4. Hypermedia As The Engine of Application State(HATEOAS) 
+    <br> HAL 규약(application/han+json)으로 작성되는 응답 메시지를 통해 애플리케이션의 상태 전이는 응답 시 함께 제공되는 Hyperlink 를 이용한다.
+
+
+---
+### REST API
+: REST 아키텍처 스타일을 따르는 API로서 분산 하이퍼미디어 시스템(웹)을 위한 아키텍처 스타일(제약조건 집합)
+<br> 사용자가 요청했을 때 HTML을 리턴하지 않고, 사용자가 필요로하는 데이터만을 리턴 (JSON 등)
+
+![RestAPI](./images/rest-api.png)
+
+**Self-Decriptive**
+
+확장 가능한 커뮤니케이션, 서버나 클라이언트가 변경되더라도 오고 가는 메시지가 Self-descriptive 하므로 추가적인 처리없이 해석 가능하다
+
+**HATEOAS**
+
+애플리케이션 상태 전이의 Late Binding, 어떤 상태로 전이가 완료되고 나서야 그 다음 전이될 수 있는 상태가 결정된다. 즉, 링크는 동적으로 변경 가능하다. 하이퍼미디어를 애플리케이션의 상태를 관리하기 위한 매커니즘으로 사용
+
+---
+
+### @RequestBody & @ResponseBody
+: 웹 시스템 간 JSON 형식의 데이터를 주고받는 경우, 스프링 MVC는 컨트롤러에서 DOM 객체나 자바 객체로 변환해서 수신하는 기능과 역으로 전송하는 기술을 제공한다
+
+- @RequestBody : HTTP request **body**를 전달 형식 또는 자바 객체로 변환하여 수신
+<br> POST에서만 가능하며, JSON 형태로 전달된 데이터를 해당 파라미터 타입에 자동으로 저장함
+- @ResponseBody : HTTP response body로 전송, **view를 거치지 않고 컨트롤러가 직접 응답**하므로 **응답 형식** 설정
+<br>컨트롤러 메서드가 리턴하는 객체를 자동으로 JSON형식으로 변환하여 전달하는 역할 수행
+<br>==HTTP 규격 구성 요소 중 하나인 Header에 대해 유연하게 설정할 수 없고, StatusCode 또한 따로 설정해주어야 하는 단점이 있다==
+
+-> DTO 객체를 리턴하면 헤더영역의 Content-Type이 'text/plain'에서 'application/json'으로 변경된다
+
+![Response Type](./images/response-.png)
+
+=== "@RequestBody"
+    ``` java
+    @Controller
+    public class RequestBodyController {
+        @GetMapping("/bodystart")
+        public String test0() {
+            System.out.println("요청 성공");
+            return "resultold";
+        }
+        @PostMapping("/rb1")
+        public ModelAndView test1(String name, int age) {
+            System.out.println(">>> " + name+":"+age);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("msg", "폼태그로 전달된 파라미터 : "+name+":"+age);
+            mav.setViewName("resultold");
+            return mav;
+        }
+        @PostMapping(value = "/rb2", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public String test2(@RequestBody String param) {
+            System.out.println(">>> " + param);
+            return param;
+        }
+        @PostMapping(value = "/rb3", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public PersonVO test3(@RequestBody PersonVO vo) {
+            System.out.println(">>> " + vo.getName()+":"+vo.getAge());
+            return vo;
+        }
+        @PostMapping(value = "/rb4", produces = "application/json; charset=utf-8")
+        @ResponseBody
+        public Map test4(@RequestBody Map<String,String> map) {
+            System.out.println(">>> " + map);
+            return map;
+        }
+    }
+    ```
+=== "@ResponseBody"
+    ``` java
+    @Controller
+    public class ResponseBodyController {
+        @RequestMapping(value = "/body/text/{id}", produces="text/plain; charset=utf-8")
+        @ResponseBody
+        public String getByIdInTEXT(@PathVariable String id) {
+            return "<h1>컨트롤러에서 바로 문자열을 리턴해요 : "+id+"</h1>";
+        }
+        @RequestMapping(value = "/body/htmltext/{id}", 	produces="text/html; charset=utf-8")
+        @ResponseBody
+        public String getByIdInHTMLTEXT(@PathVariable String id) {
+            return "<h1>컨트롤러에서 바로 HTML 문자열을 리턴해요 : " + id +"</h1>";
+        }
+        @RequestMapping(value = "/body/json/{id}", produces = "application/json; charset=utf-8")  // text/json
+        @ResponseBody
+        public MyModel getByIdInJSON(@PathVariable String id) {
+            MyModel my = new MyModel();
+            my.setFlowerName("장미");
+            my.setNum(5);
+            my.setId(id);
+            System.out.println(my);
+            return my;
+        }
+    }
+    ```
+
+---
+![RESTAPI-3](./images/restapi-3.png)
+
+### @RestController
+: @Controller를 상속하여 **@Controller + @ResponseBody** 기능 지원
+<br> 도메인 객체의 웹서비스 노출이 가능해짐으로써 **각각의 @RequestMapping method에 @ResponseBody를 할 필요가 없다**
+
+``` java
+@RestController
+public class JsonResponseController {
+    @RequestMapping(value = "/getJSON1", produces = "application/json; charset=utf-8")
+    public String test1(String id) {
+        String s = "{ \"name\":\"둘리\",\"id\":\"" + id +"\"}";
+        return s;
+    }
+
+    @RequestMapping(value = "/getJSON2", produces = "application/json; charset=utf-8")
+    public HashMap<String, String> test2(String id) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("name", "유니코");
+        map.put("id", id);
+        return map;
+    }
+    
+    @RequestMapping(value = "/getJSON3", produces = "application/json; charset=utf-8")
+    public TestVO test3(String id) {
+        TestVO vo = new TestVO();
+        vo.setName("올라프");
+        vo.setId(id);
+        return vo;
+    }
+}
+```
+
+RestController 기반의 DispatcherServlet 의 동작 과정
+![RestAPI2](./images/rest-api-2.png)
+
+---
+### ResponseEntity
+: @ResponseBody의 단점 해결, @ResponseBody와 달리 annotation이 아닌 객체로 사용된다
+
+- 응답으로 변환될 정보를 모두 담은 요소들을 객체로 만들어서 반환
+- 객체의 구성요소에서 HttpMessageConverter는 응답이 되는 본문을 처리해준 뒤, RESTTemplate에 나머지 구성 요소인 Status를 넘겨준다
+- 생성자 사용보다는 **Bulder** 사용이 권장된다
+``` java title="Builder Example"
+return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(dto);
+```
+
+**Example**
+
+=== "Example"
+    ``` java
+    @RestController
+    public class ResponseEntityController {
+        
+        // body 추가
+        @GetMapping("/test1")
+        public ResponseEntity<String> work1(){
+            return new ResponseEntity<>("*success*", HttpStatus.OK);
+        }
+
+        @GetMapping(value="/test3")
+        public ResponseEntity work3(){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //header 추가
+        @GetMapping("/test6")
+        public ResponseEntity work6(){
+            MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+            header.add("AUTHCODE","xxxxxxx");
+            header.add("TOKEN", "yyyyyyy");
+            return new ResponseEntity(header, HttpStatus.OK);
+        }
+        
+        @GetMapping("/test7")
+        public ResponseEntity<MemberDTO> work7(){
+            MemberDTO dto = new MemberDTO();
+            dto.setName("유니코");
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(dto);
+        }
+    }
+    ```
 
 ---
 !!! quote

@@ -165,16 +165,15 @@ nav:
   - Backend:
       - RestAPI:
           - backend/restapi.md
-      - FastAPI: backend/fastapi.md
+      - Python-based Framework:    
+          - FastAPI: backend/fastapi.md
       - Java-based Framework:
-          - Servlet: backend/web/servlet.md
-          - JSP: backend/web/jsp.md
-          - MVC: backend/web/mvc.md
-          - Spring: backend/web/spring.md
-          - Spring Boot Basic: backend/web/spring-boot.md
-          - Spring Boot Advanced: backend/web/spring-boot-ad.md
-          - Spring DB: backend/web/spring-db.md
-          - ETC: backend/web/etc.md
+          - Servlet+JSP: backend/java-based/servlet-jsp.md
+          - MVC: backend/java-based/mvc.md
+          - Spring: backend/java-based/spring.md
+          - Spring Boot Basic: backend/java-based/spring-boot.md
+          - Spring Boot Advanced: backend/java-based/spring-boot-ad.md
+          - Spring DB: backend/java-based/spring-db.md
   - Language:
       - Python:
           - Python: language/python/python.md

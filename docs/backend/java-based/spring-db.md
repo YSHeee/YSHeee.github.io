@@ -593,6 +593,9 @@ public class EntityTest {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
         private String username;
+        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+        @Column(name="meetingdate")
+        private LocalDateTime  meetingDate;	
         @ManyToOne
         @JoinColumn(name = "TEAM_ID")
         private Team team;
@@ -860,64 +863,88 @@ class ...
 
 **Example**
 
-``` java title="JPA_EmpRepositoryTest.java"
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DataJpaTest
-public class JPA_EmpRepositoryTest {
-    @Autowired
-    private EmpRepository empR;
+=== "JPA_EmpRepositoryTest.java"
+    ``` java 
+    @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    @DataJpaTest
+    public class JPA_EmpRepositoryTest {
+        @Autowired
+        private EmpRepository empR;
 
-    @BeforeEach()
-    void pr() {
-        System.out.println("=".repeat(80));
-    }
+        @BeforeEach()
+        void pr() {
+            System.out.println("=".repeat(80));
+        }
 
-    @Test
-    void list1() {
-    	List<Emp> list = empR.findAll();
-    	list.stream().forEach(System.out::println);
-    }
-    @Test
-    void list2() {
-        List<Emp> list = empR.findAll(Sort.by("sal").descending());
-        list.stream().forEach(System.out::println);
-    }
-    @Test
-    void list3() {
-        List<Emp> list = empR.findAll(Sort.by("sal").ascending());
-        list.stream().forEach(System.out::println);
-    }
-    @Test
-    void list4() {
-        Page<Emp> list = empR.findAll(PageRequest.of(0, 2));
-        list.stream().forEach(System.out::println);
-    }
-    @Test
-    void list7() {
-        Page<Emp> list = empR.findAll(PageRequest.of(0, 3, Sort.by("ename")));
-        list.stream().forEach(System.out::println);
-    }
+        @Test
+        void list2() {
+            List<Emp> list = empR.findAll(Sort.by("sal").descending());
+            list.stream().forEach(System.out::println);
+        }
+        @Test
+        void list3() {
+            List<Emp> list = empR.findAll(Sort.by("sal").ascending());
+            list.stream().forEach(System.out::println);
+        }
+        @Test
+        void list4() {
+            Page<Emp> list = empR.findAll(PageRequest.of(0, 2));
+            list.stream().forEach(System.out::println);
+        }
+        @Test
+        void list7() {
+            Page<Emp> list = empR.findAll(PageRequest.of(0, 3, Sort.by("ename")));
+            list.stream().forEach(System.out::println);
+        }
 
-    @Test
-    @Order(1)
-    //@Rollback(false) // DML 문 수행한 후에 rollback 하고싶지 않다면  
-    @Transactional
-    void save() {
-    	Emp entity = new Emp();
-    	entity.setEmpno(1234);
-    	entity.setEname("테스트");
-    	entity.setHiredate(new java.sql.Date(System.currentTimeMillis()));
-        entity.set...
-    	empR.save(entity);
-    	List<Emp> list = empR.findAll();
-    	list.stream().forEach(System.out::println);
-    }
+        @Test
+        @Order(1)
+        //@Rollback(false) // DML 문 수행한 후에 rollback 하고싶지 않다면  
+        @Transactional
+        void save() {
+            Emp entity = new Emp();
+            entity.setEmpno(1234);
+            entity.setEname("테스트");
+            entity.setHiredate(new java.sql.Date(System.currentTimeMillis()));
+            entity.set...
+            empR.save(entity);
+            List<Emp> list = empR.findAll();
+            list.stream().forEach(System.out::println);
+        }
 
-    @Test
-    void byId() {
-    	Emp entity = empR.findById(7788).get(); //Optional 객체에서 바로 get (해당 Id값이 없으면 오류 발생)
-    	System.out.println(entity);
+        @Test
+        void byId() {
+            Emp entity = empR.findById(7788).get(); //Optional 객체에서 바로 get (해당 Id값이 없으면 오류 발생)
+            System.out.println(entity);
+        }
+
+        @AfterAll
+        static void end() {
+            System.out.println("=".repeat(80));
+            System.out.println("[[[[[[ 테스트 종료 ]]]]]]");
+        }
     }
-}
-```
+    ```
+=== "Repository.java"
+    ``` java hl_lines="17"
+    // 아래 세 코드는 같은 결과를 나타냄
+	@Query("select m from Member m join m.team t where t.name = :tn")
+	public List<Member> aaa1(@Param("tn") String tname);
+
+	@Query("select m from Member m where m.team.name = :tn")
+	public List<Member> aaa2(@Param("tn") String tname);
+
+	public List<Member> findByTeamName(String name);
+
+    // 아래 세 코드는 같은 결과를 나타냄
+    @Query("select t.name from Member m join m.team t where m.username = :un")
+	public String bbb1(@Param("un") String uname);
+
+	@Query("select m.team.name from Member m where m.username = :un")
+	public String bbb2(@Param("un") String uname);
+
+	public TeamName getByUsername(String uname);
+    /** TeamName.java
+    public interface TeamName { String getTeamName(); } **/
+    ```
