@@ -742,6 +742,21 @@ graph LR
     C --상속--> R(Repository)
 ```
 
+!!! note
+    **@Transactional**
+
+    - crudRepository에서 제공되는 save(), delete() 메서드는 @Transactional을 이미 정의하고 있으므로, @Transactional을 '반드시 사용'은 안해도 된다.
+    - 그러나, CUD 기능을 처리하는 컨트롤러 메서드 또는 서비스 메서드에서 @Transactional을 사용하면 
+    - 엔티티 객체 수정시 ==save()를 호출하지 않아도 자동으로 변경이 가능== 하고, 예외나 에러 발생시 ==롤백== 되도록 설정할 수 있다.
+    ``` java
+    @Transactional(rollbackFor = SQLException.class)
+    public void saveModel(Model model) throws Exception {
+        dao.save(model);
+        throw new SQLException();
+    }
+    ```
+
+
 ![Spring Data 1](./images/spring-data-1.png)
 
 JpaRepository에서 자주 쓰이는 메서드

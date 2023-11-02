@@ -130,8 +130,10 @@ Frontend
 ## 1차 프로젝트 종료 (10/24)
 
 **개발 일정**
+: 처음에는 교육 수업과 병행으로 진행되어 조금씩 차근차근 수행하다, 13~23일 수업 없는 프로젝트 기간에 집중해서 개발했습니다. 
 
 ![Project-4](./images/edu-proj-1-time.png)
+
 
 **Repository 구조**
 
@@ -217,6 +219,8 @@ project-root/
 `/post/like` : 주석/JavaDoc/네이밍, 예외처리, StatusCode -> ResponseEntity, *RestAPI*,
 
 ==마이바티스 PK 가져오는 코드==
+
+==properties== -> 토큰 설정
 
 ### Home, Terms
 
