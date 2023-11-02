@@ -5,7 +5,7 @@ draft: false
 authors:
   - ysheee
 categories:
-  - Hello
+  - POST
 comments: true
 ---
 It's my Blog!

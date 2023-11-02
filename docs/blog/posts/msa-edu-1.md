@@ -1,5 +1,5 @@
 ---
-date: 2023-10-23
+date: 2023-10-24
 title: MSA 교육 1차 프로젝트
 draft: true 
 authors:
@@ -112,18 +112,20 @@ Frontend
 <br>
 **DB 1차 ERD**
 
-![ERProject-2D](./images/edu-proj-1-erd.png)
+![Project-ERD](./images/edu-proj-1-erd.png)
 
 **DB ERD**
 : 위 ERD로는 NONO 기능 구현에 여러 문제가 있다 싶어, 다시 의견을 나누었습니다
-<br> -> 노노와 유저 분리
+<br> -> 노노와 사용자 분리
+
+![Project-ERD](./images/edu-proj-1-erd2.png)
 
 
 <br>
 **역할 분담**
 : 주담당/부담당 기능을 맡음으로써, 혹시라도 있을 역할의 아쉬움을 해소하는 동시에 자연스럽게 코드를 공유하고, 서로 도와줄 수 있는 분위기를 조성했습니다 
 
-![Project-3](./images/edu-proc-1-role.png)
+![Project-3](./images/edu-proj-1-role.png)
 
 
 ---
@@ -190,39 +192,80 @@ project-root/
 ![Project-5](./images/edu-proj-1-erd3.png)
 
 
-<br>
+---
 **<------- 구현 기능 ------->**
 
 ### 로그인/로그아웃
-`/api/login` `/api/logout`
+: Login한 유저의 Session 생성 및 로그아웃 시 제거 
+<br> `session.setAttribute("value", sessionValue);`
 
-==session setattributes==
+- `GET /login` : Login view
+- `POST /api/login` : Login 
+- `GET /api/logout` : Logout
+
+??? note "삽질 노트"
+     ==properties== -> 토큰 설정
+
+
 
 ### 회원가입
-`/api/join`
-`api/check/{checkValue}` (이메일, 닉네임 중복 체크) : ResponseEntity로 Model없이 StatusCode만 전달
+: 유저 데이터 DB에 생성
+
+- `GET /join` : Join view
+- `POST /api/join` : Join
+- `POST api/check/{checkValue}` : 이메일, 닉네임 중복 체크
+
 
 ### 비밀번호 변경
+: 총 3개의 End-point를 통해 비밀번호 변경 과정 진행
 
-- `/api/reset-password-token` (token 생성) : 얘는 `api` 빼는 게 낫겠는데
-- `/api/check-reset-password` : `/check/token`으로 변경, 
-- `/api/reset-password`: PutMapping으로 변경
+- `GET /forgot-password` : Forgot-password view
+- `POST /api/reset-password-token` : 전달받은 email 검증하고, 토큰을 생성하여 해당 토큰이 달린 url("api/check-reset-password?token="+token)을 Response로 전달
+- `GET /api/check-reset-password` : 전달받은 token을 검증하고, 검증된 token이면 Reset-password view로 전달
+- `POST /api/reset-password` : 비밀번호 변경 
 
 ### 글 작성
 
-`/post/write` : 주석/JavaDoc/네이밍, 예외처리, 파일 경로 @Value, 파일 정보 파싱 코드, 디렉토리 생성 코드, *파일 유무 확인 코드*, *상대 경로*, *UUID*
+- `POST /post/write` : 다중 이미지 파일 업로드 및 글 작성 (이미지 파일은 uuid로 저장)
 
-==파일 유무 체크 octet stream==
+??? note "삽질 노트"
+    **octet-stream**
+
+    처음에는, 사용자가 파일을 올리지 않으면 null 값이 들어오는 줄 알고 다음과 같이 처리했었다
+    ``` java
+    MultipartFile[] uploadImageFiles = vo.getUploadImageFiles(); // UploadImageVO vo
+    if (vo.getUploadImageFiles() != null){...}
+    ```
+    그러나 null이 아닌 빈 스트링 값이 들어오는 거였고, 그렇게 octet-stream이라는 처음보는 파일이 계속 생성이 되고 있었다.. <br>파일 유무를 체크하려면 `isEmpty()`로!
+    ``` java
+    MultipartFile[] uploadImageFiles = vo.getUploadImageFiles();
+    if (!uploadImageFiles[0].isEmpty()){...}
+    ```
+    ---
+    **mybatis PK id 가져오기**
+
+    Post, File 테이블이 나뉘어 있기 때문에, 새로 생성된 Post의 ID를 얻어 File 테이블에 넣어주어야 했다.
+    ``` java
+    @Insert("insert into post(boardType, userId, title, content) values (#{boardType}, #{userId}, #{title}, #{content})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    public boolean insertPost(PostDTO dto);
+    ```
+    @Options 코드를 통해 insert함으로써 생성되는 postId를 insert와 동시에 바로 얻어 사용할 수 있었당
+
 
 ### 글 좋아요
 
-`/post/like` : 주석/JavaDoc/네이밍, 예외처리, StatusCode -> ResponseEntity, *RestAPI*,
+- `POST /post/like` : 게시글 좋아요 
 
-==마이바티스 PK 가져오는 코드==
-
-==properties== -> 토큰 설정
+``` mermaid
+flowchart LR
+    verify("해당 유저가 해당 게시글을 좋아요 한 이력이 있는가?")
+    verify --No--> post["좋아요 데이터 생성"]
+    verify --Yes--> delete["좋아요 데이터 삭제"]
+    result("해당 게시글의 좋아요 수 반환")
+    post ----> result
+    delete ----> result
+```
 
 ### Home, Terms
-
-
-
+: Home view, Terms view 구현
