@@ -961,13 +961,21 @@ graph LR
 **링크 객체 생성**
 
 1. 컨트롤러 메서드의 호출 URL 정보를 추출하여 Link 객체 생성
+    - WebMvcLinkBuilder의 static 메서드 `linkTo( )` : 요청 패스를 가지고 클라이언트에서 요청 가능한 컨트롤러 클래스의 메서드에 대한 링크 정보를 담 고 있는 WebMvcLinkBuilder 객체 반환
 ``` java
-
+linkTo(methodOn(getClass()).hateoasTest1()).withSelfRel()
+linkTo(methodOn(UserController.class).retrieveUser(2)).withRel("test3")
 ```
 2. URL 문자열을 직접 지정해서 Link 객체 생성
 ``` java
 Link.of(“정적 URL 문자열”, “이름”) // 지정된 이름과 URL 문자열을 가지고 Link 객체 생성, org.springframework.hateoas의 클래스
 ```
+
+|  주요 메서드  |  기능  |
+| :--------: | :---: |
+| WebMvcLinkBuilder의 static 메서드 `methodOn( )` | 타겟 메소드(sample())의 가짜 메소드 콜이 있는 컨트롤러 프록시 클래스의 객체 생성 <br> org.springframework.hateoas.server.mvc.WebMvcLinkBuilder 객체의 static 메서드 |
+| LinkBuilderSuppoert의 `withSelfRel( )` | _self 명으로 Link 객체 생성 |
+| LinkBuilderSuppoert의 `withRel(“이름”)` | 지정된 이름으로 Link 객체 생성 |
 
 
 ``` java title="Example"
@@ -1024,10 +1032,6 @@ public class RepresentationModelController {
     }
 }
 ```
-
-
-
-
 
 
 ---

@@ -868,7 +868,219 @@ execution([접근제어자] 반환타입 [선언타입]메서드이름(파리미
 
 ![11](./images/spring-com.png)
 
+**Spring MVC의 Request 처리 과정**
+
+![Spring Request Process](./images/spring-request.png)
+---
+## springdoc-openapi
+: 스프링 부트 프로젝트를 사용하여 Swagger API 문서 생성을 자동화한다
+
+1. build.gradle 의 dependencies 블록에 다음 내용 추가
+``` gradle
+implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+```
+2. application.properties 파일에 다음 내용 추가
+``` properties
+springdoc.api-docs.path=/api-docs 
+springdoc.swagger-ui.path=/swagger-ui.html
+```
+
+|  Annotation  |  기능  |
+| :---------: | :----: |
+| @Tag | API 그룹 설정을 위한 애노테이션 <br> name 속성으로 태그의 이름을 설정할 수 있고, description 속성으로 태그에 대한 설명을 추가할 수 있다 <br> @Tag에 설정된 name이 같은 것 끼리 하나의 api 그룹으로 묶이게 된다 |
+| @Operation |  API 상세 정보를 위한 애노테이션 <br> summary 속성으로 API에 대한 간략한 설명, description 속성으로 API에 대한 상세 설명을 추가할 수 있다 <br> responses, parameters 속성 등을 추가로 적용 가능 |
+| @ApiResponse | API의 response 설정을 위한 애노테이션 <br> 
+| @ApiResponses | 여러 개의 @ApiReponse를 묶기 위한 애노테이션 | responseCode 속성으로 http 상태 코드를 설정할 수 있고, description으로 response에 대한 설명 추가 가능 |
+
+---
+## Spring Security
+: 스프링 FW에서 애플리케이션의 보안(인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크
+<br> Principal을 아이디로, Credential을 비밀번호로 사용하는 Credential 기반의 인증 방식 사용
+
+- 인증 : 사이트에 대해서 유효한 사용자인지 확인
+- 인가 : 인증된 사용자가 사용할 수 있는 기능인지 확인
+- Principal(접근 주체) : 보호 받는 리소스에 접근하는 대상 (사용자)
+- Credential(비밀번호) : 리소스에 접근하는 대상의 비밀번호
+
+<br>
+**특징**
+
+- Filter 기반으로 동작하기 때문에 Spring MVC와 분리되어 관리 및 동작한다
+- 세션 & 쿠키 방식으로 인증을 처리한다
+- 스프링의 DispatcherServlet 앞단에 다양한 역할의 Filter로 구성되어 있다
+- DispathcerServlet으로 넘어가기 전에 Filter가 요청을 가로채서 클라이언트의 리소스 접근 권한을 확인하고, 없는 경우에는 인증 요청 화면으로 자동으로 리다이렉트한다
+
+![Security](./images/security-1.png)
+
+|    필터명    |    설명    |
+| :--------: | :-------: |
+| SecurityContextPersistenceFilter | SecurityContextRepository에서 SecurityContext를 가져오거나 저장하는 역할<br>SecurityContext에는 접근 주체와 인증에 대한 정보를 담고 있다 |
+| ==**LogoutFilter**== | 설정해둔 로그아웃 url에 요청을 확인하고 사용자를 로그아웃 처리하는 역할 |
+| ==**UsernamePasswordAuthenticationFilter**== | 인증 관리자로 폼 기반 로그인을 사용할 때 사용되는 필터<br>필터로 아이디, 패스워드 데이터를 파싱하여 인증 요청을 위임하고 인증 성공 여부에 따라서 핸들러를 실행한다 |
+| DefaultLoginPageGenerationFilter | 개발자가 로그인 페이지를 따로 지정하지 않았을 때 기본적으로 설정하는 로그인 페이지에 관련된 필터 |
+| BasicAuthenticationFilter | 요청 헤더에 있는 아이디와 패스워드를 파싱해서 인증 요청을 위임하는 필터 <br> 성공 여부에 따라 핸들러 실행 |
+| **RequestCacheAwareFilter** | 로그인(인증)이 성공하면 관련 있는 캐시 요청이 있는지 확인하고 캐시 요청을 처리해주는 필터 <br> 로그인하지 않은 상태에서 방문했던 마지막 페이지를 기억해두었다가 로그인에 성공하면 해당 페이지로 이동시켜주는 등의 처리 가능| 
+| SecurityContextHolderAwareRequestFilter | HttpServletRequest 정보를 감싸고 있는 필터 <br> 필터 체인 상의 다음 필터들에게 부가적인 정보를 제공하기 위해서 사용 |
+| AnoymousAuthenticationFilter | 필터가 호출되는 시점까지 인증이 되지 않았을 때, 익명 사용자 객체(AnonymousAuthentication)를 만들어서 SecurityContext에 넣어주기 위해 사용되는 필터 |
+| SessionManagementFilter | 인증된 사용자와 관련된 세션 작업을 실행할 때 사용하는 필터<br> 세션 변조 방지 전략에 대한 설정과 유효하지 않은 세션에 대한 처리, 세션 생성 전략을 세우는 등의 작업 수행 |
+| ExceptionTranslationFilter | 요청 처리 중 발생하는 Exception을 위임하거나 전달하는 필터 |
+| ==**FilterSecurityIntercetor**== | 접근 결정 관리자 필터, AccessDecisionManager애개 권한 부여 처리를 위임하여 접근 제어 결정 을 쉽게 할 수 있도록 도와준다<br> 이미 사용자가 인증되어 있는 상태에서 사용하기 때문에 유효한 사용자인지 권한에 대한 확인용 | 
+
+**setting**
+
+build.gradle의 dependemncies 블록에 추가
+``` gradle
+implementation 'org.springframework.boot:spring-boot-starter-security'
+```
+
+<br>
+
+#### ==CSRF==
+: 사이트 간 요청 위조, Cross-site request forgery
+
+공격자가 인증된 브라우저에 저장된 쿠키의 세션 정 보를 활용하여 웹 서버에 사용자가 의도하지 않은 요청을 전달하는 것이다. CSRF 설정이 되어있는 경우 `<form>` 태그에서 요청시 CSRF 토큰 값을 넘겨 주어야 요청을 수신할 수 있다.
+
+**Example**
+
+=== "SpringSecurityConfig.java"
+	``` java hl_lines="5 12"
+	@Configuration
+	@EnableMethodSecurity
+	public class SpringSecurityConfig {
+		@Bean
+		public PasswordEncoder passwordEncoder() {
+			return new BCryptPasswordEncoder();
+		}
+		@Bean
+		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+			http.csrf().disable().cors().disable()
+					.authorizeHttpRequests(request -> request
+							.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+							.requestMatchers("/status", "/images/**", "/view/signup", "/auth/signup").permitAll()
+							.anyRequest().authenticated()
+					)
+					.formLogin(login -> login
+							.loginPage("/view/login")
+							.loginProcessingUrl("/login-process")
+							.usernameParameter("userid")
+							.passwordParameter("pw")
+							.defaultSuccessUrl("/view/memberpage", true)
+							.permitAll()
+					)
+					.logout(withDefaults());
+
+			return http.build();
+		}
+	}
+	``` 
+=== "FormLoginSecurityConfig"
+	``` java
+	@Configuration
+	@EnableWebSecurity
+	public class FormLoginSecurityConfig1 {
+		// 인증받지 않은 사용자도 접근 가능 (/images/**)
+		@Bean
+		public WebSecurityCustomizer configure() throws Exception {
+			return (web) -> web.ignoring().requestMatchers("/images/**");
+		}
+		// USER Role을 가지면서 formLogin을 인증 받은 사용자
+		// formLogin() arg가 없으므로 스프링에 내장된 arg로 처리
+		@Bean
+		public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+			http.authorizeHttpRequests()
+					.requestMatchers("/**")
+					.hasRole("USER")
+					.and()
+					.formLogin();
+			return http.build();
+		}
+		// username, password, user role 설정
+		@Bean
+		public UserDetailsService userDetailsService() {
+			UserDetails user = User.withDefaultPasswordEncoder()
+					.username("unico")
+					.password("1234")
+					.roles("USER")
+					.build();
+			return new InMemoryUserDetailsManager(user);
+		}
+	}
+	```
+
+<br>
+
+**인증관련 Spring Security 처리 흐름**
+
+![2](./images/security-2.png)
+
+1. 사용자가 인증에 필요한 정보(아이디, 패스워드)를 입력하면, HTTPServletRequest에 데이터가 전달된다. 이때 AuthenticationFilter가 데이터의 유효성 검사 실시
+2. 유효성 검사를 한 뒤에 UsernamePasswordAuthenticationToken에 넘겨준다
+3. 인증용 객체인 UsernamePasswordAuthenticationToken을 AuthenticationManager에게 전송
+4. UsernamePasswordAuthenticationFilterToken을 AuthenticationProvier에게 전송
+5. 사용자 아이디를 UserDetailService에 보내고, 사용자 아이디를 갖고 찾은 정봅를 UserDetails 객체로 만들어서 AuthenticationProvider에게 전달
+6. DB에 있는 사용자 정보 불러옴
+7. 입력된 정보와 UserDetails의 정보를 비교해서 인증 처리를 진행
+8. 인증 여부에 따라 AuthenticationSuccessHandler, AuthenticationFailureHandler를 실행
+9. 최종적으로 SecurityContextHolder는 세션 영역에 있는 SecurityContext에 Authentication 객체를 저장
+<br>(사용자 정보를 저장한다는 것은 스프링 시큐리티가 전통적인 세선-쿠키 기반의 인증 방식을 사용함을 의미)
+
+
+**인증관련 Spring Security 주요 모듈**
+
+|    Module    |    설명    |
+| :----------: | :-------: |
+| SecuirtyContextHolder | SecurityContext를 제공하는 static 메소드(getContext) 지원 |
+| SecurityContext | 접근 주체와 인증에 대한 정보를 담고 있는 Context (=Autentication객체) |
+| Authentication | Principal과 GrantAuthority를 제공 <br> 인증이 이루어지면 해당 Authentication이 SecurityContext에 저장된다. SecurityContextHolder를 통해 SecurityContext에 접근하고, SecurityContext를 통해 Authentication에 접근할 수 있다 |
+| ==Principal== | 유저에 해당하는 정보, 보통 Principal로 UserDetails 객체 반환 |
+| GrantAuthority | ROLE_ADMIN, ROLE_USER 등 Principal이 가지고 있는 권한을 나타냄 <br> prefix로 'ROLE'이 붙으며 인증 이후에 인가를 할 때 사용한다 <br> 권한은 여러 개일 수 있기 때문에 `Collection<(GrantedAuthority)>` 형태로 제공 |
+| UsernamePasswordAuthenticationToken | Authentication을 implements한 AbstractAuthenticationToken의 하위 클래스 <br> 첫번째 생성자는 인증 전의 객체를 생성하고, 두번째 생성자는 인증이 완료된 객체를 생성한다 |
+| Authentication Provider | 실제 인증에 대한 부분 처리, Authentication 객체를 받아서 인증이 완료된 객체를 반환하는 역할 |
+| Authentiaction Manager | 인증에 대한 부분은 실질적으로 Authentication Manager에 등록된 Authentication Provider에 의해서 처리된다 <br> 인증 상태를 유지하기 위해 ==세션== 에 보관하며, 인증이 실패하면 AuthenticationException 발생, 성공하면 UserDetails 객체를 Security Context에 저장 |
+| ==UserDetails== | 인증에 성공하여 생성된 UserDetails 객체는 Authentication 객체를 구현 <br> UsernamePasswordAuthentication을 생성하기 위해 사용 |
+| ==UserDetailsService== | UserDetailsService 인터페이스는 UserDetails 객체를 반환하는 하나의 메소드를 가지고 있다 <br> `public UserDetails loadUserByUsername(String insertedUserId)` |
+| PasswordEncoding | AuthenticationManagerBuilder.userDetailsService().passwordEncoder()를 통해 패스워드 암호화에 사용될 PasswordEncoder 구현체 지정 |
+
+=== "UserDetailsService"
+	``` java
+	@Component
+	public class MyUserDetailService implements UserDetailsService {
+		private final MemberService memberService;
+
+		@Autowired
+		public MyUserDetailService(MemberService memberService) {
+			this.memberService = memberService;
+		}
+
+		@Override
+		public UserDetails loadUserByUsername(String insertedUserId) throws UsernameNotFoundException {
+			Optional<Member> findOne = memberService.findOne(insertedUserId);
+			Member member = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
+			return User.builder()
+					.username(member.getUserid())
+					.password(member.getPw())
+					.roles(member.getRoles())
+					.build();
+		}
+	}
+	```
+=== "컨트롤러에서 로그인한 사용자 정보가 필요할 때"
+	``` java hl_lines="3"
+	// @AuthenticationPrincipal 애노테이션 사용
+    @GetMapping("/memberpage")
+    public String dashboardPage(@AuthenticationPrincipal User user) {
+        log.info(user.getUsername()+"님("+user.getAuthorities()+")이 멤버페이지에 접근함 - "+ LocalDateTime.now());
+        return "member_page";
+		
+	// 또는, SecurityContextHolder 에서 가져오기
+	// 컨트롤러 메서드의 매개변수를 Principal이나 Authentication 타입으로 선언해서 받아오기
+    }
+	```
+
+
+
 
 ---
 !!! quote
 	- 김정현 강사님
+	- 스프링 부트 3 백엔드 개발자 되기 (지은이: 신선영 | 출판사: 골든래빗(주))
