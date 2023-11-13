@@ -926,6 +926,26 @@ springdoc.swagger-ui.path=/swagger-ui.html
 | ExceptionTranslationFilter | 요청 처리 중 발생하는 Exception을 위임하거나 전달하는 필터 |
 | ==**FilterSecurityIntercetor**== | 접근 결정 관리자 필터, AccessDecisionManager애개 권한 부여 처리를 위임하여 접근 제어 결정 을 쉽게 할 수 있도록 도와준다<br> 이미 사용자가 인증되어 있는 상태에서 사용하기 때문에 유효한 사용자인지 권한에 대한 확인용 | 
 
+``` mermaid
+stateDiagram-v2
+    SecurityContextHolder
+    state SecurityContextHolder {
+        SecurityContext
+        state SecurityContext {
+            state Authentication {
+                Principal
+				GrantAuthority
+            }
+        }
+    }
+```
+
+1. SecurityContextHolder : SecurityContext를 제공하는 static 메소드(getContext) 지원
+2. SecurityContext : 접근 주체와 인증에 대한 정보를 담고 있는 Context 로서 Authentication을 담담
+3. Authentication : Principal과 GrantAuthority 제공, 인증이 이루어 지면 해당 Athentication이 저장됨
+4. Principal : 유저에 해당하는 정보로 대부분의 경우 Principal로 UserDetails(User)를 반환
+5. GrantAuthority : ROLE_ADMIN, ROLE_USER 등 Principal이 가지고 있는 권한을 나타냄
+
 **setting**
 
 build.gradle의 dependemncies 블록에 추가
@@ -1077,10 +1097,29 @@ implementation 'org.springframework.boot:spring-boot-starter-security'
     }
 	```
 
-
-
+**객체 코드**
+``` java
+SecurityContext context = SecurityContextHolder.getContext(); // Security Context 
+Authentication authentication = context.getAuthentication(); // authentication
+authentication.getPrincipal();
+authentication.getAuthorities(); 
+authentication.getCredentials(); 
+authentication.getDetails(); 
+authentication.isAuthenticated();
+```
 
 ---
+### JWT 
+ 
+[-> JWT 이론](../security.md)
+
+1. build.gradle의 dependemncies 블록에 추가
+``` gradle
+implementation 'com.auth0:java-jwt:4.3.0'
+```
+
+---
+
 !!! quote
 	- 김정현 강사님
 	- 스프링 부트 3 백엔드 개발자 되기 (지은이: 신선영 | 출판사: 골든래빗(주))

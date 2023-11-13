@@ -125,6 +125,7 @@ nav:
       - Tailwind CSS: web/tailwindcss.md
       - Tailwind Reference: web/tailwindcss-reference.md
       - AJAX: web/ajax.md
+      - Vue.js: web/vuejs.md
   - Linux:
       - Directory Structure: linux/directory-structure.md
       - Command: linux/command.md
@@ -165,7 +166,8 @@ nav:
   - Backend:
       - RestAPI:
           - backend/restapi.md
-      - Python-based Framework:    
+      - Security: backend/security.md
+      - Python-based Framework:
           - FastAPI: backend/fastapi.md
       - Java-based Framework:
           - Servlet+JSP: backend/java-based/servlet-jsp.md
