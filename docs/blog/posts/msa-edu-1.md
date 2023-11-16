@@ -1,7 +1,6 @@
 ---
 date: 2023-10-24
 title: MSA 교육 1차 프로젝트
-draft: true 
 authors:
   - ysheee
 categories:
