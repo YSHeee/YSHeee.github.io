@@ -196,14 +196,55 @@ project-root/
 
 ### 로그인/로그아웃
 : Login한 유저의 Session 생성 및 로그아웃 시 제거 
-<br> `session.setAttribute("value", sessionValue);`
 
 - `GET /login` : Login view
 - `POST /api/login` : Login 
 - `GET /api/logout` : Logout
 
+``` java
+@PostMapping("/login")
+    public String login(
+            JoinDTO dto,
+            HttpServletRequest httpServletRequest,
+            Model model
+            ){
+        Integer userId = dao.getLogin(dto.getEmail(), dto.getPassword());
+        if (userId != null){ // 로그인 성공
+            UserDTO userInform = dao.selectUserByUserId(userId);
+            Map<String, Object> sessionValue = new HashMap<>();
+            sessionValue.put("userId", userInform.getUserId());
+            sessionValue.put("email", userInform.getEmail());
+            sessionValue.put("nickName", userInform.getNickName());
+            sessionValue.put("profileImgUrl", userInform.getProfileImgUrl());
+            sessionValue.put("baekjoonUserId", userInform.getBaekjoonUserId());
+
+            HttpSession session = httpServletRequest.getSession(false);  // 이미 있는 세션을 가져옴
+            if (session != null) {
+                session.invalidate();  // 이미 있는 세션을 무효화
+            }
+            session = httpServletRequest.getSession(true);  // 새로운 세션 생성
+            session.setAttribute("value", sessionValue);
+            return "redirect:/";
+        } else{ // 로그인 실패 (존재하지 않는 유저)
+            HttpSession session = httpServletRequest.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+            model.addAttribute("message", "이메일 주소 혹은 비밀번호가 맞지 않습니다");
+            return "login";
+        }
+    }
+```
+
 ??? note "삽질 노트"
-     ==properties== -> 토큰 설정
+    로그인 실패 시, 세션을 제거하는 이유는 세션 고정 공격을 방지하기 위함
+    <br> 다만 노노그래머스는 비로그인일 때의 사용자가 가지는 개인정보도 없고, 활동 범위도 굉장히 좁은데.. 그 필요성이 의문이다
+    <br> 해서 나쁠 건 없다지만.. 확실한 근거를 위해서 공부가 필요할 듯
+
+    - 세션 고정 공격의 메커니즘:
+        1. 공격자가 세션 생성 : 공격자가 웹사이트에 접속하여 세션ID 발급
+        2. 세션 ID 전달 : 피해자에게 위에서 발급받은 세션ID 전달
+        3. 피해자는 공격자가 제공한 세션ID를 통해 활동하고, 공격자는 이를 탈취할 수 있음
 
 
 
