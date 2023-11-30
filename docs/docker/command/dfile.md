@@ -6,18 +6,18 @@
 | `ENV`         |환경 변수 값 지정|
 | `WORKDIR`     |컨테이너 파일 시스템에 해당 directory 생성, 작업 디렉터리로 지정|
 | `COPY`        |File/directory를 이미지의 파일 시스템에 복사| `단순 copy`
-| `ADD`         | new file, dir, remote file URL을 복사하여 경로 대상 이미지의 파일 시스템에 추가 | `압축 해제`, `URL 지원`
-| `CMD`         |컨테이너 실행 시, 입력되는 커맨드 | **only one** in Dockerfile
+| `ADD`         | new file, dir, remote file URL을 복사하여 <br> 경로 대상 이미지의 파일 시스템에 추가 | `압축 해제`, `URL 지원` |
 | `EXPOSE`      |컨테이너 포트 번호 지정 |
+| `CMD`         |컨테이너 실행 시, 입력되는 커맨드 | **only one** in Dockerfile
 | `ENTRYPOINT`  |컨테이너 실행 시, 정의된 커맨드 실행 (주로 변하지 않는 값 지정) |
-| `LABEL`       |이미지에 메타데이터 추가 |
+| `LABEL`       |이미지에 메타데이터 추가 <br> 이름, 버전, 저작자 정보 등 |
 | `VOLUME`      |지정한 이름으로 mount point 생성 및 volume 생성|
-| `HEALTHCHECK` |컨테이너 내부에서 실행되는 인스트럭션. 컨테이너의 상태를 출력받기 위함 | **only one** in Dockerfile
-| `STOPSIGNAL`  |종료할 컨테이너로 전송할 시스템 호출 신호 설정|
-| `USER`        |사용자 이름(or UID 또는 사용자 그룹(or GID) 설정 |
+| `USER`        |사용자 이름(or UID) 또는 사용자 그룹(or GID) 설정 |
 | `RUN`         |이미지 빌드 과정에서 필요한 명령어 실행 | apt install, ...
-| `ARG`         |Build-time variables. build에서 정의되는 변수 <div> (암호는 X, docker history로 확인 가능하기 때문) | `--build-arg`
-| `SHELL`       |default shell overridden <div> zsh, csh, tcsh, powershell 사용 가능|
+| `ARG`         |docker build 명령 시 입력받을 수 있는 인자 선언 <div> (암호는 X, docker history로 확인 가능하기 때문) | `--build-arg`
+| `SHELL`       |빌드 시 사용할 셸 변경 <div> zsh, csh, tcsh, powershell 사용 가능|
+| `HEALTHCHECK` |컨테이너 내부에서 실행되는 인스트럭션| **only one** in Dockerfile |
+| `STOPSIGNAL`  |docker stop 명령 시 컨테이너 안에서 실행 중인 <br> 프로그램에 전달되는 시그널 변경|
 | `ONBUILD`     |해당 이미지에서 파생된 하위 이미지에서 실행되는 trigger|
 | `MAINTAINER`  |생성된 이미지의 Author field 설정 |
 

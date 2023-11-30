@@ -1,4 +1,5 @@
 # Docker compose statement
+
 ``` yaml
 version:
 services: 
@@ -70,7 +71,7 @@ volumes:
 | `links`           |다른 컨테이너와의 연결|
 | `hostname`        |Hostname 설정 |
 | `environment`     |컨테이너에서 사용될 환경 변수 값 정의 |
-| `restart`         |컨테이너 restart 방식 설정 |`no`:수동으로 재시작<div>`always`:컨테이너를 수동으로 끄기 전까지 항상 재시작<div>`on-failure`:오류가 있을 시 재시작
+| `restart`         |컨테이너 restart 방식 설정 |`no`:재시작하지않음<div>`always`:컨테이너를 수동으로 끄기 전까지 항상 재시작<div>`on-failure`:프로세스가 0외의 상태로 종료되면 재시작<div>`unless-stopped`:종료를 제외한 상황에서는 재시작 |
 | `volumes`         |지정한 경로의 Volume 마운트 |
 | `platform`        |OS Architecture| `linux/arm64`, `linux/amd64`, ...
 | `build`<div>`context`<div>`dockerfile` |해당 디렉터리에 있는 Dockerfile 빌드<div>build context path<div>빌드할 도커파일 이름 |Dockerfile: `build: .`<div>Not 'Dockerfile': `context`,`dockerfile` 사용

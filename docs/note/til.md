@@ -1,0 +1,293 @@
+# TIL
+
+## 23.11.30
+
+### Mysql DB 정보 옮기기
+
+AWS Lightsail에 올라가 있는 노노그래머스 DB.. 
+
+생성된 데이터&테이블 그대로 도커 이미지로 구축해서 팀원들께 공유해야했다
+
+=== "bash" 
+    ``` bash
+    ubuntu@ip-172-26-5-3:~/nonoproject$ ll
+    total 16
+    drwxrwxr-x 3 ubuntu docker 4096 Nov 29 04:39 ./
+    drwxr-x--- 5 ubuntu ubuntu 4096 Nov 29 04:39 ../
+    drwxrwxr-x 3 ubuntu docker 4096 Oct 15 15:59 db/
+    -rw-rw-r-- 1 ubuntu docker  400 Oct 15 15:57 docker-compose.yml
+    ```
+=== "docker-compose.yml"
+    ``` yaml
+    version: "3.9"
+    services:
+    db:
+        image: mysql:8.0
+        restart: always
+        ports:
+        - "3306:3306"
+        environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: nonogrammers
+        MYSQL_USER: nonog
+        MYSQL_PASSWORD: nonogpassword
+        volumes:
+        - ./db/mysql/data:/var/lib/mysql
+        - ./db/mysql/config:/etc/mysql/conf.d
+        - ./db/mysql/init:/docker-entrypoint-initdb.d
+    ```
+
+bind-mount로 구축되어 있어서 이걸 어떻게 옮기지.. 하다가 :cry:
+
+아래 블로그를 참고해서 `MySQLWorkbench - Server - Data Export` 를 통해 sql 파일을 추출했다
+
+``` Dockerfile title="Dockerfile"
+FROM mysql:8.0
+
+ENV MYSQL_ROOT_PASSWORD rootpassword
+ENV MYSQL_DATABASE nonogrammers
+ENV MYSQL_USER nonog
+ENV MYSQL_PASSWORD nonogpassword
+
+COPY Dump20231130.sql /docker-entrypoint-initdb.d/
+```
+
+``` bash title="bash"
+docker build -t nonodb .
+docker run -d --name nono -p 3306:3306 nonodb
+```
+
+빌드해서 돌려보면 테이블이랑 데이터가 온전히 살아있음을 볼 수 있다 :thumbsup_tone1:
+
+
+### KOSA 수업 - Volume
+
+Volume을 통해 테이블 데이터가 온전한 채로 유지되는 것을 보고, nonogrammers 데이터로 시도해봤다
+
+``` bash
+docker run --name nonodb -p 3306:3306 -d -v nono-data:/var/lib/mysql nonogram
+docker stop nonodb
+docker rm nonodb
+
+docker run --name nonotest -p 3306:3306 -v nono-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1234 mysql
+```
+
+경험한 것은
+
+1. 두 개의 mysql 컨테이너가 동시에 사용할 수는 없다 ? ..
+
+nonodb 컨테이너를 3307 포트에 띄운채로 nonotest를 3308에 띄워보려구 했는데 다음과 같은 오류가 발생했다. 
+
+한 시스템에서 두 개 이상의 MySQL 인스턴스가 동일한 데이터 파일을 사용하려고 할 때 이런 문제가 발생한다 하여 아 동시에 사용할 수 없구나.. 했다
+
+``` bash
+[ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 11
+```
+
+2. 루트 비밀번호 변경이 안되네
+
+Volume을 생성할때의 이미지인 nonogram에서 루트 비밀번호를 `rootpassword`로 지정해 놓았기 때문인지 nonotest 컨테이너도 루트 비밀번호를 `rootpassword`로 해야만 했다
+
+### 스프링 부트 프로젝트(springedu2)와 뷰 프로젝트(vue-project) 연동
+
+1. vue 프로젝트 빌드 시 생성되는 파일들을 스프링 부트 프로젝트의 static 폴더에 저장하도록 빌드 환경 설정
+``` js title="vite.config.js"
+import { fileURLToPath, URL } from 'node:url'
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    outDir: '../../springedu2/src/main/resources/static' // 빌드 결과물 저장 경로
+  },
+  server: {
+    proxy: {
+        // 스프링 부트와 뷰의 경로가 충돌되지 않도록 스프링 부트 경로 앞에는 /api 붙임
+        // 포트는 8088
+      '/api': "http//localhost:8088", 
+    }
+  }
+})
+
+```
+2. vue.js 빌드
+``` shell
+# 스프링 부트 프로젝트의 static 폴더에 빌드 결과물 생성됨
+npm run build 
+```
+3. 스프링 부트 jar 설정
+``` gradle title="build.gradle"
+bootJar{
+	archivesBaseName = 'springedu2'
+	archiveFileName = 'springedu2.jar'
+	archiveVersion = "0.0.1"
+}
+```
+4. application.properties 변경
+``` bash
+server.port=8088
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=user
+spring.datasource.password=password
+# mysqledu = DB 컨테이너 이름
+spring.datasource.url=jdbc:mysql://mysqledu:3306/mysql?characterEncoding=UTF-8 
+```
+5. jar 생성
+``` bash
+# Gradle 뷰에서 bootJar를 찾아 더블클릭하여 springedu2 프로젝트에 대한 빌드 수행
+# ./build/libs/springedu2.jar 생성
+```
+6. 스프링 부트 프로젝트의 도커 이미지 구축
+``` dockerfile title="Dockerfile"
+FROM openjdk:17-jdk
+ARG JAR_FILE=build/libs/springedu2.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
+``` bash
+docker build -t springedu2 .
+```
+7. MySQL, Spring Boot 컨테이너에서 사용할 네트워크 생성
+``` bash
+docker network create springboot-mysql-net
+```
+8. mysql run
+``` yaml
+version: "3.9"
+services:
+  mysqledu:
+    container_name: mysqledu
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: passwordroot
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/config:/etc/mysql/conf.d
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - springboot-mysql-net
+
+networks:
+  springboot-mysql-net:
+    external: true
+```
+``` bash
+docker compose up -d 
+```
+9. RUN
+``` bash
+docker run -d --name springedu2 --network springboot-mysql-net -p 8088:8088 springedu2
+```
+
+if. docker compose를 사용한다면
+``` yaml title="docker-compose.yml"
+version: "1"
+services:
+  mysqledu:
+    container_name: mysqledu
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: passwordroot
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./../../test/db/mysql/data:/var/lib/mysql
+      - ./../../test/db/mysql/config:/etc/mysql/conf.d
+      - ./../../test/db/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - edunet
+
+  springedu2:
+    depends_on:
+      - mysqledu
+    container_name: springedu2
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - edunet
+    ports:
+      - 8088:8088
+    restart: on-failure
+
+  springedu:
+    depends_on:
+      - mysqledu
+    container_name: springedu
+    build:
+      context: ./../springedu
+      dockerfile: Dockerfile
+    networks:
+      - edunet
+    ports:
+      - 8089:8089
+    restart: on-failure
+
+networks:
+  edunet:
+#volumes:
+#  mysqleduvol:
+```
+
+
+### ngnix 에 Vue.js 의 빌드 파일을 배포하여 컨테이너로 실행
+
+``` dockerfile
+# 첫 번째 단계: 빌드 환경
+# Node.js 이미지를 기반으로 설정합니다.
+FROM node:14 AS build-stage
+WORKDIR /app
+
+# 패키지 파일과 잠금 파일을 복사합니다.
+COPY package*.json ./
+COPY .env ./
+
+# 의존성을 설치합니다.
+RUN npm install
+
+# 애플리케이션 소스 코드를 복사합니다.
+COPY . .
+
+# 애플리케이션을 빌드합니다.
+RUN npm run build
+
+# 두 번째 단계: 프로덕션 환경
+FROM nginx:stable as production-stage
+
+# 빌드된 애플리케이션을 Nginx 서버에 복사합니다.
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Nginx 설정 파일을 복사합니다.
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+# Nginx의 포트 80을 노출시킵니다.
+EXPOSE 80
+
+# Nginx 서버를 실행합니다.
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+!!! quote
+    - [xerar: Mysql DB 정보 옮기기](https://xerar.tistory.com/76)
+    - [docker run -p 옵션과 Dockerfile의 EXPOSE 차이](https://soft.plusblog.co.kr/139)
+
+---
