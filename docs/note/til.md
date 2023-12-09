@@ -289,5 +289,4 @@ CMD ["nginx", "-g", "daemon off;"]
 !!! quote
     - [xerar: Mysql DB 정보 옮기기](https://xerar.tistory.com/76)
     - [docker run -p 옵션과 Dockerfile의 EXPOSE 차이](https://soft.plusblog.co.kr/139)
-
 ---
