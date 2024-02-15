@@ -1,4 +1,4 @@
-# MVC + Java
+# MVC
 
 ![2](./images/mvc-2.PNG)
 

@@ -1,6 +1,6 @@
 ---
 date: 2023-11-29
-title: MSA 교육 3차 프로젝트
+title: Tiary
 authors:
   - ysheee
 categories:

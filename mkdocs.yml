@@ -164,14 +164,13 @@ nav:
               - react-express-mongo-me: docker/running/remm.md
               - etc: docker/running/etc.md
   - Backend:
-      - RestAPI:
-          - backend/restapi.md
+      - backend/restapi.md
       - Security: backend/security.md
       - Python-based Framework:
           - FastAPI: backend/fastapi.md
       - Java-based Framework:
           - Servlet+JSP: backend/java-based/servlet-jsp.md
-          - MVC: backend/java-based/mvc.md
+          - MVC+Thymeleaf: backend/java-based/mvc.md
           - Spring: backend/java-based/spring.md
           - Spring Boot Basic: backend/java-based/spring-boot.md
           - Spring Boot Advanced: backend/java-based/spring-boot-ad.md
@@ -264,7 +263,6 @@ nav:
       - VMware: note/vmware/VMware.md
       - PM2: note/pm2.md
       - MAC: note/mac.md
-      - TIL: note/til.md
   - Programmers:
       - Python:
           - Level 0: programmers/python/level0.md
@@ -285,6 +283,6 @@ nav:
           - CS: interview/tech-cs.md
           - Python: interview/tech-python.md
           - Deploy: interview/tech-deploy.md
-  - Blog:
+  - BLOG:
       - blog/index.md
   - Nice to meet you: visitor.md

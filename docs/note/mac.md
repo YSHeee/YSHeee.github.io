@@ -13,13 +13,6 @@
 | option + backspace | 포인터 앞의 글자를 한 단어씩 삭제 |
 | fn + option + backspace | 포인터 다음의 글자를 한 단어씩 삭제 |
 | command + backspace | 포인터 앞 글자 ~ 줄의 맨 앞까지 한 번에 지우기 |
-| 
-|
-|
-|
-|
-|
-|
 
 
 

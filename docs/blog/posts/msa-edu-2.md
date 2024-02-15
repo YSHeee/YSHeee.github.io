@@ -1,6 +1,6 @@
 ---
 date: 2023-11-02
-title: MSA 교육 2차 프로젝트
+title: 노노그래머스 2차
 authors:
   - ysheee
 categories:
