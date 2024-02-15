@@ -176,6 +176,7 @@ nav:
           - Spring Boot Basic: backend/java-based/spring-boot.md
           - Spring Boot Advanced: backend/java-based/spring-boot-ad.md
           - Spring DB: backend/java-based/spring-db.md
+          - Spring MSA: backend/java-based/spring-msa.md
   - Language:
       - Python:
           - Python: language/python/python.md
