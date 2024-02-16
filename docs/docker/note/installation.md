@@ -10,8 +10,10 @@ sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
 ```
 3. Add Docker's GPG key
-```bash
+``` bash
 sudo install -m 0755 -d /etc/apt/keyrings
+```
+```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
 4. Set up the repository of stable version
@@ -22,8 +24,10 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 5. **Install Docker engine**
-```bash
+``` bash
 sudo apt-get update
+```
+```bash
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 6. Verify that the Docker Engine installation is successful by running the hello-world image
