@@ -264,6 +264,9 @@ nav:
       - PM2: note/pm2.md
       - MAC: note/mac.md
   - Programmers:
+      - Kit:
+          - Algorithm: programmers/kit/algorithm.md
+          - SQL: programmers/kit/sql.md
       - Python:
           - Level 0: programmers/python/level0.md
           - Level 1: programmers/python/level1.md
