@@ -95,3 +95,37 @@
         }
     }
     ```
+
+## 2024.03.01
+
+### 같은 숫자는 싫어
+배열 arr에서 연속적으로 나타나는 숫자는 제거하고 남은 수들을 return 하는 solution 함수를 완성해 주세요.
+
+=== "PYTHON"
+    ``` python
+    def solution(arr):
+        result = [arr[0]]
+        for num in arr[1:]:
+            if result[-1] != num:
+                result.append(num)
+        return result     
+    ```
+=== "JAVA"
+    ``` java
+    import java.util.*;
+
+    public class Solution {
+        public ArrayList<Integer> solution(int []arr) {
+            ArrayList<Integer> answer = new ArrayList<>();
+            
+            answer.add(arr[0]);
+            for (int i=1; i<arr.length; i++){
+                if (answer.get(answer.size()-1) != arr[i]) {
+                    answer.add(arr[i]);
+                }
+            }
+
+            return answer;
+        }
+    }
+    ```
