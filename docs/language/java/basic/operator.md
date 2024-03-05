@@ -65,7 +65,8 @@ Double.isNaN(5%0.0) // NaN
 
 ### 비트 논리 연산자
 : bit 단위로 논리 연산 수행
-<br> 2진수로 저장되는 정수 타입 (byte, short, int, long)만 피연산자가 될 수 있다
+
+2진수로 저장되는 정수 타입 (byte, short, int, long)만 피연산자가 될 수 있다
 
 - AND 연산자(논리곱) `&`
 - OR 연산자(논리합) `|`
@@ -78,6 +79,18 @@ Double.isNaN(5%0.0) // NaN
 | 1 | 0 | 0 | 1 | 1 | |
 | 0 | 1 | 0 | 1 | 1 | |
 | 0 | 0 | 0 | 0 | 0 | 1|
+
+비트 논리 연산자는 byte, short, char 타입 피연산자를 int 타입으로 자동 변환한 후 연산을 수행하므로 연산 결과는 Int 타입이다
+``` java
+byte num1 = 45;
+byte num2 = 25;
+int result = num1 & num2;
+```
+
+``` java
+byte receiveData = -120;
+Byte.toUnsignedInt(receiveData); // = receiveData & 255
+```
 
 
 ### 비트 이동 연산자 Shift

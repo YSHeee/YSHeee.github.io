@@ -68,8 +68,13 @@ public class Example {
     - `jar cvf xxx.jar *.class` : 압축 파일 생성
     - `jar tvf xxx.jar` : 파일 확인
     - `jar xvf xxx.jar` : 압축 해제
-- javac : 
-- javap : 
+- javac : temp 디렉토리에서 실행
+    - `javac -d [바이트코드파일저장위치] [소스경로/*.java]` : 소스 코드 컴파일 
+    - ex.`javac -d bin src/ex01/ex02/Hello.java`
+- javap
+- java : temp 디렉토리에서 실행
+    - `java -cp [바이트코드파일위치] [패키지...클래스명]`
+    -  ex.`java -cp bin ex01.ex02.Hello`
 ```bash
 java package.class
 javac package.class.java

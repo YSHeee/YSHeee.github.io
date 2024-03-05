@@ -49,23 +49,40 @@ switch(변수){
         score = 0;
 }
 ```
-- Java 12 이후부터 사용가능한 Expressions
-``` java
-int score = switch(변수){
-    case 'A', 'a' -> 100;
-    case 'B', 'b' -> 200;
-    case 'C', 'c' -> {
-        int result = 100;
-        System.out.println("result입니다");
-        yield result; // Java 13부터 가능
-    }
-    default -> 0;
-}
-```
 
+=== "Java 12 이후부터 사용가능한 Expressions"
+    ``` java
+    int score = switch(변수){
+        case 'A', 'a' -> 100;
+        case 'B', 'b' -> 200;
+        case 'C', 'c' -> {
+            int result = 100;
+            System.out.println("result입니다");
+            yield result; // Java 13부터 가능
+        }
+        default -> 0;
+    }
+    ```
+=== "Java 11 이전 문법"
+    ``` java
+    int score1 = 0;
+    switch(변수){
+        case "A":
+            score1 = 100;
+            break;
+        case "B":
+            int result = 100 - 20;
+            score1 = result;
+            break;
+        default:
+            score1 = 50;
+    }
+    ```
 ---
 
 ## Loop 반복문
+
+- 부동소수점 방식의 float는 0.1을 정확히 표현하지 못하므로 초기화식에서 float 타입은 사용하지 않는다
 
 ### for
 ``` java title="100번 반복"
@@ -73,6 +90,9 @@ for (int i=0; i<100; i++){
     System.out.print(i);
 }
 ```
+
+[-> 배열 반복을 위한 for문](./reference-type.md/#배열-반복을-위한-for문)
+
 
 ### while
 ``` java title="100번 반복"
@@ -110,6 +130,14 @@ label: for(int i=0; i<100; i++){
 ### continue
 : 그 이후의 문장을 실행하지 않고 다음 반복문으로 넘어감
 
+``` java
+for(int i=1; i<10; i++){
+    if(i%2 == 0){
+        continue; // 짝수일 경우, 아래 명령어를 실행하지 않고 다음 반복문으로 넘어감
+    }
+    System.out.println("홀수입니다");
+}
+```
 
 ---
 ## Exception 예외처리
